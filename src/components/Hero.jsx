@@ -6,7 +6,7 @@ function Hero() {
     return (
         // Usa un layout grid per un design moderno e asimmetrico
         <section className="bg-white py-6 md:py-24">
-            <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-center">
 
                 {/* Contenuto Testuale (colonna sinistra) */}
                 <div className="text-center md:text-left">
@@ -46,11 +46,11 @@ function Hero() {
                 </div>
 
                 {/* Immagine del parquettista (colonna destra) */}
-                <div className="hidden md:flex justify-center md:justify-end">
+                <div className="hidden md:flex items-center justify-center">
                     <img
                         src={rovereMielato} // Assicurati che il percorso sia corretto
                         alt={`Posatore di pavimenti esperto di ${COMPANY_NAME} a ${PRIMARY_CITY}`}
-                        className="max-w-full rounded-lg shadow-2xl transition-transform duration-500 transform hover:scale-105 w-auto h-96 object-cover"
+                        className="w-full max-w-[520px] rounded-3xl shadow-2xl transition-transform duration-500 transform hover:scale-105 object-cover"
                         loading="eager" // Carica subito, è la Hero image
                     />
                 </div>
