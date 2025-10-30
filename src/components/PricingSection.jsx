@@ -1,12 +1,25 @@
 import React, { useState, useMemo } from 'react';
-import { pricingData } from '../utils/pricingData';
+// Assicurati che i percorsi siano corretti per la tua struttura
+import { pricingData } from '../utils/pricingData'; 
 import { PHONE_NUMBER } from '../utils/constants';
-import { TrendingUp, ShieldCheck } from 'lucide-react';
+import ProcessModal from './ProcessModal';
 
-function PricingCard({ service }) {
+// Funzione helper (rimane invariata)
+const parseFeature = (feature) => {
+  const parts = feature.split(':');
+  if (parts.length < 2) return { label: feature, value: '' };
+  const label = parts[0].trim();
+  const value = parts.slice(1).join(':').trim();
+  return { label, value };
+};
+
+// --- MODIFICA 1 ---
+// La funzione ora accetta "onShowProcessClick" che le viene
+// passato da PricingSection
+function PricingCard({ service, onShowProcessClick }) {
   const { calculator } = service;
   const [quantity, setQuantity] = useState(calculator?.defaultValue ?? 50);
-  const quantityLabel = calculator?.label ?? 'mq';
+  const quantityLabel = calculator?.label ?? 'valore';
 
   const estimatedCost = useMemo(() => {
     return (quantity * service.pricePerMq).toLocaleString('it-IT', { style: 'currency', currency: 'EUR' });
@@ -19,8 +32,20 @@ function PricingCard({ service }) {
     return `${roundedDays} ${dayString}`;
   }, [quantity, service.timeFactorPerMq]);
 
+  const featureData = service.features.map(parseFeature);
+
+  const thumbPositionPercentage = useMemo(() => {
+    const min = calculator?.min ?? 10;
+    const max = calculator?.max ?? 200;
+    if (max === min) return 0; 
+    const percentage = ((quantity - min) / (max - min)) * 100;
+    return percentage;
+  }, [quantity, calculator]);
+
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col border border-gray-100 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+      
+      {/* 1. MEDIA (Invariato) */}
       {service.mediaType === 'video' ? (
         <video
           src={service.mediaSrc}
@@ -28,37 +53,73 @@ function PricingCard({ service }) {
           muted
           loop
           playsInline
-          className="w-full h-48 object-cover"
+          className="w-full h-64 object-cover"
         />
       ) : (
-        <img src={service.mediaSrc} alt={service.name} className="w-full h-48 object-cover" />
+        <img src={service.mediaSrc} alt={service.name} className="w-full h-64 object-cover" />
       )}
-      <div className="p-6 flex flex-col flex-grow">
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">{service.name}</h3>
-        <p className="text-gray-600 mb-4 h-16">{service.description}</p>
 
-        <div className="mb-6">
-          <span className="text-4xl font-bold text-blue-600">{service.price}</span>
-          <span className="text-base text-gray-500 ml-1">{service.unit}</span>
+      {/* 2. ZONA "VETRINA" (Bianca) (Invariato) */}
+      <div className="p-6 flex flex-col flex-grow">
+        {/* Testata (Nome e Prezzo) */}
+        <div className="flex justify-between items-start mb-2">
+          <h3 className="text-2xl font-bold text-gray-900 w-2/3">{service.name}</h3>
+          <div className="text-right flex-shrink-0">
+            {/* Ho notato che qui avevi 'text-3xl', potresti volerlo rimettere a 'text-2xl' per coerenza con la mia proposta */}
+            <span className="text-2xl font-bold text-blue-600">{service.price}</span>
+            <p className="text-xs text-gray-500 -mt-1">{service.unit}</p>
+          </div>
         </div>
 
-        <ul className="space-y-2 mb-6">
-          {service.features.map((feature, i) => (
-            <li key={i} className="flex items-center text-gray-700">
-              <ShieldCheck className="h-5 w-5 text-green-500 mr-2 flex-shrink-0" />
-              <span>{feature}</span>
-            </li>
-          ))}
-        </ul>
-
-        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-auto">
-          <div className="flex justify-between items-center mb-2">
-            <label htmlFor={`mq-slider-${service.id}`} className="text-sm font-semibold text-gray-800">
-              Stima per <span className="text-blue-600 text-lg font-bold">{quantity} {quantityLabel}</span>
-            </label>
-            <TrendingUp className="h-5 w-5 text-gray-500" />
+         {/* --- BLOCCO TAG/VARIANTI --- */}
+        {service.variants && service.variants.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-6">
+            {service.variants.map((variant) => (
+              <span 
+                key={variant} 
+                className="bg-gray-100 text-gray-700 text-xs font-medium px-3 py-1 rounded-full"
+              >
+                {variant}
+              </span>
+            ))}
           </div>
+        )}
 
+        {/* Descrizione */}
+        <p className="text-sm text-gray-600 mb-6">{service.description}</p>
+
+        {/* Divisore */}
+        <div className="border-t border-gray-200 mb-6"></div>
+
+        {/* Tabella minimalista (invariata) */}
+        <div className="space-y-3">
+          {featureData.map((feature, index) => (
+            <div key={index} className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">{feature.label}</span>
+              <span className="text-sm font-medium text-gray-900 text-right">{feature.value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 3. ZONA "SIMULATORE" (Grigia) */}
+      <div className="bg-gray-50 p-6 border-t border-gray-200">
+        <h4 className="text-base font-semibold text-gray-900 text-center mb-4">
+          Calcola stima costo
+        </h4>
+        
+        {/* Slider (Invariato) */}
+        <div className="relative pt-6 mb-4">
+          <span 
+            className="absolute text-blue-600 text-lg font-bold"
+            style={{
+              left: `${thumbPositionPercentage}%`,
+              transform: 'translateX(-50%)',
+              top: '0',
+            }}
+          >
+            {quantity} {quantityLabel}
+          </span>
           <input
             id={`mq-slider-${service.id}`}
             type="range"
@@ -69,33 +130,57 @@ function PricingCard({ service }) {
             onChange={(e) => setQuantity(Number(e.target.value))}
             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-thumb-blue"
           />
+        </div>
 
-          <div className="flex justify-between mt-3 text-center">
-            <div className="w-1/2 pr-2">
-              <span className="text-xs text-gray-500">COSTO STIMATO</span>
-              <p className="text-xl font-bold text-gray-900">{estimatedCost}</p>
-            </div>
-            <div className="w-1/2 pl-2 border-l border-gray-300">
-              <span className="text-xs text-gray-500">TEMPI DI POSA</span>
-              <p className="text-xl font-bold text-gray-900">{estimatedTime}</p>
-            </div>
+        {/* Risultati (invariati) */}
+        <div className="grid grid-cols-2 gap-4 mb-6">
+          <div>
+            <span className="text-xs text-gray-500 uppercase font-semibold">Costo Stimato</span>
+            <p className="text-2xl font-bold text-blue-600">{estimatedCost}</p>
+          </div>
+          <div className="text-right">
+            <span className="text-xs text-gray-500 uppercase font-semibold">Tempi Stimati</span>
+            <p className="text-2xl font-bold text-gray-900">{estimatedTime}</p>
           </div>
         </div>
 
+        {/* CTA (invariata) */}
         <a
           href={`tel:${PHONE_NUMBER}`}
-          className="mt-6 block text-center w-full bg-blue-600 text-white font-bold px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-blue-500/50"
+          className="block text-center w-full bg-blue-600 text-white font-bold px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-blue-500/50"
         >
           Chiama ora
         </a>
 
-        
+  
+        <button
+          onClick={() => onShowProcessClick(service)}
+          className="mt-3 block text-center w-full text-blue-600 font-semibold px-6 py-2 rounded-lg hover:bg-blue-100 transition-colors"
+        >
+          Come funziona
+        </button>
+        {/* ----------------- */}
+
       </div>
     </div>
   );
 }
 
+
 function PricingSection() {
+  // Stato per gestire quale servizio mostrare nel modal (null = chiuso)
+  const [selectedService, setSelectedService] = useState(null);
+
+  // Funzione per impostare il servizio e aprire il modal
+  const handleShowProcess = (service) => {
+    setSelectedService(service);
+  };
+
+  // Funzione per chiudere il modal
+  const handleCloseModal = () => {
+    setSelectedService(null);
+  };
+
   return (
     <section id="pricing" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -104,16 +189,27 @@ function PricingSection() {
             Prezzi Chiari. Posa Perfetta.
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Usa il nostro simulatore per una stima immediata dei costi e dei tempi di posa per il tuo nuovo pavimento.
+            Trova il servizio di cui hai bisogno e usa il simulatore per una stima immediata.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {pricingData.map((service) => (
-            <PricingCard key={service.id} service={service} />
+            <PricingCard 
+              key={service.id} 
+              service={service} 
+              // Passa la funzione per aprire il modal alla card
+              onShowProcessClick={handleShowProcess} 
+            />
           ))}
         </div>
       </div>
+
+      {/* Renderizza il Modal qui. */}
+      <ProcessModal 
+        service={selectedService} 
+        onClose={handleCloseModal} 
+      />
     </section>
   );
 }

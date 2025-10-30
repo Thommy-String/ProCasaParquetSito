@@ -1,4 +1,3 @@
-
 import posaScala from '../assets/images/parquet/posaScala.jpg';
 import posaSpcVideo from '../assets/videos/parquet/posaSpc.mp4';
 import posaLaminato from '../assets/videos/parquet/posaLaminato.mp4';
@@ -11,13 +10,13 @@ export const pricingData = [
   {
     id: 'prefinito',
     name: 'Posa Parquet Prefinito',
-    price: '€25', // Prezzo mostrato staticamente
-    pricePerMq: 25, // Numero per il calcolo
+    price: '€25', 
+    pricePerMq: 25, 
     unit: '/mq ',
-    timeFactorPerMq: 0.05, // Fattore di calcolo tempo (es. 2.5 giorni / 50mq)
+    timeFactorPerMq: 0.05, 
     mediaType: 'video',
     mediaSrc: posaPrefinitoIncollato,
-    description: 'Posa incollata con verifica umidità: solida, silenziosa e pronta da levigare in futuro.',
+    description: 'Posa incollata con verifica umidità: solida, silenziosa al calpestio.',
     calculator: {
       label: 'mq',
       min: 10,
@@ -26,10 +25,27 @@ export const pricingData = [
       defaultValue: 50,
     },
     features: [
-      'Installazione: Stabile (incollata)',
-      'Durata: 20+ anni (levigabile in futuro)',
+      'Installazione: Incollata',
       'Calpestabile: Dopo 24-48 ore',
     ],
+    // NUOVA PROPRIETÀ
+    processSteps: [
+      {
+        icon: 'clipboard-check', // Nome icona da Lucide React
+        title: 'Fase 1: Preparazione Fondo',
+        description: 'Verifichiamo l\'umidità del massetto e ci assicuriamo che la superficie sia perfettamente piana, pulita e asciutta prima di stendere il collante.'
+      },
+      {
+        icon: 'layers',
+        title: 'Fase 2: Posa e Incollaggio',
+        description: 'Procediamo con l\'incollaggio delle tavole, utilizzando collanti ecologici. Ogni tavola viene posata con precisione per garantire solidità.'
+      },
+      {
+        icon: 'timer',
+        title: 'Fase 3: Assestamento',
+        description: 'Il pavimento necessita di 24-48 ore per l\'asciugatura completa della colla prima di poter essere calpestato e arredato.'
+      }
+    ]
   },
   {
     id: 'spc',
@@ -37,10 +53,10 @@ export const pricingData = [
     price: '€15',
     pricePerMq: 15,
     unit: '/mq',
-    timeFactorPerMq: 0.03, // Fattore di calcolo tempo (es. 1.5 giorni / 50mq)
+    timeFactorPerMq: 0.03, 
     mediaType: 'video',
     mediaSrc: posaSpcVideo,
-    description: 'Posa a click appoggiato su materassino: rapida e pulita, ideale per ambienti vissuti.',
+    description: 'Posa a click appoggiato su materassino senza colla: rapida e pulita.',
     calculator: {
       label: 'mq',
       min: 10,
@@ -49,10 +65,22 @@ export const pricingData = [
       defaultValue: 45,
     },
     features: [
-      'Installazione: Rapida (flottante)',
-      'Durata: 15+ anni (alta resistenza ai graffi)',
-      'Calpestabile: Subito',
+      'Installazione:  Flottante su materassino',
+      'Calpestabile: Subito dopo la posa',
     ],
+    // NUOVA PROPRIETÀ
+    processSteps: [
+      {
+        icon: 'layout-grid',
+        title: 'Fase 1: Installazione a incastro Click',
+        description: 'La posa avviene senza colla. Le doghe vengono incastrate tra loro con il sistema a click, garantendo un\'installazione rapida e pulita.'
+      },
+      {
+        icon: 'sparkles',
+        title: 'Fase 2: Finitura e Uso Immediato',
+        description: 'Se scelto installiamo il battiscopa coordinato. Il pavimento è flottante, quindi è calpestabile e arredabile immediatamente dopo la posa.'
+      }
+    ]
   },
   {
     id: 'laminato',
@@ -60,10 +88,10 @@ export const pricingData = [
     price: '€15',
     pricePerMq: 15,
     unit: '/mq',
-    timeFactorPerMq: 0.03, // Fattore di calcolo tempo (es. 1.5 giorni / 50mq)
+    timeFactorPerMq: 0.03, 
     mediaType: 'video',
     mediaSrc: posaLaminato,
-    description: 'Sistema flottante con click e tappetino: installazione veloce e pulita.',
+    description: 'Posa flottante con click e tappetino: installazione veloce e pulita.',
     calculator: {
       label: 'mq',
       min: 10,
@@ -72,10 +100,27 @@ export const pricingData = [
       defaultValue: 45,
     },
     features: [
-      'Installazione: Rapida (flottante)',
-      'Durata: 10-15 anni (buona resistenza)',
-      'Calpestabile: Subito',
+      'Installazione: Flottante su materassino',
+      'Calpestabile: Subito dopo la posa',
     ],
+    // NUOVA PROPRIETÀ
+    processSteps: [
+      {
+        icon: 'move-3d',
+        title: 'Fase 1: Posa del Tappetino',
+        description: 'Il primo passo è stendere il tappetino (o materassino) isolante, essenziale per il comfort acustico e per proteggere il laminato dall\'umidità.'
+      },
+      {
+        icon: 'layout-grid',
+        title: 'Fase 2: Posa Flottante a Click',
+        description: 'Le tavole di laminato vengono posate incastrandole l\'una con l\'altra tramite il sistema a incastro. È un processo veloce e che non sporca.'
+      },
+      {
+        icon: 'sparkles',
+        title: 'Fase 3: Finitura Immediata',
+        description: 'Se scelto, dopo aver posato le tavole, installiamo il battiscopa. Il pavimento è subito pronto per essere vissuto, senza tempi di attesa.'
+      }
+    ]
   },
   {
     id: 'prefinito-flottante',
@@ -86,7 +131,7 @@ export const pricingData = [
     timeFactorPerMq: 0.035,
     mediaType: 'video',
     mediaSrc: posaPrefinitoFlottante,
-    description: 'Pannelli prefinito con incastri click, posa su materassino elastico per comfort acustico immediato.',
+    description: 'Posa a incastro senza colla, su materassino. Facile da smontare in futuro.',
     calculator: {
       label: 'mq',
       min: 10,
@@ -95,10 +140,27 @@ export const pricingData = [
       defaultValue: 40,
     },
     features: [
-      'Installazione: Flottante (senza colla)',
-      'Durata: 15-20 anni (strato nobile rigenerabile)',
+      'Installazione: Flottante su materassino',
       'Calpestabile: Subito dopo la posa',
     ],
+    // NUOVA PROPRIETÀ
+    processSteps: [
+      {
+        icon: 'move-3d',
+        title: 'Fase 1: Posa Materassino Specifico',
+        description: 'Stendiamo un materassino di alta qualità che fornisce isolamento acustico e protegge il legno prefinito dall\'umidità di risalita.'
+      },
+      {
+        icon: 'layout-grid',
+        title: 'Fase 2: Posa a Incastro',
+        description: 'Le tavole di prefinito vengono incastrate a secco, senza l\'uso di collanti. Questo metodo è pulito e permette future ispezioni o rimozioni.'
+      },
+      {
+        icon: 'sparkles',
+        title: 'Fase 3: Uso Immediato',
+        description: 'Completata la posa e installato il battiscopa, il pavimento in legno è immediatamente calpestabile e pronto per essere arredato.'
+      }
+    ]
   },
   {
     id: 'prefinito-spina',
@@ -110,6 +172,7 @@ export const pricingData = [
     mediaType: 'video',
     mediaSrc: posaPrefinitoSpina,
     description: 'Spine italiane, francesi o ungheresi posate incollando ogni tavola su tracciatura millimetrica.',
+    variants: ['Spina Italiana', 'Spina Francese', 'Spina Ungherese'],
     calculator: {
       label: 'mq',
       min: 10,
@@ -118,10 +181,27 @@ export const pricingData = [
       defaultValue: 35,
     },
     features: [
-      'Installazione: Schema a spina con tagli di precisione',
-      'Durata: 20+ anni (levigabile)',
+      'Installazione: Schema a spina incollata',
       'Calpestabile: Dopo 48 ore per completa adesione',
     ],
+    // NUOVA PROPRIETÀ
+    processSteps: [
+      {
+        icon: 'compass',
+        title: 'Fase 1: Tracciatura Millimetrica',
+        description: 'A differenza della posa dritta, la posa a spina richiede una tracciatura a terra precisa al millimetro per definire l\'asse centrale e l\'angolo di posa.'
+      },
+      {
+        icon: 'git-branch',
+        title: 'Fase 2: Incollaggio a Schema',
+        description: 'Ogni singola tavola viene incollata al massetto seguendo lo schema (Italiana, Francese, Ungherese) con massima precisione nei tagli e negli accostamenti.'
+      },
+      {
+        icon: 'timer',
+        title: 'Fase 3: Assestamento Completo',
+        description: 'Data la complessità dello schema, è fondamentale attendere 48 ore prima di calpestare l\'area, per garantire l\'adesione perfetta di ogni elemento.'
+      }
+    ]
   },
   {
     id: 'battiscopa',
@@ -132,7 +212,7 @@ export const pricingData = [
     timeFactorPerMq: 0.01,
     mediaType: 'video',
     mediaSrc: posaBattiscopa,
-    description: 'Fissaggio battiscopa con tagli a 45° e sigillatura: finitura pulita e coordinate al pavimento.',
+    description: 'Fissaggio battiscopa con tagli a 45° e sigillatura: finitura pulita e ordinata.',
     calculator: {
       label: 'ml',
       min: 10,
@@ -141,10 +221,27 @@ export const pricingData = [
       defaultValue: 35,
     },
     features: [
-      'Installazione: Incollata o con chiodini invisibili',
-      'Durata: 10+ anni senza distacchi',
-      'Calpestabile: Subito (rifinitura finale)',
+      'Installazione: Incollata o con chiodini',
+      'Consiglio: Meglio avere le porte già montate',
     ],
+    // NUOVA PROPRIETÀ
+    processSteps: [
+      {
+        icon: 'scissors',
+        title: 'Fase 1: Taglio di Precisione',
+        description: 'La qualità della posa si vede dai dettagli. Eseguiamo tagli a 45° precisi sugli angoli (interni ed esterni) per giunzioni invisibili.'
+      },
+      {
+        icon: 'hammer',
+        title: 'Fase 2: Fissaggio',
+        description: 'Fissiamo il battiscopa alla parete utilizzando collanti specifici o chiodini in acciaio quasi invisibili, garantendo una tenuta perfetta.'
+      },
+      {
+        icon: 'paintbrush',
+        title: 'Fase 3: Sigillatura',
+        description: 'Per un look pulito e finito, sigilliamo la parte superiore del battiscopa e gli angoli, chiudendo ogni fessura ed evitando accumuli di polvere.'
+      }
+    ]
   },
   {
     id: 'scala-parquet',
@@ -165,8 +262,25 @@ export const pricingData = [
     },
     features: [
       'Installazione: Taglio e incollaggio a misura',
-      'Durata: 15+ anni con manutenzione ordinaria',
       'Calpestabile: Dopo 24 ore dalla posa',
     ],
+    // NUOVA PROPRIETÀ
+    processSteps: [
+      {
+        icon: 'scaling',
+        title: 'Fase 1: Rilievo e Sagomatura',
+        description: 'Ogni gradino è unico. Prendiamo le misure esatte di pedata e alzata e tagliamo il legno su misura per ogni singolo gradino.'
+      },
+      {
+        icon: 'layers',
+        title: 'Fase 2: Posa e Incollaggio',
+        description: 'Rivestiamo prima l\'alzata (verticale) e poi la pedata (orizzontale), incollando il materiale con collanti ad alta tenuta.'
+      },
+      {
+        icon: 'timer',
+        title: 'Fase 3: Finitura e Assestamento',
+        description: 'Installiamo i profili di finitura e antisdrucciolo. La scala non deve essere utilizzata per 24 ore per permettere un fissaggio perfetto.'
+      }
+    ]
   },
 ];
