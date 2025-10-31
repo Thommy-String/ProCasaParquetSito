@@ -5,9 +5,8 @@ export const PRIMARY_CITY = "Piacenza";
 
 // Usa il numero di telefono REALE che hai sul GBP
 export const PHONE_NUMBER = "+393518530582"; 
-export const EMAIL_ADDRESS = "info@procasapiacenza.it"; // La tua email
-export const WEBSITE_URL = "https://www.procasapiacenza.it"; // Il tuo dominio futuro
-
+export const EMAIL_ADDRESS = "info@procasaparquet.it"; 
+export const WEBSITE_URL = "https://www.procasaparquet.it";
 // Questo è l'indirizzo di REGISTRAZIONE (es. casa tua)
 // Serve per lo Schema Markup, anche se è NASCOSTO sul GBP
 export const SCHEMA_ADDRESS = {

@@ -2,6 +2,7 @@ import Hero from '../components/Hero';
 import PricingSection from '../components/PricingSection';
 import InstallationQuiz from '../components/InstallationQuiz';
 import DescrizioneMainCategories from '../components/DescrizioneMainCategories';
+import logoImage from '../assets/logo/Pro-CasaParquet logo.png';
 import {
   COMPANY_NAME,
   WEBSITE_URL,
@@ -10,7 +11,8 @@ import {
   SCHEMA_GEO,
   MAIN_CATEGORY,
   PRIMARY_CITY,
-  GBP_CATEGORIES
+  GBP_CATEGORIES,
+  SERVICE_AREAS
 } from '../utils/constants';
 
 function HomePage() {
@@ -22,7 +24,7 @@ function HomePage() {
     "@context": "https://schema.org",
     "@type": "LocalBusiness", // Importante: business locale
     "name": COMPANY_NAME,
-    "image": `${WEBSITE_URL}/logo.png`, // Assicurati di avere un logo in /public/logo.png
+    "image": [logoImage],
     "@id": WEBSITE_URL,
     "url": WEBSITE_URL,
     "telephone": PHONE_NUMBER,
@@ -35,6 +37,11 @@ function HomePage() {
       "@type": "GeoCoordinates",
       ...SCHEMA_GEO
     },
+    "areaServed": SERVICE_AREAS.map(area => ({
+      "@type": "Place",
+      "name": area.name
+    })),
+    "knowsAbout": GBP_CATEGORIES,
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
@@ -49,10 +56,6 @@ function HomePage() {
         "closes": "12:00"
       }
     ],
-    "areaServed": { // L'area di servizio principale
-      "@type": "Place",
-      "name": PRIMARY_CITY
-    },
     "serviceType": MAIN_CATEGORY,
     "description": `Siamo ${MAIN_CATEGORY} specializzati in posa parquet, resina e LVT a ${PRIMARY_CITY}.`
   };

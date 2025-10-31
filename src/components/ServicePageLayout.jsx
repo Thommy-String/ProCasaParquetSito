@@ -45,11 +45,31 @@ function ServicePageLayout({ service }) {
         </div>
       </section>
 
+{pricingService && (
+        <section className="bg-gray-50 py-16">
+          <div className="container mx-auto max-w-5xl px-6 sm:px-10">
+            <div className="mb-10 text-center">
+              <h2 className="text-3xl font-extrabold text-slate-900">
+                Preventivo in 30 sec
+              </h2>
+            </div>
+            <div className="mx-auto max-w-3xl">
+              <PricingCard
+                service={pricingService}
+                onShowProcessClick={handleShowProcess}
+              />
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="container mx-auto max-w-5xl px-6 py-12 sm:px-10 sm:py-16">
         {service.overview && (
           <div className="mx-auto max-w-3xl text-center text-base leading-relaxed text-slate-700 sm:text-lg">
             {service.overview}
           </div>
+
+          
         )}
 
         <div className="mt-12 flex flex-col gap-10">
@@ -114,26 +134,7 @@ function ServicePageLayout({ service }) {
         </div>
       </section>
 
-      {pricingService && (
-        <section className="bg-gray-50 py-16">
-          <div className="container mx-auto max-w-5xl px-6 sm:px-10">
-            <div className="mb-10 text-center">
-              <h2 className="text-3xl font-extrabold text-slate-900">
-                Stima immediata per questo servizio
-              </h2>
-              <p className="mt-3 text-base text-slate-600">
-                Regola la metratura con lo slider e ottieni tempi e costi aggiornati sul singolo intervento.
-              </p>
-            </div>
-            <div className="mx-auto max-w-3xl">
-              <PricingCard
-                service={pricingService}
-                onShowProcessClick={handleShowProcess}
-              />
-            </div>
-          </div>
-        </section>
-      )}
+    
 
       <section className="bg-blue-600 py-12 text-white">
         <div className="container mx-auto flex flex-col items-center gap-6 px-6 text-center sm:max-w-3xl">
