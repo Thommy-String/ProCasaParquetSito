@@ -21,7 +21,7 @@ const DescrizioneMainCategories = () => {
                     <p>
                         Per questo ci siamo specializzati nelle soluzioni più innovative come 
                         i pavimenti <strong>SPC</strong> e <strong>LVT</strong>. Questi materiali sono ideali per la loro resistenza e 
-                        versatilità in contesti ad alto calpestio, come un negozio o un ufficio in **Via XX Settembre**. 
+                        versatilità in contesti ad alto calpestio, come un negozio o un ufficio in Via XX Settembre. 
                         Gestiamo inoltre la posa di laminato per attività commerciali e abitazioni 
                         in tutta Piacenza, garantendo una finitura impeccabile e duratura.
                     </p>

@@ -1,8 +1,14 @@
 import heroPrefinito from '../assets/images/parquet/rovereNaturale.png';
+import heroPrefinitoFlottante from '../assets/images/parquet/rovereMielato.png';
+import heroPrefinitoSpina from '../assets/images/parquet/rovereSpina90.png';
 import heroSpc from '../assets/images/parquet/parquetSPC.png';
 import heroLaminato from '../assets/images/parquet/parquetLaminato.png';
 import heroBattiscopa from '../assets/images/parquet/battiscopa10cm.png';
 import heroScale from '../assets/images/parquet/posaScala.jpg';
+import misuraUmiditaMassetto from '../assets/images/parquet/misuraUmiditaMassetto.png';
+import tracciaturaLaserParquet from '../assets/images/parquet/tracciaturaLaserParquet.png';
+import posaParquetIncollato from '../assets/images/parquet/posaParquetIncollato.png';
+import posaParquetFlottante from '../assets/images/parquet/posaParquetFlottante.png';
 
 export const servicesData = {
   'posa-parquet-prefinito-piacenza': {
@@ -23,7 +29,7 @@ export const servicesData = {
     sections: [
       {
         title: 'Sopralluogo tecnico e diagnosi del sottofondo',
-        image: heroPrefinito,
+        image: misuraUmiditaMassetto,
         paragraphs: [
           'Rileviamo l’umidità residua con igrometro a carburo e controlliamo planarità e resistenza del massetto per evitare distacchi nel tempo.',
           'Definiamo lo schema di posa, la necessità di giunti di dilatazione e la direzione della luce naturale per valorizzare le venature della doga.',
@@ -45,6 +51,7 @@ export const servicesData = {
       },
       {
         title: 'Preparazione, incollaggio e pressatura',
+        image: posaParquetIncollato,
         paragraphs: [
           'Stendiamo primer consolidanti o autolivellanti dove necessario e incolliamo le doghe con spatola dentata adeguata al formato.',
           'Ogni fila viene pressata con martinetti e battitori in gomma per annullare micro-fughe e differenze di quota.',
@@ -62,6 +69,7 @@ export const servicesData = {
       },
       {
         title: 'Finiture e collaudo finale',
+        image: heroPrefinito,
         paragraphs: [
           'Lasciamo assestare l’adesivo per 24-48 ore, rimuoviamo residui e sigilliamo giunti per un’estetica impeccabile.',
           'Consegniamo scheda prodotti e protocollo di manutenzione per garantire la durabilità del pavimento.',
@@ -79,8 +87,152 @@ export const servicesData = {
       },
     ],
   },
-  'posa-pavimento-spc-piacenza': {
+  'posa-parquet-prefinito-flottante-piacenza': {
     order: 2,
+    navLabel: 'Prefinito flottante',
+    slug: 'posa-parquet-prefinito-flottante-piacenza',
+    pricingId: 'prefinito-flottante',
+    pageTitle: 'Posa Prefinito Flottante a Piacenza | Pavimento a click',
+    metaDescription:
+      'Posa parquet prefinito flottante a Piacenza: materassino certificato, posa a click e battiscopa coordinati. Squadra Pro Casa Parquet.',
+    hero: {
+      h1: 'Posa parquet prefinito flottante a Piacenza',
+      subtitle: 'Il comfort del legno con posa senza colla: veloce, pulita e subito calpestabile.',
+      image: heroPrefinitoFlottante,
+    },
+    overview:
+      'Il prefinito flottante è ideale per ristrutturazioni rapide: posa a click su materassino tecnico, zero colla e possibilità di sostituire singole doghe nel tempo.',
+    sections: [
+      {
+        title: 'Materassino tecnico e preparazione del sottofondo',
+        image: 'https://media.adeo.com/media/556713/media.png?width=300',
+        paragraphs: [
+          'Valutiamo planarità e rigidità del supporto, intervenendo con rasature veloci quando necessario.',
+          'Scegliamo materassini certificati per impianti radianti o isolamento acustico condominiale.',
+        ],
+        bullets: [
+          {
+            label: 'Barriera anti umidità',
+            detail: 'Film PE integrato per posa su pavimenti esistenti senza rischio di risalita.',
+          },
+          {
+            label: 'Spessori calibrati',
+            detail: 'Compensano micro dislivelli mantenendo le tolleranze del produttore.',
+          },
+        ],
+      },
+      {
+        title: 'Assemblaggio flottante con sistemi click',
+        image: posaParquetFlottante,
+        paragraphs: [
+          'Utilizziamo blocchi di battuta e martelli in gomma per proteggere gli incastri.',
+          'Sagomiamo stipiti e colonne con seghe a lama fine per giunti invisibili.',
+        ],
+        bullets: [
+          {
+            label: 'Giunti perimetrali controllati',
+            detail: 'Distanziatori calibrati assicurano la corretta dilatazione del legno.',
+          },
+          {
+            label: 'Sistema reversibile',
+            detail: 'È possibile sostituire singole doghe in futuro senza intaccare l’intero pavimento.',
+          },
+        ],
+      },
+      {
+        title: 'Finiture e consegna lavori',
+        image: heroPrefinitoFlottante,
+        paragraphs: [
+          'Installiamo battiscopa coordinati o verniciabili e sigilliamo la parte superiore per evitare fughe d’ombra.',
+          'Puliamo a fondo il pavimento e consegniamo il kit di manutenzione consigliato.',
+        ],
+        bullets: [
+          {
+            label: 'Soglie complanari',
+            detail: 'Profili bassi in alluminio per raccordare ambienti con pavimenti differenti.',
+          },
+          {
+            label: 'Consigli di manutenzione',
+            detail: 'Scheda detergenti neutri e istruzioni per la cura quotidiana.',
+          },
+        ],
+      },
+    ],
+  },
+  'posa-parquet-prefinito-spina-piacenza': {
+    order: 3,
+    navLabel: 'Prefinito a spina',
+    slug: 'posa-parquet-prefinito-spina-piacenza',
+    pricingId: 'prefinito-spina',
+    pageTitle: 'Posa Parquet Prefinito a Spina a Piacenza | Schemi sartoriali',
+    metaDescription:
+      'Posa parquet prefinito a spina a Piacenza: tracciatura laser, incollaggio professionale e finiture sartoriali. Prenota un sopralluogo Pro Casa Parquet.',
+    hero: {
+      h1: 'Posa parquet prefinito a spina a Piacenza',
+      subtitle: 'Spina italiana, francese o ungherese: precisione millimetrica e incollaggio ad alte prestazioni.',
+      image: heroPrefinitoSpina,
+    },
+    overview:
+      'Studiamo geometrie e simmetrie, tagliamo ogni doga a misura e incolliamo con collanti elastici certificati per uno schema a spina stabile e scenografico.',
+    sections: [
+      {
+        title: 'Tracciatura laser e definizione dello schema',
+        image: tracciaturaLaserParquet,
+        paragraphs: [
+          'Definiamo l’asse principale con laser e calcoliamo sfondati per centrare l’effetto visivo.',
+          'Realizziamo un campo di prova per verificare angolo e ritmo della spina prima dell’incollaggio definitivo.',
+        ],
+        bullets: [
+          {
+            label: 'Allineamento corridoi e porte',
+            detail: 'Posizioniamo l’asse per ottenere file simmetriche nelle zone di passaggio.',
+          },
+          {
+            label: 'Scelta schema',
+            detail: 'Presentiamo varianti italiana 90°, francese 45° o ungherese 60°.',
+          },
+        ],
+      },
+      {
+        title: 'Incollaggio e tagli sartoriali',
+        image: 'https://mrsander.co.uk/wp-content/uploads/chevron-vs-herringbone-engineered-oak-herringbone-parquet-glue-down.jpeg',
+        paragraphs: [
+          'Stendiamo collante silanico bicomponente e posiamo con pressori per evitare micro fughe.',
+          'Tagliamo con troncatrice radiale e rifiniamo con filettature su richiesta per un effetto boiserie.',
+        ],
+        bullets: [
+          {
+            label: 'Collanti elastici',
+            detail: 'Assorbono le tensioni e riducono il rischio di scricchiolii nel tempo.',
+          },
+          {
+            label: 'Tagli a vista invisibili',
+            detail: 'Lame extra fini e carteggiatura bordo garantiscono chiusure precise.',
+          },
+        ],
+      },
+      {
+        title: 'Sigillatura e protezione finale',
+        image: heroPrefinitoSpina,
+        paragraphs: [
+          'Sigilliamo lungo le pareti con silicone neutro e installiamo battiscopa e profili coordinati.',
+          'Puliamo e consegniamo il protocollo di manutenzione, con opzione trattamento UV protettivo.',
+        ],
+        bullets: [
+          {
+            label: 'Trattamento opzionale UV',
+            detail: 'Protegge il legno da macchie e variazioni cromatiche nelle aree trafficante.',
+          },
+          {
+            label: 'Collaudo con cliente',
+            detail: 'Verifichiamo allineamento degli incroci e planarità prima del rilascio lavori.',
+          },
+        ],
+      },
+    ],
+  },
+  'posa-pavimento-spc-piacenza': {
+    order: 4,
     navLabel: 'Posa SPC impermeabile',
     slug: 'posa-pavimento-spc-piacenza',
     pricingId: 'spc',
@@ -96,11 +248,11 @@ export const servicesData = {
       'Lo SPC (Stone Polymer Composite) abbina l’estetica del legno alla resistenza di un cuore minerale. È impermeabile al 100% e perfetto per bagni, cucine e locali commerciali. Ci occupiamo di tutto: dalla verifica del supporto alla posa a click con finiture coordinate.',
     sections: [
       {
-        title: 'Preparazione del supporto e barriera acustica',
-        image: heroSpc,
+        title: 'Accertamento dislivelli',
+        image: 'https://m.media-amazon.com/images/I/51BBYk6GqPL._AC_UF1000,1000_QL80_.jpg',
         paragraphs: [
-          'Misuriamo le differenze di quota: dove necessario stendiamo autolivellante rapido o materassini HD per uniformare micro dislivelli.',
-          'Installiamo tappetini acustici certificati per impianti radianti o soluzioni anti-impatto condominiali.',
+          'Misuriamo le differenze di quota: analizziamo insieme se necessario autolivellante rapido o materassini HD per uniformare micro dislivelli.',
+          'Se necessario installiamo tappetini extra acustici certificati per impianti radianti o soluzioni anti-rumore.',
         ],
         bullets: [
           {
@@ -114,7 +266,8 @@ export const servicesData = {
         ],
       },
       {
-        title: 'Posa a click millimetrica',
+        title: 'Posa a click',
+        image: 'https://sc04.alicdn.com/kf/H0fb5232f9e9d41a98d5c0146482bd7e3y.jpg',
         paragraphs: [
           'Assemblaggio a secco con ferramenta dedicata per evitare tensioni lungo le pareti.',
           'Utilizziamo distanziatori calibrati per mantenere il giusto giunto perimetrale ed evitare rigonfiamenti nel tempo.',
@@ -131,7 +284,8 @@ export const servicesData = {
         ],
       },
       {
-        title: 'Finiture e sigillature impermeabili',
+        title: '',
+        image: 'https://m.media-amazon.com/images/I/711s59GfBkL.jpg',
         paragraphs: [
           'Montiamo profili di terminazione coordinati, siliconiamo punti sensibili (docce, cucine) e installiamo battiscopa o coprifili.',
           'Consegniamo il pavimento già pronto al calpestio: niente tempi di asciugatura o odori.',
@@ -150,7 +304,7 @@ export const servicesData = {
     ],
   },
   'posa-pavimento-laminato-piacenza': {
-    order: 3,
+    order: 5,
     navLabel: 'Posa laminato',
     slug: 'posa-pavimento-laminato-piacenza',
     pricingId: 'laminato',
@@ -167,7 +321,7 @@ export const servicesData = {
     sections: [
       {
         title: 'Analisi e preparazione del piano di posa',
-        image: heroLaminato,
+        image: 'https://m.media-amazon.com/images/I/51BBYk6GqPL._AC_UF1000,1000_QL80_.jpg',
         paragraphs: [
           'Controlliamo planarità e stabilità del supporto: se necessario interveniamo con rasature rapide o pannelli correttivi.',
           'Selezioniamo il materassino più adatto (acustico, termico, barriera vapore) in funzione dell’ambiente e dell’impianto radiante.',
@@ -185,6 +339,7 @@ export const servicesData = {
       },
       {
         title: 'Posa flottante con sistemi click',
+        image: 'https://cdn.manomano.com/media/edison/a/c/5/e/ac5e7257aeea.jpg',
         paragraphs: [
           'Assemblaggio veloce ma preciso, con controllo continuo dei giunti perimetrali per consentire la dilatazione del laminato.',
           'Sagomiamo gli elementi con sega circolare e rifinitori per ottenere incastri puliti attorno a stipiti e pilastri.',
@@ -201,7 +356,8 @@ export const servicesData = {
         ],
       },
       {
-        title: 'Battiscopa e collaudo finale',
+        title: 'Collaudo finale',
+        image: 'https://www.floorcity.com/cdn/shop/collections/0445U_01027_ROOM.webp?v=1705635924',
         paragraphs: [
           'Installiamo battiscopa coordinati o verniciabili, sigillando lungo i muri per un aspetto ordinato.',
           'Prima della consegna effettuiamo un check completo e forniamo le istruzioni di manutenzione consigliate dal produttore.',
@@ -220,7 +376,7 @@ export const servicesData = {
     ],
   },
   'posa-battiscopa-piacenza': {
-    order: 4,
+    order: 6,
     navLabel: 'Posa battiscopa',
     slug: 'posa-battiscopa-piacenza',
     pricingId: 'battiscopa',
@@ -237,7 +393,7 @@ export const servicesData = {
     sections: [
       {
         title: 'Rilievo misure e scelta del profilo',
-        image: heroBattiscopa,
+        image: 'https://m.media-amazon.com/images/I/61gfc0lQ2+L.jpg',
         paragraphs: [
           'Misuriamo lineari, angoli e nicchie per calcolare giacenze e punti critici.',
           'Consigliamo essenze o finiture laccate in funzione del pavimento e delle pareti.',
@@ -255,6 +411,7 @@ export const servicesData = {
       },
       {
         title: 'Taglio e posa senza sbavature',
+        image: 'https://lirp.cdn-website.com/bf9fdae6/dms3rep/multi/opt/massimo_gambino_lucidatura_pavimenti_016-432w.jpg',
         paragraphs: [
           'Tagliamo ogni pezzo con troncatrice radiale professionale e lame a 80 denti per evitare scheggiature.',
           'Applichiamo adesivi a presa rapida o chiodini in acciaio con finitura invisibile.',
@@ -272,6 +429,7 @@ export const servicesData = {
       },
       {
         title: 'Sigillatura e controllo finale',
+        image: 'https://prestoimpresa.it/cdn/shop/products/Battiscopa55959659_grande.jpg?v=1673983876',
         paragraphs: [
           'Sigilliamo la parte superiore con silicone verniciabile o acrilico per eliminare fughe d’ombra.',
           'Puliamo le superfici e consegniamo l’ambiente pronto per l’arredo.',
@@ -290,7 +448,7 @@ export const servicesData = {
     ],
   },
   'rivestimento-scale-piacenza': {
-    order: 5,
+    order: 7,
     navLabel: 'Rivestimento scale',
     slug: 'rivestimento-scale-piacenza',
     pricingId: 'scala-parquet',
@@ -306,8 +464,8 @@ export const servicesData = {
       'Trasformiamo la tua scala con rivestimenti in legno o SPC che si integrano con il pavimento esistente. Uniamo rilievo tridimensionale, taglio CNC e montaggio in opera per un risultato di design resistente nel tempo.',
     sections: [
       {
-        title: 'Rilievo 3D e progettazione del rivestimento',
-        image: heroScale,
+        title: 'Rilievo e progettazione del rivestimento',
+        image: 'https://m.media-amazon.com/images/I/61gfc0lQ2+L.jpg',
         paragraphs: [
           'Rileviamo alzate e pedate con laser e modelli cartacei per replicare ogni geometria',
           'Definiamo battute, sagome dei pianerottoli e profili terminali in base allo stile della casa.',
@@ -325,6 +483,7 @@ export const servicesData = {
       },
       {
         title: 'Taglio e assemblaggio sartoriale',
+        image: 'https://www.valles-parquet.it/wp-content/uploads/scale-in-legno-rovere-2.jpg',
         paragraphs: [
           'Sagomiamo ogni elemento con macchine CNC o sega a formato per ottenere incastri millimetrici.',
           'Incolliamo su supporti in compensato marino per garantire la stabilità anche in presenza di scale in cemento non perfette.',
@@ -341,9 +500,10 @@ export const servicesData = {
         ],
       },
       {
-        title: 'Finiture, illuminazione e collaudo',
+        title: 'Finiture, e collaudo',
+        image: 'https://www.casiraghiparquet.com/wp-content/uploads/2019/04/scala-in-rovere.jpg',
         paragraphs: [
-          'Installiamo profili led, battiscopa laterali e raccordi con il pavimento del piano superiore.',
+          'Se necessario Installiamo profili led, battiscopa laterali e raccordi con il pavimento del piano superiore.',
           'Trattiamo i bordi con vernici protettive antiscivolo e verifichiamo ogni alzata con il cliente.',
         ],
         bullets: [
