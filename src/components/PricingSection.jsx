@@ -66,7 +66,7 @@ function PricingCard({ service, onShowProcessClick }) {
           <h3 className="text-2xl font-bold text-gray-900 w-2/3">{service.name}</h3>
           <div className="text-right flex-shrink-0">
             {/* Ho notato che qui avevi 'text-3xl', potresti volerlo rimettere a 'text-2xl' per coerenza con la mia proposta */}
-            <span className="text-2xl font-bold text-blue-600">{service.price}</span>
+            <span className="text-3xl font-bold text-blue-600">{service.price}</span>
             <p className="text-xs text-gray-500 -mt-1">{service.unit}</p>
           </div>
         </div>
@@ -125,7 +125,7 @@ function PricingCard({ service, onShowProcessClick }) {
             type="range"
             min={calculator?.min ?? 10}
             max={calculator?.max ?? 200}
-            step={calculator?.step ?? 5}
+            step={calculator?.step ?? 1}
             value={quantity}
             onChange={(e) => setQuantity(Number(e.target.value))}
             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-thumb-blue"
@@ -188,8 +188,8 @@ function PricingSection() {
           <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
             Prezzi Chiari. Posa Perfetta.
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Trova il servizio di cui hai bisogno e usa il simulatore per una stima immediata.
+          <p className="text-md text-gray-600 max-w-2xl mx-auto">
+            Trova il servizio di posa parquet che cerchi e usa il simulatore per una stima immediata.
           </p>
         </div>
 

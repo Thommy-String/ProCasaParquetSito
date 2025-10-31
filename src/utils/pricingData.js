@@ -21,7 +21,7 @@ export const pricingData = [
       label: 'mq',
       min: 10,
       max: 200,
-      step: 5,
+      step: 1,
       defaultValue: 50,
     },
     features: [
@@ -61,7 +61,7 @@ export const pricingData = [
       label: 'mq',
       min: 10,
       max: 200,
-      step: 5,
+      step: 1,
       defaultValue: 45,
     },
     features: [
@@ -96,7 +96,7 @@ export const pricingData = [
       label: 'mq',
       min: 10,
       max: 200,
-      step: 5,
+      step: 1,
       defaultValue: 45,
     },
     features: [
@@ -136,7 +136,7 @@ export const pricingData = [
       label: 'mq',
       min: 10,
       max: 180,
-      step: 5,
+      step: 1,
       defaultValue: 40,
     },
     features: [
@@ -177,7 +177,7 @@ export const pricingData = [
       label: 'mq',
       min: 10,
       max: 150,
-      step: 5,
+      step: 1,
       defaultValue: 35,
     },
     features: [
@@ -217,7 +217,7 @@ export const pricingData = [
       label: 'ml',
       min: 10,
       max: 120,
-      step: 5,
+      step: 1,
       defaultValue: 35,
     },
     features: [

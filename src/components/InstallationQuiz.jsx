@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { PHONE_NUMBER } from '../utils/constants';
 
 // --- IMPORTA TUTTE LE ICONE NECESSARIE ---
@@ -11,7 +11,7 @@ import rovereNaturale from '../assets/images/parquet/rovereNaturale.png';
 import rovereSpina from '../assets/images/parquet/rovereNaturaleSpinaItaliana.png';
 import parquetLaminato from '../assets/images/parquet/parquetLaminato.png';
 import parquetSPCSpina from '../assets/images/parquet/parquetSPCSpina.png';
-import parquetSPC from '../assets/images/parquet/parquetSPCSpina.png';
+import parquetSPC from '../assets/images/parquet/parquetSPC.png';
 import battiscopa5cm from '../assets/images/parquet/battiscopa5cm.png';
 import battiscopa10cm from '../assets/images/parquet/battiscopa10cm.png';
 
@@ -106,6 +106,17 @@ const SERVICE_BACKGROUND_MAP = {
   battiscopa_high: battiscopa10cm,
 };
 
+const SERVICE_PRODUCTIVITY = {
+  prefinito_dritto: { unitPerDay: 35, setupBuffer: 0.5 },
+  prefinito_spina: { unitPerDay: 20, setupBuffer: 0.5 },
+  spc_dritto: { unitPerDay: 55, setupBuffer: 0.3 },
+  spc_spina: { unitPerDay: 35, setupBuffer: 0.3 },
+  laminato: { unitPerDay: 60, setupBuffer: 0.3 },
+  battiscopa_low: { unitPerDay: 120, setupBuffer: 0.2 },
+  battiscopa_high: { unitPerDay: 100, setupBuffer: 0.2 },
+  default: { unitPerDay: 40, setupBuffer: 0.4 },
+};
+
 // Componente helper per le card-bottone (Invariato, corretto)
 function QuizOption({ label, description, name, value, selectedValue, onChange, background }) {
   const isSelected = selectedValue === value;
@@ -174,13 +185,14 @@ function InstallationQuiz() {
   const [unitValue, setUnitValue] = useState(50);
   const [showResult, setShowResult] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const formTopRef = useRef(null);
+  const estimateRef = useRef(null);
   const [answers, setAnswers] = useState({
     serviceType: '',
     subfloor: 'massetto',
     removal: 'no',
     furniture: 'no',
-    colla: 'no',
-    timing: 'valuto'
+    colla: 'no'
   });
 
   const handleChange = (e) => {
@@ -202,6 +214,9 @@ function InstallationQuiz() {
   const unitLabel = isBattiscopa ? 'ml' : 'mq';
   const canShowDetails = isExpanded && Boolean(answers.serviceType);
   const showExtraQuestions = canShowDetails && !isBattiscopa;
+  const isFloatingService = ['laminato', 'spc_dritto', 'spc_spina'].includes(answers.serviceType);
+  const isPrefinito = ['prefinito_dritto', 'prefinito_spina'].includes(answers.serviceType);
+  const requiresGlueQuestion = showExtraQuestions && !isFloatingService;
 
   const thumbPositionPercentage = useMemo(() => {
     const min = 10, max = 200;
@@ -219,31 +234,77 @@ function InstallationQuiz() {
     // --- MODIFICA 4: Usa la mappa dei nomi ---
     const serviceName = SERVICE_NAME_MAP[serviceType] || "Servizio";
 
-    let baseCost = POSA_PRICES.base[serviceType] * unitValue;
+    const baseUnitPrice = POSA_PRICES.base[serviceType] ?? 0;
+    let baseCost = baseUnitPrice * unitValue;
     let variableItems = [];
     let total = baseCost;
+    const baseItem = {
+      label: serviceName,
+      quantity: unitValue,
+      unitType: unitLabel,
+      unitPrice: baseUnitPrice,
+      unitDisplay: unitLabel,
+      displayQuantity: `~${unitValue}${unitLabel}`,
+      total: baseCost,
+    };
     
     if (showExtraQuestions) {
       if (removal === 'si') {
-        const cost = POSA_PRICES.variables.rimozione_e_smaltimento_mq * unitValue;
-        variableItems.push({ label: `Rimozione e smaltimento (~${unitValue}mq)`, cost });
+        const unitPrice = POSA_PRICES.variables.rimozione_e_smaltimento_mq;
+        const cost = unitPrice * unitValue;
+        variableItems.push({
+          label: 'Rimozione e smaltimento pavimento',
+          quantity: unitValue,
+          unitType: 'mq',
+          unitPrice,
+          unitDisplay: 'mq',
+          displayQuantity: `~${unitValue}mq`,
+          total: cost,
+        });
         total += cost;
       }
-      if (removal === 'no' && subfloor === 'pavimento_esistente' && (serviceType.includes('incollato') || serviceType.includes('spina'))) {
-        const cost = POSA_PRICES.variables.primer_su_vecchio_mq * unitValue;
-        variableItems.push({ label: `Preparazione fondo (Primer su piastrella per ~${unitValue}mq)`, cost });
+      if (removal === 'no' && subfloor === 'pavimento_esistente' && isPrefinito) {
+        const unitPrice = POSA_PRICES.variables.primer_su_vecchio_mq;
+        const cost = unitPrice * unitValue;
+        variableItems.push({
+          label: 'Primer su pavimento esistente',
+          quantity: unitValue,
+          unitType: 'mq',
+          unitPrice,
+          unitDisplay: 'mq',
+          displayQuantity: `~${unitValue}mq`,
+          total: cost,
+        });
         total += cost;
       }
       if (colla === 'si') {
-        const cost = POSA_PRICES.variables.colla_al_mq * unitValue;
-        variableItems.push({ label: `Fornitura colla (~${unitValue}mq)`, cost });
+        const unitPrice = POSA_PRICES.variables.colla_al_mq;
+        const cost = unitPrice * unitValue;
+        variableItems.push({
+          label: 'Fornitura colla',
+          quantity: unitValue,
+          unitType: 'mq',
+          unitPrice,
+          unitDisplay: 'mq',
+          displayQuantity: `~${unitValue}mq`,
+          total: cost,
+        });
         total += cost;
       }
     }
     
     if (furniture === 'si') {
-      const cost = POSA_PRICES.variables.spostamento_mobili_fisso;
-      variableItems.push({ label: `Spostamento mobili (costo fisso)`, cost });
+      const unitPrice = POSA_PRICES.variables.spostamento_mobili_fisso;
+      const cost = unitPrice;
+      variableItems.push({
+        label: 'Spostamento mobili',
+        quantity: 1,
+        unitType: 'voce',
+        unitPrice,
+        unitDisplay: 'voce',
+        displayQuantity: 'Costo da definire insieme',
+        total: cost,
+      });
       total += cost;
     }
 
@@ -254,14 +315,45 @@ function InstallationQuiz() {
 
     return {
       // --- MODIFICA 4: Label pulita ---
-      baseLabel: `${serviceName} (~${unitValue}${unitLabel})`,
-      baseCost,
+      baseItem,
       variableItems,
       total,
       typeSteps,
+      timeEstimate: (() => {
+        const productivity = SERVICE_PRODUCTIVITY[serviceType] || SERVICE_PRODUCTIVITY.default;
+        let estimatedDays = (productivity.setupBuffer ?? 0) + (unitValue / (productivity.unitPerDay || 1));
+
+        if (removal === 'si') {
+          estimatedDays += 0.4;
+        }
+        if (furniture === 'si') {
+          estimatedDays += 0.3;
+        }
+        if (colla === 'si' && requiresGlueQuestion) {
+          estimatedDays += 0.15;
+        }
+
+        const adjustedDays = Math.max(0, estimatedDays - 0.3);
+        const displayDays = Math.max(1, Math.floor(adjustedDays));
+        const label = displayDays === 1 ? '1 giorno' : `${displayDays} giorni`;
+
+        return { days: displayDays, label };
+      })(),
     };
   // --- MODIFICA 2: Aggiunta 'pavimento_esistente' alla dipendenza ---
   }, [unitValue, answers, showExtraQuestions, isBattiscopa, unitLabel]);
+
+  useEffect(() => {
+    if (!requiresGlueQuestion && answers.colla !== 'no') {
+      setAnswers(prev => ({ ...prev, colla: 'no' }));
+    }
+  }, [requiresGlueQuestion, answers.colla]);
+
+  useEffect(() => {
+    if (showResult && estimateRef.current) {
+      estimateRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [showResult]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -270,6 +362,25 @@ function InstallationQuiz() {
       return;
     }
     setShowResult(true);
+  };
+
+  const handleEdit = () => {
+    if (formTopRef.current) {
+      formTopRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    setShowResult(false);
+  };
+
+  const formatCurrency = (value) =>
+    value.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' });
+
+  const formatUnitRate = (value, unitDisplay, unitType) => {
+    if (unitType === 'voce') return null;
+    const amount = value.toLocaleString('it-IT', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+    return `${amount} €/${unitDisplay}`;
   };
 
   return (
@@ -288,8 +399,8 @@ function InstallationQuiz() {
               
               {/* Step 1 - Tipo di servizio */}
               <div className="pb-8">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  1. Che tipo di posa ti serve?
+                <h3 ref={formTopRef} className="text-xl font-semibold text-gray-900 mb-2">
+                  1. Cosa devi installare?
                 </h3>
                 <p className="text-sm text-gray-500 mb-6">Seleziona una voce per sbloccare gli altri passaggi.</p>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -322,7 +433,7 @@ function InstallationQuiz() {
                         {unitValue} {unitLabel}
                       </span>
                       <input
-                        type="range" min={10} max={200} step={5} value={unitValue} onChange={handleUnitChange}
+                        type="range" min={10} max={200} step={1} value={unitValue} onChange={handleUnitChange}
                         className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-thumb-blue"
                       />
                     </div>
@@ -348,38 +459,33 @@ function InstallationQuiz() {
                           </div>
                         </div>
                       </div>
-                      <div>
-                        <h4 className="text-base font-semibold text-gray-700 mb-3">Hai bisogno della fornitura di colla?</h4>
-                        <div className="grid grid-cols-2 gap-4">
-                          <QuizOption label="Sì, fornita da voi" name="colla" value="si" selectedValue={answers.colla} onChange={handleChange} />
-                          <QuizOption label="No, l'ho già io" name="colla" value="no" selectedValue={answers.colla} onChange={handleChange} />
+                      {requiresGlueQuestion && (
+                        <div>
+                          <h4 className="text-base font-semibold text-gray-700 mb-3">Hai bisogno della fornitura di colla?</h4>
+                          <div className="grid grid-cols-2 gap-4">
+                            <QuizOption label="Sì, fornita da voi" name="colla" value="si" selectedValue={answers.colla} onChange={handleChange} />
+                            <QuizOption label="No, l'ho già io" name="colla" value="no" selectedValue={answers.colla} onChange={handleChange} />
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   )}
 
-                  {/* Step finale - Tempi e mobili */}
-                  <div className="py-8 border-t border-gray-200">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-6">
-                      {showExtraQuestions ? "4. Tempi e spazi" : "3. Tempi e spazi"}
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <h4 className="text-base font-semibold text-gray-700 mb-3">Stanze già vuote?</h4>
-                        <div className="grid grid-cols-2 gap-4">
-                          <QuizOption label="Sì, libere" name="furniture" value="no" selectedValue={answers.furniture} onChange={handleChange} />
-                          <QuizOption label="No, ci sono mobili" name="furniture" value="si" selectedValue={answers.furniture} onChange={handleChange} />
-                        </div>
-                      </div>
-                      <div>
-                        <h4 className="text-base font-semibold text-gray-700 mb-3">Quando vorresti iniziare?</h4>
-                        <div className="grid grid-cols-2 gap-4">
-                          <QuizOption label="Il prima possibile" name="timing" value="subito" selectedValue={answers.timing} onChange={handleChange} />
-                          <QuizOption label="Sto valutando" name="timing" value="valuto" selectedValue={answers.timing} onChange={handleChange} />
-                        </div>
-                      </div>
+              {/* Step finale - Logistica ambienti */}
+              <div className="py-8 border-t border-gray-200">
+                <h3 className="text-xl font-semibold text-gray-900 mb-6">
+                  {showExtraQuestions ? "4. Stato ambienti e logistica" : "3. Stato ambienti e logistica"}
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="text-base font-semibold text-gray-700 mb-3">Stanze già vuote?</h4>
+                    <div className="grid grid-cols-2 gap-4">
+                      <QuizOption label="Sì, libere" name="furniture" value="no" selectedValue={answers.furniture} onChange={handleChange} />
+                      <QuizOption label="No, ci sono mobili" name="furniture" value="si" selectedValue={answers.furniture} onChange={handleChange} />
                     </div>
                   </div>
+                </div>
+              </div>
                 </>
               )}
               
@@ -403,38 +509,77 @@ function InstallationQuiz() {
 
           {/* --- IL BLOCCO DEI RISULTATI --- */}
           {showResult && estimate && (
-            <div className="mt-12 bg-white p-6 md:p-10 rounded-2xl border-2 border-blue-600 shadow-2xl animate-fadeIn">
-              
-              <h3 className="text-3xl font-extrabold text-gray-900 mb-8 text-center">La tua stima è pronta</h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                
+            <div
+              ref={estimateRef}
+              className="mt-12 bg-white/95 p-6 md:p-10 rounded-2xl border border-gray-200 shadow-2xl animate-fadeIn"
+            >
+              <h3 className="text-3xl font-semibold text-gray-900 mb-8">La tua stima è pronta</h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 {/* Colonna 1: Preventivo */}
-                <div>
-                  <h4 className="text-xl font-semibold text-gray-900 mb-4">Dettaglio Costi</h4>
-                  <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
-                    <ul className="divide-y divide-gray-200">
-                      <li className="flex justify-between items-center py-3">
-                        <span className="text-gray-700">{estimate.baseLabel}</span>
-                        <span className="font-semibold text-gray-900">{estimate.baseCost.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' })}</span>
-                      </li>
-                      {estimate.variableItems.map((item, index) => (
-                        <li key={index} className="flex justify-between items-center py-3">
-                          <span className="text-gray-700">{item.label}</span>
-                          <span className="font-semibold text-gray-900">{item.cost.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' })}</span>
-                        </li>
-                      ))}
-                      <li className="flex justify-between items-center pt-4 mt-4 border-t-2 border-gray-300">
-                        <span className="text-xl font-bold text-gray-900">Stima Totale</span>
-                        <span className="text-2xl font-bold text-blue-600">{estimate.total.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' })}</span>
-                      </li>
-                    </ul>
+                <div className="space-y-8">
+                  <div className="rounded-3xl border border-slate-200 bg-white/85 px-7 py-8 md:px-9 md:py-10 shadow-sm backdrop-blur">
+                    <div className="space-y-6 text-sm text-slate-700">
+                      {[estimate.baseItem, ...estimate.variableItems].map((item, index) => {
+                        const unitRate = formatUnitRate(item.unitPrice, item.unitDisplay, item.unitType);
+                        return (
+                          <div
+                            key={`${item.label}-${index}`}
+                            className="flex items-start justify-between gap-6 border-b border-slate-200 pb-6 last:border-none last:pb-0"
+                          >
+                            <div className="space-y-1">
+                              <p className="text-sm font-semibold text-slate-800">
+                                {item.label}
+                              </p>
+                              <p className="text-[11px] font-semibold text-slate-500">
+                                {item.displayQuantity}
+                              </p>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-lg font-semibold text-slate-900">
+                                {formatCurrency(item.total)}
+                              </p>
+                              {unitRate && (
+                                <p className="text-[11px] font-medium text-slate-400">
+                                  {unitRate}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <div className="mt-8 border-t border-slate-200 pt-6 flex items-end justify-between gap-6">
+                      <div className="text-left">
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+                          Tempo stimato
+                        </p>
+                        <p className="text-base font-semibold text-slate-800">
+                          {estimate.timeEstimate?.label}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+                          Stima totale
+                        </p>
+                        <p className="text-xl font-semibold tracking-tight text-blue-600 md:text-2xl">
+                          {formatCurrency(estimate.total)}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-xs text-gray-500 mt-4">
-                    *Questa stima è approssimativa. Costi extra per livellamento massetto o riparazioni saranno valutati solo durante il sopralluogo gratuito.
+                  <button
+                    type="button"
+                    onClick={handleEdit}
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-gray-200 px-6 py-3 text-sm font-semibold text-gray-700 transition hover:border-gray-300 hover:bg-gray-50"
+                  >
+                    Modifica voci
+                  </button>
+                  <p className="text-xs text-gray-500">
+                    *Questa stima è indicativa. Eventuali adeguamenti saranno condivisi dopo il sopralluogo gratuito.
                   </p>
                 </div>
-                
+
                 {/* Colonna 2: Processo di Posa */}
                 <div>
                   <h4 className="text-xl font-semibold text-gray-900 mb-4">Il Tuo Processo di Posa</h4>
@@ -473,12 +618,12 @@ function InstallationQuiz() {
               
               {/* CTA Finale */}
               <div className="text-center mt-10 border-t border-gray-200 pt-8">
-                <p className="text-lg text-gray-700 mb-4">Parliamone.</p>
+                <p className="text-xs text-gray-700 mb-4">Parliamone.</p>
                 <a
                   href={`tel:${PHONE_NUMBER}`}
                   className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/40 transition hover:bg-blue-700 md:px-10 md:py-4 md:text-lg"
                 >
-                  Chiama per un sopralluogo gratuito
+                  Chiama
                 </a>
               </div>
             </div>

@@ -4,7 +4,7 @@ export const MAIN_CATEGORY = "Posa parquet";
 export const PRIMARY_CITY = "Piacenza";
 
 // Usa il numero di telefono REALE che hai sul GBP
-export const PHONE_NUMBER = "+390523123456"; 
+export const PHONE_NUMBER = "+393518530582"; 
 export const EMAIL_ADDRESS = "info@procasapiacenza.it"; // La tua email
 export const WEBSITE_URL = "https://www.procasapiacenza.it"; // Il tuo dominio futuro
 
