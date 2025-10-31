@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { COMPANY_NAME, PHONE_NUMBER } from '../utils/constants';
+import logoImage from '../assets/logo/Pro-CasaParquet logo.png';
 
 const navItems = [
   { href: '#pricing', label: 'Prezzi' },
@@ -48,12 +49,19 @@ function Header() {
         isHidden ? '-translate-y-full' : 'translate-y-0'
       }`}
     >
-      <nav className="container mx-auto flex h-14 items-center justify-between gap-4 px-5 sm:h-16 sm:px-6 lg:px-8">
+      <nav className="container mx-auto flex items-center justify-between gap-4 px-5 py-3 sm:px-6 sm:py-4 lg:px-8">
         <Link
           to="/"
-          className="text-xs font-semibold uppercase tracking-wide text-gray-900 transition-colors hover:text-blue-600 sm:text-sm md:text-lg"
+          className="flex items-center gap-4"
+          aria-label={COMPANY_NAME}
         >
-          {COMPANY_NAME}
+          <img
+            src={logoImage}
+            alt={COMPANY_NAME}
+            className="h-8 w-auto sm:h-10 md:h-10"
+            loading="lazy"
+          />
+          
         </Link>
 
         <div className="hidden items-center gap-6 md:flex">

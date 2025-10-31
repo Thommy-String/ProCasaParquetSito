@@ -1,4 +1,5 @@
 import { COMPANY_NAME, PHONE_NUMBER } from '../utils/constants';
+import logoImage from '../assets/logo/Pro-CasaParquet logo.png';
 
 function Footer() {
   return (
@@ -9,9 +10,14 @@ function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 gap-10 text-center sm:text-left md:grid-cols-3">
           <div className="space-y-3">
-            <span className="text-sm uppercase tracking-[0.25em] text-gray-500">
-              {COMPANY_NAME}
-            </span>
+            <div className="flex flex-col items-center gap-3 sm:items-start">
+              <img
+                src={logoImage}
+                alt={COMPANY_NAME}
+                className="h-16 w-auto"
+                loading="lazy"
+              />
+            </div>
             <p className="text-sm text-gray-500">
               Posatori specializzati in parquet prefinito, SPC, LVT, laminato e scale su misura.
             </p>
