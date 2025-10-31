@@ -22,9 +22,10 @@ function Hero() {
                     </div>
 
                     {/* H1: Il titolo SEO principale */}
-                    <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-6">
-                        {MAIN_CATEGORY} a <span className="text-blue-600">{PRIMARY_CITY}</span>: prefinito, SPC, LVT e laminato.
+                    <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-2">
+                        {MAIN_CATEGORY} a <span className="text-blue-600">{PRIMARY_CITY}</span>
                     </h1>
+                    <h2 className="text-2xl md:text-2xl font-normal text-gray-500 leading-tight mb-6">Prefinito - SPC - LVT - Laminato</h2>
 
 
                     <HeroStats></HeroStats>

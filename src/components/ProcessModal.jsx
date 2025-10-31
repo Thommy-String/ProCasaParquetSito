@@ -85,7 +85,7 @@ function ProcessModal({ service, onClose }) {
             <X size={24} />
           </button>
           
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{service.name}</h2>
+          <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{service.name}</h3>
           <p className="text-base text-gray-600">{service.description}</p>
         </div>
 

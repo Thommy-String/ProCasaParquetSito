@@ -1,5 +1,15 @@
+import { Link } from 'react-router-dom';
 import { COMPANY_NAME, PHONE_NUMBER } from '../utils/constants';
+import { servicesData } from '../utils/servicesData';
 import logoImage from '../assets/logo/Pro-CasaParquet logo.png';
+
+const serviceLinks = Object.values(servicesData)
+  .filter((service) => service.slug && service.navLabel)
+  .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+  .map((service) => ({
+    slug: service.slug,
+    label: service.navLabel,
+  }));
 
 function Footer() {
   return (
@@ -8,7 +18,7 @@ function Footer() {
       className="border-t border-gray-200 bg-white/90 backdrop-blur"
     >
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 gap-10 text-center sm:text-left md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-10 text-center sm:text-left md:grid-cols-4">
           <div className="space-y-3">
             <div className="flex flex-col items-center gap-3 sm:items-start">
               <img
@@ -21,6 +31,24 @@ function Footer() {
             <p className="text-sm text-gray-500">
               Posatori specializzati in parquet prefinito, SPC, LVT, laminato e scale su misura.
             </p>
+          </div>
+
+          <div className="space-y-3">
+            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gray-500">
+              Servizi
+            </p>
+            <ul className="flex flex-col items-center gap-2 text-sm text-gray-500 sm:items-start">
+              {serviceLinks.map(({ slug, label }) => (
+                <li key={slug}>
+                  <Link
+                    to={`/servizi/${slug}`}
+                    className="transition-colors hover:text-blue-600"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div className="space-y-2 text-sm text-gray-500">

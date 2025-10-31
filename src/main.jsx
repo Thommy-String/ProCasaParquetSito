@@ -5,6 +5,7 @@ import App from './App.jsx'
 import './index.css'
 
 import HomePage from './pages/HomePage.jsx'
+import ServicePage from './pages/servizi/[slug].jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -12,6 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<HomePage />} />
+          <Route path="servizi/:slug" element={<ServicePage />} />
         </Route>
       </Routes>
     </BrowserRouter>

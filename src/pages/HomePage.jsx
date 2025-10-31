@@ -1,6 +1,7 @@
 import Hero from '../components/Hero';
 import PricingSection from '../components/PricingSection';
 import InstallationQuiz from '../components/InstallationQuiz';
+import DescrizioneMainCategories from '../components/DescrizioneMainCategories';
 import {
   COMPANY_NAME,
   WEBSITE_URL,
@@ -66,7 +67,7 @@ function HomePage() {
       <Hero />
       <InstallationQuiz></InstallationQuiz>
       <PricingSection></PricingSection>
-    
+      <DescrizioneMainCategories></DescrizioneMainCategories>
       
     </>
   );

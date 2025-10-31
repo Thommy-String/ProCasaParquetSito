@@ -387,9 +387,9 @@ function InstallationQuiz() {
     <section id="preventivatore" className="py-10 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-2">
-          <h2 className="text-2xl font-extrabold text-gray-900 mb-4">
+          <h3 className="text-2xl font-extrabold text-gray-900 mb-4">
             Preventivo in 30sec
-          </h2>
+          </h3>
         </div>
 
         <div className="max-w-4xl mx-auto">

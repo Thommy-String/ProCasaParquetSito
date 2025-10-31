@@ -1,6 +1,6 @@
 // Dati Aziendali (DEVONO CORRISPONDERE AL TUO GBP)
 export const COMPANY_NAME = "Pro Casa Parquet"; // Il tuo nome commerciale
-export const MAIN_CATEGORY = "Posa parquet";
+export const MAIN_CATEGORY = "Servizio di posa di pavimento in legno";
 export const PRIMARY_CITY = "Piacenza";
 
 // Usa il numero di telefono REALE che hai sul GBP
@@ -11,7 +11,7 @@ export const WEBSITE_URL = "https://www.procasapiacenza.it"; // Il tuo dominio f
 // Questo è l'indirizzo di REGISTRAZIONE (es. casa tua)
 // Serve per lo Schema Markup, anche se è NASCOSTO sul GBP
 export const SCHEMA_ADDRESS = {
-  streetAddress: "Via Roma 10", // Sostituisci con il tuo indirizzo REALE
+  streetAddress: "Via Daturi 5", // Sostituisci con il tuo indirizzo REALE
   addressLocality: "Piacenza",
   addressRegion: "PC",
   postalCode: "29121",
@@ -26,12 +26,8 @@ export const SCHEMA_GEO = {
 
 // Queste DEVONO corrispondere alle Categorie Secondarie del tuo GBP
 export const GBP_CATEGORIES = [
-  "Posa Parquet",
-  "Posa Resina",
-  "Posa Pavimenti LVT",
-  "Levigatura Parquet",
-  "Ristrutturazione Pavimenti",
-  "Posa Battiscopa",
+  "Ditta specializzata in pavimentazioni",
+  
 ];
 
 // Queste sono le AREE DI SERVIZIO che hai inserito nel GBP

@@ -16,7 +16,7 @@ const parseFeature = (feature) => {
 // --- MODIFICA 1 ---
 // La funzione ora accetta "onShowProcessClick" che le viene
 // passato da PricingSection
-function PricingCard({ service, onShowProcessClick }) {
+export function PricingCard({ service, onShowProcessClick }) {
   const { calculator } = service;
   const [quantity, setQuantity] = useState(calculator?.defaultValue ?? 50);
   const quantityLabel = calculator?.label ?? 'valore';
@@ -185,9 +185,9 @@ function PricingSection() {
     <section id="pricing" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
+          <h3 className="text-4xl font-extrabold text-gray-900 mb-4">
             Prezzi Chiari. Posa Perfetta.
-          </h2>
+          </h3>
           <p className="text-md text-gray-600 max-w-2xl mx-auto">
             Trova il servizio di posa parquet che cerchi e usa il simulatore per una stima immediata.
           </p>

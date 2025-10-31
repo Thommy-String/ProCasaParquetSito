@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { COMPANY_NAME, PHONE_NUMBER } from '../utils/constants';
+import { servicesData } from '../utils/servicesData';
 import logoImage from '../assets/logo/Pro-CasaParquet logo.png';
 
-const navItems = [
+const staticNavItems = [
   { href: '#pricing', label: 'Prezzi' },
   { href: '#contatti', label: 'Contatti' },
 ];
@@ -43,6 +44,13 @@ function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const serviceLinks = useMemo(() => {
+    return Object.values(servicesData)
+      .filter((service) => service.slug && service.navLabel)
+      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+      .map((service) => ({ slug: service.slug, label: service.navLabel }));
+  }, []);
+
   return (
     <header
       className={`sticky top-0 z-50 border-b border-gray-100 bg-white/90 backdrop-blur transition-transform duration-300 ${
@@ -65,7 +73,37 @@ function Header() {
         </Link>
 
         <div className="hidden items-center gap-6 md:flex">
-          {navItems.map(({ href, label }) => (
+          <div className="relative group">
+            <button
+              type="button"
+              className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 transition-colors hover:text-blue-600"
+            >
+              Servizi
+              <svg
+                className="h-3 w-3 transition-transform group-hover:rotate-180"
+                viewBox="0 0 12 7"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            <div className="invisible absolute right-0 top-full z-40 mt-3 w-64 translate-y-2 rounded-2xl border border-gray-100 bg-white p-4 text-left opacity-0 shadow-xl shadow-blue-100/40 transition-all group-hover:visible group-hover:translate-y-3 group-hover:opacity-100">
+              <ul className="space-y-2">
+                {serviceLinks.map(({ slug, label }) => (
+                  <li key={slug}>
+                    <Link
+                      to={`/servizi/${slug}`}
+                      className="block rounded-xl px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-blue-50/80 hover:text-blue-600"
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          {staticNavItems.map(({ href, label }) => (
             <a
               key={href}
               href={href}
@@ -124,7 +162,25 @@ function Header() {
                 </span>
               </div>
               <div className="flex flex-col gap-4 px-5 pb-5 pt-4">
-                {navItems.map(({ href, label }) => (
+                <div className="rounded-xl border border-gray-100 bg-white/80">
+                  <p className="px-4 pt-4 text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">
+                    Servizi
+                  </p>
+                  <ul className="flex flex-col gap-2 px-4 py-4">
+                    {serviceLinks.map(({ slug, label }) => (
+                      <li key={slug}>
+                        <Link
+                          to={`/servizi/${slug}`}
+                          onClick={() => setIsMenuOpen(false)}
+                          className="block rounded-lg bg-gray-50 px-4 py-3 text-sm font-medium text-gray-700 transition hover:bg-blue-50 hover:text-blue-600"
+                        >
+                          {label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                {staticNavItems.map(({ href, label }) => (
                   <a
                     key={href}
                     href={href}
