@@ -2,7 +2,7 @@ import Hero from '../components/Hero';
 import PricingSection from '../components/PricingSection';
 import InstallationQuiz from '../components/InstallationQuiz';
 import DescrizioneMainCategories from '../components/DescrizioneMainCategories';
-import logoImage from '../assets/logo/Pro-CasaParquet logo.png';
+import logoImage from '../assets/images/logo.png';
 import {
   COMPANY_NAME,
   WEBSITE_URL,
@@ -45,15 +45,15 @@ function HomePage() {
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        "opens": "08:00",
-        "closes": "18:00"
+        "dayOfWeek": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "07:00",
+        "closes": "20:00"
       },
       {
         "@type": "OpeningHoursSpecification",
         "dayOfWeek": "Saturday",
-        "opens": "08:00",
-        "closes": "12:00"
+        "opens": "07:00",
+        "closes": "20:00"
       }
     ],
     "serviceType": MAIN_CATEGORY,

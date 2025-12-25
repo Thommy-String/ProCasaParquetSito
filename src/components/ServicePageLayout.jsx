@@ -54,7 +54,7 @@ function ServicePageLayout({ service }) {
           <div className="container mx-auto max-w-5xl px-6 sm:px-10">
             <div className="mb-10 text-center">
               <h2 className="text-3xl font-extrabold text-slate-900">
-                Stima in 30 sec
+                Preventivo in 30 sec
               </h2>
             </div>
             <div className="mx-auto max-w-3xl">
@@ -150,7 +150,7 @@ function ServicePageLayout({ service }) {
             Pronto a parlarne con un posatore?
           </h2>
           <p className="text-base text-white/90">
-            Condividi misure e fotografie: prepariamo una proposta precisa e fissiamo un sopralluogo in 24 ore.
+            Prepariamo una proposta precisa e fissiamo un sopralluogo gratuito in 24 ore.
           </p>
           <a
             href={`tel:${PHONE_NUMBER}`}

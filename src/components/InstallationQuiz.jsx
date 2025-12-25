@@ -2,10 +2,11 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { PHONE_NUMBER } from '../utils/constants';
 
 // --- IMPORTA TUTTE LE ICONE NECESSARIE ---
-import { 
-  ClipboardCheck, Layers, Timer, Move3d, LayoutGrid, 
+import {
+  ClipboardCheck, Layers, Timer, Move3d, LayoutGrid,
   Sparkles, Compass, GitBranch, Scissors, Hammer, Paintbrush, Scaling,
-  Search // <-- ICONA AGGIUNTA per Sopralluogo
+  Search, MessageCircle, Bookmark,
+  Pencil
 } from 'lucide-react';
 import rovereNaturale from '../assets/images/parquet/rovereNaturale.png';
 import rovereSpina from '../assets/images/parquet/rovereNaturaleSpinaItaliana.png';
@@ -37,12 +38,12 @@ const iconMap = {
 // --- CONFIGURAZIONE PREZZI (Invariata) ---
 const POSA_PRICES = {
   base: {
-    prefinito_dritto: 25, prefinito_spina: 30, spc_dritto: 15, spc_spina: 22, 
+    prefinito_dritto: 25, prefinito_spina: 30, spc_dritto: 15, spc_spina: 22,
     laminato: 15, battiscopa_low: 7, battiscopa_high: 9,
   },
   variables: {
-    primer_su_vecchio_mq: 7, rimozione_e_smaltimento_mq: 12, 
-    spostamento_mobili_fisso: 150, colla_al_mq: 7, 
+    primer_su_vecchio_mq: 7, rimozione_e_smaltimento_mq: 12,
+    spostamento_mobili_fisso: 150, colla_al_mq: 7,
   }
 };
 
@@ -78,7 +79,7 @@ const POSA_PROCESS_STEPS = {
     { icon: 'hammer', title: 'Fase 2: Fissaggio', description: 'Fissiamo il battiscopa alla parete utilizzando collanti specifici o chiodini in acciaio quasi invisibili.' },
     { icon: 'paintbrush', title: 'Fase 3: Sigillatura', description: 'Per un look pulito e finito, sigilliamo la parte superiore del battiscopa e gli angoli.' }
   ],
-  battiscopa_high: [ 
+  battiscopa_high: [
     { icon: 'scissors', title: 'Fase 1: Taglio di Precisione', description: 'Eseguiamo tagli a 45° precisi sugli angoli (interni ed esterni) per giunzioni invisibili.' },
     { icon: 'hammer', title: 'Fase 2: Fissaggio', description: 'Fissiamo il battiscopa alla parete utilizzando collanti specifici o chiodini in acciaio quasi invisibili.' },
     { icon: 'paintbrush', title: 'Fase 3: Sigillatura', description: 'Per un look pulito e finito, sigilliamo la parte superiore del battiscopa e gli angoli.' }
@@ -123,11 +124,10 @@ function QuizOption({ label, description, name, value, selectedValue, onChange, 
   if (background) {
     return (
       <label
-        className={`relative flex min-h-[140px] cursor-pointer overflow-hidden rounded-2xl border transition-all ${
-          isSelected
-            ? 'border-blue-500 ring-2 ring-blue-400'
-            : 'border-gray-200 hover:border-blue-200'
-        }`}
+        className={`relative flex min-h-[140px] cursor-pointer overflow-hidden rounded-2xl border transition-all ${isSelected
+          ? 'border-blue-500 ring-2 ring-blue-400'
+          : 'border-gray-200 hover:border-blue-200'
+          }`}
       >
         <div
           className="absolute inset-0 bg-cover bg-center scale-105"
@@ -142,11 +142,11 @@ function QuizOption({ label, description, name, value, selectedValue, onChange, 
             </p>
           )}
         </div>
-        <input 
-          type="radio" 
-          name={name} 
-          value={value} 
-          checked={isSelected} 
+        <input
+          type="radio"
+          name={name}
+          value={value}
+          checked={isSelected}
           onChange={onChange}
           className="sr-only"
         />
@@ -156,17 +156,16 @@ function QuizOption({ label, description, name, value, selectedValue, onChange, 
 
   return (
     <label
-      className={`block cursor-pointer rounded-2xl border p-4 transition-all ${
-        isSelected
-          ? 'border-blue-500 ring-2 ring-blue-400 bg-blue-50'
-          : 'border-gray-200 hover:border-blue-200 bg-white'
-      }`}
+      className={`block cursor-pointer rounded-2xl border p-4 transition-all ${isSelected
+        ? 'border-blue-500 ring-2 ring-blue-400 bg-blue-50'
+        : 'border-gray-200 hover:border-blue-200 bg-white'
+        }`}
     >
-      <input 
-        type="radio" 
-        name={name} 
-        value={value} 
-        checked={isSelected} 
+      <input
+        type="radio"
+        name={name}
+        value={value}
+        checked={isSelected}
         onChange={onChange}
         className="sr-only"
       />
@@ -230,7 +229,7 @@ function InstallationQuiz() {
     if (!serviceType) {
       return null;
     }
-    
+
     // --- MODIFICA 4: Usa la mappa dei nomi ---
     const serviceName = SERVICE_NAME_MAP[serviceType] || "Servizio";
 
@@ -247,7 +246,7 @@ function InstallationQuiz() {
       displayQuantity: `~${unitValue}${unitLabel}`,
       total: baseCost,
     };
-    
+
     if (showExtraQuestions) {
       if (removal === 'si') {
         const unitPrice = POSA_PRICES.variables.rimozione_e_smaltimento_mq;
@@ -292,7 +291,7 @@ function InstallationQuiz() {
         total += cost;
       }
     }
-    
+
     if (furniture === 'si') {
       const unitPrice = POSA_PRICES.variables.spostamento_mobili_fisso;
       const cost = unitPrice;
@@ -310,7 +309,7 @@ function InstallationQuiz() {
 
     let typeStepsKey = serviceType;
     if (serviceType.includes('prefinito_spina')) typeStepsKey = 'prefinito_spina';
-    
+
     const typeSteps = POSA_PROCESS_STEPS[typeStepsKey];
 
     return {
@@ -340,7 +339,7 @@ function InstallationQuiz() {
         return { days: displayDays, label };
       })(),
     };
-  // --- MODIFICA 2: Aggiunta 'pavimento_esistente' alla dipendenza ---
+    // --- MODIFICA 2: Aggiunta 'pavimento_esistente' alla dipendenza ---
   }, [unitValue, answers, showExtraQuestions, isBattiscopa, unitLabel]);
 
   useEffect(() => {
@@ -383,6 +382,77 @@ function InstallationQuiz() {
     return `${amount} €/${unitDisplay}`;
   };
 
+
+  const handleWhatsAppClick = () => {
+    if (!estimate) return;
+
+    // 1. Prepara la lista
+    const allItems = [estimate.baseItem, ...estimate.variableItems].filter(Boolean);
+    const itemsList = allItems
+      .map(item => `- ${item.label}: ${item.displayQuantity}`)
+      .join('\n');
+
+    // 2. Pulisce il numero di telefono per il link (toglie spazi, +, parentesi)
+    // Es: da "+39 334 222 1212" diventa "393342221212"
+    const cleanPhone = PHONE_NUMBER.replace(/[^0-9]/g, '');
+
+    // 3. Costruisce il messaggio "Memo" con i contatti e il link cliccabile
+    const lines = [
+      "MEMO PREVENTIVO PARQUET",
+      "-----------------------",
+      itemsList,
+      "-----------------------",
+      `TOTALE STIMATO: ${formatCurrency(estimate.total)}`,
+      "",
+      "--- CONTATTI E INFO ---",
+      "Parquettista: MilanoPosaParquet", // Metti qui il nome della tua Ditta
+      `Telefono: ${PHONE_NUMBER}`,
+      "",
+      "Per avviare la chat con noi clicca qui sotto:",
+      `https://wa.me/${cleanPhone}`, // Link magico cliccabile
+      "",
+      `Preventivo generato su: ${window.location.href}`
+    ];
+
+    const message = lines.join("\n");
+    const encodedMessage = encodeURIComponent(message);
+    
+    // Lascia wa.me/?text=... vuoto così l'utente sceglie a chi inviarlo (se stesso)
+    window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+  };
+
+  // Funzione per INVIARE il preventivo ALL'AZIENDA
+  const handleSendToCompany = () => {
+    if (!estimate) return;
+
+    // 1. Prepara la lista voci
+    const allItems = [estimate.baseItem, ...estimate.variableItems].filter(Boolean);
+    const itemsList = allItems
+      .map(item => `- ${item.label}: ${item.displayQuantity}`)
+      .join('\n');
+
+    // 2. Pulisce il tuo numero per il link
+    const cleanPhone = PHONE_NUMBER.replace(/[^0-9]/g, '');
+
+    // 3. Messaggio rivolto A TE (Azienda)
+    const lines = [
+      "👋 Ciao, ho appena calcolato questa stima sul sito:",
+      "",
+      itemsList,
+      "",
+      `💰 *Totale Stimato:* ${formatCurrency(estimate.total)}`,
+      "",
+      "Vorrei verificare la disponibilità e fissare un sopralluogo.",
+      `Link riferimento: ${window.location.href}`
+    ];
+
+    const message = lines.join("\n");
+    const encodedMessage = encodeURIComponent(message);
+    
+    // QUI LA DIFFERENZA: Inseriamo cleanPhone nell'URL
+    window.open(`https://wa.me/${cleanPhone}?text=${encodedMessage}`, '_blank');
+  };
+
   return (
     <section id="preventivatore" className="py-10 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -396,7 +466,7 @@ function InstallationQuiz() {
           {/* --- IL FORM --- */}
           <form onSubmit={handleSubmit}>
             <div className="bg-white p-6 md:p-10 rounded-2xl border border-gray-200 shadow-xl">
-              
+
               {/* Step 1 - Tipo di servizio */}
               <div className="pb-8">
                 <h3 ref={formTopRef} className="text-xl font-semibold text-gray-900 mb-2">
@@ -422,7 +492,7 @@ function InstallationQuiz() {
                       2. Seleziona i {isBattiscopa ? "Metri Lineari" : "Metri Quadri"}
                     </h3>
                     <div className="relative pt-6">
-                      <span 
+                      <span
                         className="absolute text-blue-600 text-2xl font-bold"
                         style={{
                           left: `${thumbPositionPercentage}%`,
@@ -471,34 +541,33 @@ function InstallationQuiz() {
                     </div>
                   )}
 
-              {/* Step finale - Logistica ambienti */}
-              <div className="py-8 border-t border-gray-200">
-                <h3 className="text-xl font-semibold text-gray-900 mb-6">
-                  {showExtraQuestions ? "4. Stato ambienti e logistica" : "3. Stato ambienti e logistica"}
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="text-base font-semibold text-gray-700 mb-3">Stanze già vuote?</h4>
-                    <div className="grid grid-cols-2 gap-4">
-                      <QuizOption label="Sì, libere" name="furniture" value="no" selectedValue={answers.furniture} onChange={handleChange} />
-                      <QuizOption label="No, ci sono mobili" name="furniture" value="si" selectedValue={answers.furniture} onChange={handleChange} />
+                  {/* Step finale - Logistica ambienti */}
+                  <div className="py-8 border-t border-gray-200">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-6">
+                      {showExtraQuestions ? "4. Stato ambienti e logistica" : "3. Stato ambienti e logistica"}
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="text-base font-semibold text-gray-700 mb-3">Stanze già vuote?</h4>
+                        <div className="grid grid-cols-2 gap-4">
+                          <QuizOption label="Sì, libere" name="furniture" value="no" selectedValue={answers.furniture} onChange={handleChange} />
+                          <QuizOption label="No, ci sono mobili" name="furniture" value="si" selectedValue={answers.furniture} onChange={handleChange} />
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
                 </>
               )}
-              
+
               {/* BOTTONE CALCOLA */}
               <div className="text-center mt-10">
-                <button 
+                <button
                   type="submit"
                   disabled={!canShowDetails}
-                  className={`px-12 py-4 rounded-lg font-bold text-lg transition-colors shadow-lg hover:shadow-blue-500/50 ${
-                    canShowDetails
-                      ? 'bg-blue-600 text-white hover:bg-blue-700'
-                      : 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'
-                  }`}
+                  className={`px-12 py-4 rounded-lg font-bold text-lg transition-colors shadow-lg hover:shadow-blue-500/50 ${canShowDetails
+                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                    : 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'
+                    }`}
                 >
                   Mostra la mia stima
                 </button>
@@ -568,23 +637,50 @@ function InstallationQuiz() {
                       </div>
                     </div>
                   </div>
-                  <button
-                    type="button"
-                    onClick={handleEdit}
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-gray-200 px-6 py-3 text-sm font-semibold text-gray-700 transition hover:border-gray-300 hover:bg-gray-50"
-                  >
-                    Modifica voci
-                  </button>
-                  <p className="text-xs text-gray-500">
-                    *Questa stima è indicativa. Eventuali adeguamenti saranno condivisi dopo il sopralluogo gratuito.
-                  </p>
+
+                {/* --- CONTENITORE DI CONTROLLO SPAZIATURA --- */}
+                <div className="flex flex-col gap-6 mt-8"> 
+                  
+                  {/* GRUPPO 1: Azioni Secondarie (Disclaimer + Modifica) */}
+                  <div className="flex flex-col gap-2">
+                    <p className="text-[11px] text-gray-400 italic leading-tight">
+                      *Stima indicativa. Adeguamenti confermati post-sopralluogo.
+                    </p>
+                    
+                    <button
+                      type="button"
+                      onClick={handleEdit}
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 py-2.5 text-xs font-semibold text-gray-600 transition hover:border-gray-300 hover:bg-gray-50"
+                    >
+                      Modifica voci
+                    </button>
+                  </div>
+
+                  {/* GRUPPO 2: Azione PRIMARIA (WhatsApp + Spiegazione) */}
+                  <div className="flex flex-col gap-2"> {/* gap-2 tiene la spiegazione vicina al bottone */}
+                    <button
+                      onClick={handleWhatsAppClick}
+                      type="button"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-6 py-4 text-sm font-bold text-white shadow-lg shadow-green-500/20 transition hover:bg-[#20bd5a] hover:shadow-green-500/40 active:scale-[0.98]"
+                    >
+                      <Bookmark className="w-5 h-5 fill-current" /> {/* Icona Bookmark riempita */}
+                      Salva la stima su Whatsapp
+                    </button>
+                    
+                    {/* Micro-copy esplicativa */}
+                    <p className="text-[10px] text-gray-500 text-center leading-snug px-2">
+                      Si aprirà la tua rubrica WhatsApp: potrai inviare il preventivo <span className="font-semibold text-gray-700">a te stesso o alla famiglia</span> per non perderlo.
+                    </p>
+                  </div>
+
+                </div>
                 </div>
 
                 {/* Colonna 2: Processo di Posa */}
                 <div>
                   <h4 className="text-xl font-semibold text-gray-900 mb-4">Il Tuo Processo di Posa</h4>
                   <ol className="relative border-l border-gray-200">
-                    
+
                     {/* --- MODIFICA 5: FASE 0 (Sopralluogo) --- */}
                     <li className="mb-6 ml-6">
                       <span className="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-8 ring-white">
@@ -615,16 +711,30 @@ function InstallationQuiz() {
                 </div>
 
               </div>
-              
+
+
               {/* CTA Finale */}
               <div className="text-center mt-10 border-t border-gray-200 pt-8">
-                <p className="text-xs text-gray-700 mb-4">Parliamone.</p>
-                <a
-                  href={`tel:${PHONE_NUMBER}`}
-                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/40 transition hover:bg-blue-700 md:px-10 md:py-4 md:text-lg"
-                >
-                  Chiama
-                </a>
+                <p className="text-xs text-gray-700 mb-4">Hai domande? Parliamone.</p>
+
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  {/* Pulsante Chiama */}
+                  <a
+                    href={`tel:${PHONE_NUMBER}`}
+                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border-2 border-blue-600 bg-white px-6 py-3 text-sm font-bold text-blue-600 shadow-sm transition hover:bg-blue-50 md:px-8 md:py-3"
+                  >
+                    Chiama ora
+                  </a>
+
+                  {/* Pulsante WhatsApp per contattare noi (Stile Bordo Verde) */}
+                  <button
+                    onClick={handleSendToCompany}
+                    type="button"
+                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border-2 border-[#25D366] bg-white px-6 py-3 text-sm font-bold text-[#25D366] shadow-sm transition hover:bg-green-50 md:px-8 md:py-3"
+                  >
+                    Parliamone su Whatsapp <MessageCircle className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </div>
           )}

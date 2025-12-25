@@ -5,12 +5,12 @@
   "type": "module",
   "homepage": "https://Thommy-String.github.io/ProCasaParquetSito",
   "scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "preview": "vite preview",
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d dist"
-},
+    "dev": "vite",
+    "build": "vite build",
+    "postbuild": "node scripts/render-servizi.js && node scripts/copy-servizi.js && node scripts/generate-sitemap.js",
+    "preview": "vite preview",
+    "deploy": "npm run build"
+  },
   "dependencies": {
     "lucide-react": "^0.548.0",
     "react": "^19.1.1",

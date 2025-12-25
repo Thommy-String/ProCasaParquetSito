@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { COMPANY_NAME, PHONE_NUMBER } from '../utils/constants';
 import { servicesData } from '../utils/servicesData';
-import logoImage from '../assets/logo/Pro-CasaParquet logo.png';
+import logoImage from '../assets/images/logo.png';
 
 const serviceLinks = Object.values(servicesData)
   .filter((service) => service.slug && service.navLabel)
@@ -56,8 +56,8 @@ function Footer() {
               Sede legale
             </p>
             <p>
-              Via Daturi 5<br />
-              29121 Piacenza (PC)
+              Via Finanzieri d'Italia<br />
+              20132 Milano (MI)
             </p>
             <p className="pt-1 text-xs uppercase tracking-[0.25em] text-gray-400">
               P.IVA 01914870330
@@ -72,7 +72,7 @@ function Footer() {
               {PHONE_NUMBER}
             </a>
             <p className="text-xs text-gray-400">
-              Disponibili 7/7 dalle 8:00 alle 20:00
+              Disponibili 7/7 dalle 7:00 alle 20:00
             </p>
           </div>
         </div>

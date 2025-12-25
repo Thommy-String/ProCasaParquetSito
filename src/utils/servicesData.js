@@ -11,21 +11,21 @@ import posaParquetIncollato from '../assets/images/parquet/posaParquetIncollato.
 import posaParquetFlottante from '../assets/images/parquet/posaParquetFlottante.png';
 
 export const servicesData = {
-  'posa-parquet-prefinito-piacenza': {
+  'posa-parquet-prefinito-milano': {
     order: 1,
     navLabel: 'Posa parquet prefinito',
-    slug: 'posa-parquet-prefinito-piacenza',
+    slug: 'posa-parquet-prefinito-milano',
     pricingId: 'prefinito',
-    pageTitle: 'Posa Parquet Prefinito a Piacenza | Pro Casa Parquet',
+    pageTitle: 'Posa Parquet Prefinito a Milano',
     metaDescription:
-      'Posa parquet prefinito a Piacenza: analisi del massetto, incollaggio professionale e finiture certificate. Squadra specializzata Pro Casa Parquet.',
+      'Posa parquet prefinito a Milano: analisi del massetto, incollaggio professionale e finiture certificate. Squadra specializzata si parquettisti',
     hero: {
-      h1: 'Posa parquet prefinito a Piacenza',
+      h1: 'Posa parquet prefinito a Milano',
       subtitle: 'Incolliamo o posiamo flottante il tuo pavimento in legno con tempi certi e finitura perfetta.',
       image: heroPrefinito,
     },
     overview:
-      'Il parquet prefinito nasce per chi desidera il calore del legno con tempi di cantiere rapidi. Con Pro Casa Parquet ottieni un sopralluogo tecnico, se necessario la preparazione del sottofondo e la posa professionale con collanti certificati EC1.',
+      'Il parquet prefinito nasce per chi desidera il calore del legno con tempi di cantiere rapidi. Con Milano Posa Parquet ottieni un sopralluogo tecnico, se necessario la preparazione del sottofondo e la posa professionale con collanti certificati EC1.',
     sections: [
       {
         title: 'Sopralluogo tecnico e diagnosi del sottofondo',
@@ -87,16 +87,16 @@ export const servicesData = {
       },
     ],
   },
-  'posa-parquet-prefinito-flottante-piacenza': {
+  'posa-parquet-prefinito-flottante-milano': {
     order: 2,
     navLabel: 'Prefinito flottante',
-    slug: 'posa-parquet-prefinito-flottante-piacenza',
+    slug: 'posa-parquet-prefinito-flottante-milano',
     pricingId: 'prefinito-flottante',
-    pageTitle: 'Posa Prefinito Flottante a Piacenza | Pavimento a click',
+    pageTitle: 'Posa Parquet Prefinito Flottante a Milano',
     metaDescription:
-      'Posa parquet prefinito flottante a Piacenza: materassino certificato, posa a click e battiscopa coordinati. Squadra Pro Casa Parquet.',
+      'Posa parquet prefinito flottante a Milano: materassino certificato, posa a click e battiscopa coordinati. Squadra Milano Posa Parquet.',
     hero: {
-      h1: 'Posa parquet prefinito flottante a Piacenza',
+      h1: 'Posa parquet prefinito flottante a Milano',
       subtitle: 'Il comfort del legno con posa senza colla: veloce, pulita e subito calpestabile.',
       image: heroPrefinitoFlottante,
     },
@@ -159,16 +159,16 @@ export const servicesData = {
       },
     ],
   },
-  'posa-parquet-prefinito-spina-piacenza': {
+  'posa-parquet-prefinito-spina-milano': {
     order: 3,
     navLabel: 'Prefinito a spina',
-    slug: 'posa-parquet-prefinito-spina-piacenza',
+    slug: 'posa-parquet-prefinito-spina-milano',
     pricingId: 'prefinito-spina',
-    pageTitle: 'Posa Parquet Prefinito a Spina a Piacenza | Schemi sartoriali',
+    pageTitle: 'Posa Parquet Prefinito a Spina a Milano | Spina italiana, spina francese, spina ungherese',
     metaDescription:
-      'Posa parquet prefinito a spina a Piacenza: tracciatura laser, incollaggio professionale e finiture sartoriali. Prenota un sopralluogo Pro Casa Parquet.',
+      'Posa parquet prefinito a spina a Milano: tracciatura laser, incollaggio professionale e finiture sartoriali. Prenota un sopralluogo con noi di Milano Posa Parquet.',
     hero: {
-      h1: 'Posa parquet prefinito a spina a Piacenza',
+      h1: 'Posa parquet prefinito a spina a Milano',
       subtitle: 'Spina italiana, francese o ungherese: precisione millimetrica e incollaggio ad alte prestazioni.',
       image: heroPrefinitoSpina,
     },
@@ -231,21 +231,21 @@ export const servicesData = {
       },
     ],
   },
-  'posa-pavimento-spc-piacenza': {
+  'posa-pavimento-spc-milano': {
     order: 4,
-    navLabel: 'Posa SPC impermeabile',
-    slug: 'posa-pavimento-spc-piacenza',
+    navLabel: 'Posa SPC a click',
+    slug: 'posa-pavimento-spc-milano',
     pricingId: 'spc',
-    pageTitle: 'Posa Pavimento SPC a Piacenza | Vinilico 100% impermeabile',
+    pageTitle: 'Posa SPC a Milano | Incastro click e 100% impermeabile',
     metaDescription:
-      'Installazione pavimenti SPC a Piacenza: rilievo, preparazione del supporto e posa a click con finiture impermeabili. Pro Casa Parquet.',
+      "Posa parquet SPC a click a Milano senza colla. Pavimento vinilico 100% impermeabile, stabile e silenzioso anche su piastrelle esistenti. Sopralluogo e preventivo gratuiti.",
     hero: {
-      h1: 'Posa pavimenti SPC a click a Piacenza',
+      h1: 'Posa pavimenti SPC a click a Milano',
       subtitle: 'Impermeabile, stabile e sottile: ideale per ristrutturazioni rapide senza demolizioni.',
       image: heroSpc,
     },
     overview:
-      'Lo SPC (Stone Polymer Composite) abbina l’estetica del legno alla resistenza di un cuore minerale. È impermeabile al 100% e perfetto per bagni, cucine e locali commerciali. Ci occupiamo di tutto: dalla verifica del supporto alla posa a click con finiture coordinate.',
+      'SPC abbina l’estetica del legno alla resistenza della pietra. È impermeabile e perfetto per bagni, cucine e locali commerciali. Ci occupiamo di tutto: dalla verifica del supporto alla posa a click con finiture coordinate.',
     sections: [
       {
         title: 'Accertamento dislivelli',
@@ -269,7 +269,7 @@ export const servicesData = {
         title: 'Posa a click',
         image: 'https://sc04.alicdn.com/kf/H0fb5232f9e9d41a98d5c0146482bd7e3y.jpg',
         paragraphs: [
-          'Assemblaggio a secco con ferramenta dedicata per evitare tensioni lungo le pareti.',
+          'Montaggio a incastro click preciso e rifinito per evitare tensioni lungo le pareti.',
           'Utilizziamo distanziatori calibrati per mantenere il giusto giunto perimetrale ed evitare rigonfiamenti nel tempo.',
         ],
         bullets: [
@@ -303,17 +303,17 @@ export const servicesData = {
       },
     ],
   },
-  'posa-pavimento-laminato-piacenza': {
+  'posa-pavimento-laminato-milano': {
     order: 5,
     navLabel: 'Posa laminato',
-    slug: 'posa-pavimento-laminato-piacenza',
+    slug: 'posa-pavimento-laminato-milano',
     pricingId: 'laminato',
-    pageTitle: 'Posa Pavimento Laminato a Piacenza | Installazione rapida e pulita',
+    pageTitle: 'Posa Pavimento Laminato a Milano | Installazione rapida e pulita',
     metaDescription:
-      'Posa laminato a Piacenza con materassino acustico, tagli a misura e rifiniture sartoriali. Preventivo rapido Pro Casa Parquet.',
+      'Posa parquet laminato a Milano su materassino, tagli a misura e rifiniture sartoriali. Preventivo rapido online.',
     hero: {
-      h1: 'Posa pavimento laminato a Piacenza',
-      subtitle: 'Soluzione flottante ad alta resistenza: perfetta per rinnovare casa senza demolizioni.',
+      h1: 'Posa parquet laminato a Milano',
+      subtitle: 'Soluzione senza colla ad alta resistenza: perfetta per rinnovare casa senza troppi lavori.',
       image: heroLaminato,
     },
     overview:
@@ -375,16 +375,16 @@ export const servicesData = {
       },
     ],
   },
-  'posa-battiscopa-piacenza': {
+  'posa-battiscopa-milano': {
     order: 6,
     navLabel: 'Posa battiscopa',
-    slug: 'posa-battiscopa-piacenza',
+    slug: 'posa-battiscopa-milano',
     pricingId: 'battiscopa',
-    pageTitle: 'Posa Battiscopa a Piacenza | Tagli sartoriali e finiture pulite',
+    pageTitle: 'Posa Battiscopa a Milano | Tagli e finiture pulite',
     metaDescription:
-      'Posa professionale battiscopa a Piacenza: rilievo, taglio a 45°, incollaggio e sigillatura. Rifinire gli ambienti con Pro Casa Parquet.',
+      'Posa professionale battiscopa a Milano: rilievo, taglio a 45°, incollaggio e sigillatura. Sopralluogo e preventivo gratuiti online',
     hero: {
-      h1: 'Posa battiscopa su misura a Piacenza',
+      h1: 'Posa battiscopa su misura a Milano',
       subtitle: 'Taglio di precisione, incollaggio pulito e sigillatura finale per stanze impeccabili.',
       image: heroBattiscopa,
     },
@@ -447,14 +447,14 @@ export const servicesData = {
       },
     ],
   },
-  'rivestimento-scale-piacenza': {
+  'rivestimento-scale-milano': {
     order: 7,
     navLabel: 'Rivestimento scale',
-    slug: 'rivestimento-scale-piacenza',
+    slug: 'rivestimento-scale-milano',
     pricingId: 'scala-parquet',
-    pageTitle: 'Rivestimento Scale in Parquet a Piacenza | Progettazione su misura',
+    pageTitle: 'Rivestimento Scale in Parquet a Milano | Progettazione su misura',
     metaDescription:
-      'Rivestiamo scale a Piacenza con legno prefinito o massello, pedate antiscivolo e finiture coordinate. Lavorazione sartoriale Pro Casa Parquet.',
+      'Rivestiamo scale a Milano con legno prefinito o massello, pedate antiscivolo e finiture coordinate. Sopralluogo e preventivo gratuiti.',
     hero: {
       h1: 'Rivestimento scale in parquet su misura',
       subtitle: 'Sagomatura millimetrica, profili antiscivolo e finiture coordinate per scale scenografiche.',

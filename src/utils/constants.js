@@ -1,40 +1,35 @@
 // Dati Aziendali (DEVONO CORRISPONDERE AL TUO GBP)
-export const COMPANY_NAME = "Pro Casa Parquet"; // Il tuo nome commerciale
-export const MAIN_CATEGORY = "Servizio di posa di pavimento in legno";
-export const PRIMARY_CITY = "Piacenza";
+export const COMPANY_NAME = "Milano Posa Parquet"; // Il tuo nome commerciale
+export const MAIN_CATEGORY = "Posa Parquet di tutti i tipi";
+export const PRIMARY_CITY = "Milano";
 
 // Usa il numero di telefono REALE che hai sul GBP
-export const PHONE_NUMBER = "+393518530582"; 
-export const EMAIL_ADDRESS = "info@procasaparquet.it"; 
-export const WEBSITE_URL = "https://www.procasaparquet.it";
+export const PHONE_NUMBER = "334 222 1212"; 
+export const EMAIL_ADDRESS = "info@posaparquetmilano.it"; 
+export const WEBSITE_URL = "https://www.posaparquetmilano.it";
 // Questo è l'indirizzo di REGISTRAZIONE (es. casa tua)
 // Serve per lo Schema Markup, anche se è NASCOSTO sul GBP
 export const SCHEMA_ADDRESS = {
-  streetAddress: "Via Daturi 5", // Sostituisci con il tuo indirizzo REALE
-  addressLocality: "Piacenza",
-  addressRegion: "PC",
-  postalCode: "29121",
+  streetAddress: "Via Finanzieri d'Italia", // Sostituisci con il tuo indirizzo REALE
+  addressLocality: "Milano",
+  addressRegion: "MI",
+  postalCode: "20162",
   addressCountry: "IT"
 };
 
-// Coordinate GPS di Piacenza (per lo Schema)
+// Coordinate GPS di milano (per lo Schema)
 export const SCHEMA_GEO = {
-  latitude: 45.0526,
-  longitude: 9.6929
+  latitude: 45.4642,
+  longitude: 9.1900
 };
 
 // Queste DEVONO corrispondere alle Categorie Secondarie del tuo GBP
 export const GBP_CATEGORIES = [
   "Ditta specializzata in pavimentazioni",
-  
 ];
 
 // Queste sono le AREE DI SERVIZIO che hai inserito nel GBP
 export const SERVICE_AREAS = [
-  { name: "Piacenza", slug: "piacenza" },
-  { name: "Cremona", slug: "cremona" },
-  { name: "Lodi", slug: "lodi" },
-  { name: "Parma", slug: "parma" },
-  { name: "Pavia", slug: "pavia" },
+  { name: "Milano", slug: "Milano" },
   // Aggiungi le altre (fino a 20)
 ];

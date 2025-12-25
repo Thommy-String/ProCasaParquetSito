@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { COMPANY_NAME, PHONE_NUMBER } from '../utils/constants';
 import { servicesData } from '../utils/servicesData';
-import logoImage from '../assets/logo/Pro-CasaParquet logo.png';
+import logoImage from '../assets/images/logo.png';
 
 const staticNavItems = [
   { href: '#pricing', label: 'Prezzi' },
