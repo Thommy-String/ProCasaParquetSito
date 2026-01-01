@@ -121,7 +121,7 @@ function PricingSection() {
         
         <div className="text-center mb-10">
           <h2 className="text-4xl font-extrabold text-gray-900 tracking-tight mb-3">
-            Listino Trasparente
+            Listino per Milano - 2026
           </h2>
           <p className="text-gray-500">
             Scegli la categoria per vedere i costi dettagliati.

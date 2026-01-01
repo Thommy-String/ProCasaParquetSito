@@ -49,14 +49,15 @@ export const pricingData = [
   },
   {
     id: 'spc',
-    name: 'Posa SPC / Vinilico',
+    name: 'Posa SPC / Vinilico LVT',
     price: '€15',
     pricePerMq: 15,
     unit: '/mq',
     timeFactorPerMq: 0.025, 
     mediaType: 'video',
     mediaSrc: posaSpcVideo,
-    description: 'Posa a click appoggiato su materassino senza colla: rapida e pulita.',
+    // DESCRIZIONE MIGLIORATA: Più tecnica e vantaggiosa
+    description: 'La soluzione moderna ultra-resistente. Posa flottante con materassino integrato o separato: 100% impermeabile, zero polvere, spessore ridotto.',
     calculator: {
       label: 'mq',
       min: 10,
@@ -64,21 +65,39 @@ export const pricingData = [
       step: 1,
       defaultValue: 45,
     },
+    // FEATURES PIÙ FORTI
     features: [
-      'Installazione:  Flottante su materassino',
-      'Calpestabile: Subito dopo la posa',
+      'Posa: Flottante (senza colla)',
+      'Utilizzo: Immediato a fine lavori',
+      'Ideale per: Sovrapposizione su piastrelle',
+      'Resistenza: 100% Waterproof'
     ],
-    // NUOVA PROPRIETÀ
+    // IL CUORE DELLA MODIFICA: 5 STEP PROFESSIONALI
     processSteps: [
       {
-        icon: 'layout-grid',
-        title: 'Fase 1: Installazione a incastro Click',
-        description: 'La posa avviene senza colla. Le doghe vengono incastrate tra loro con il sistema a click, garantendo un\'installazione rapida e pulita.'
+        icon: 'clipboard-check', // Icona controllo
+        title: 'Fase 1: Check Planarità',
+        description: 'L\'SPC è rigido e richiede un fondo perfetto. Verifichiamo che non ci siano dislivelli. In ogni caso ti diciamo tutto al sopralluogo con il nostro parquettista.'
       },
       {
-        icon: 'sparkles',
-        title: 'Fase 2: Finitura e Uso Immediato',
-        description: 'Se scelto installiamo il battiscopa coordinato. Il pavimento è flottante, quindi è calpestabile e arredabile immediatamente dopo la posa.'
+        icon: 'layers', // Icona strati
+        title: 'Fase 2: Materassino Tecnico',
+        description: 'Stesura del tappetino anti-calpestio e barriera vapore (se non già integrato nella doga). Questo garantisce il suono "pieno" e protegge dall\'umidità di risalita. Al giorno d\oggi il 90% lo ha già integrato sul retro, e questa fase si salta.'
+      },
+      {
+        icon: 'scissors', // Icona taglio (o hammer)
+        title: 'Fase 3: (Taglio Porte)',
+        description: 'Stabiliamo al sopralluogo insieme e se necessario tagliamo la base degli stipiti delle porte per far scorrere il pavimento sotto. Niente silicone a vista, risultato estetico pulito.'
+      },
+      {
+        icon: 'layout-grid', // Icona griglia
+        title: 'Fase 4: Installazione a Click',
+        description: 'Posa delle doghe a incastro. La parte più divertente! '
+      },
+      {
+        icon: 'sparkles', // Icona finale
+        title: 'Fase 5: Finitura Immediata',
+        description: 'Montaggio battiscopa (se accordato) e profili di soglia. Essendo una posa a secco, non ci sono tempi di asciugatura: la stanza è arredabile nello stesso istante in cui finiamo.'
       }
     ]
   },

@@ -14,6 +14,7 @@ function App() {
       <main className="flex-grow">
         <Outlet />
       </main>
+     
       <Footer />
       
     </div>

@@ -14,13 +14,15 @@ import {
   GBP_CATEGORIES,
   SERVICE_AREAS
 } from '../utils/constants';
+
 import RecentWorks from '../components/RecentWorks';
 import FloorMatcher from '../components/QuoteDoctor';
 import QuoteDoctor from '../components/QuoteDoctor';
 import WasteCalculator from '../components/WasteCalculator';
+import QuickFloorConsult from '../components/QuickFloorConsult';
 
 function HomePage() {
-  
+
   // 1. CONSIGLIO VIDEO: SCHEMA MARKUP
   // Questo "spiega" a Google chi sei, dove sei e cosa fai.
   // Deve corrispondere ESATTAMENTE ai dati GBP e constants.js
@@ -66,19 +68,40 @@ function HomePage() {
 
   return (
     <>
-      
       <script type="application/ld+json">
         {JSON.stringify(schemaMarkup)}
       </script>
-      
+
       <Hero />
-      <RecentWorks></RecentWorks>
-      <InstallationQuiz></InstallationQuiz>
-      <QuoteDoctor></QuoteDoctor>
-      <PricingSection></PricingSection>
-      <WasteCalculator></WasteCalculator>
-      <DescrizioneMainCategories></DescrizioneMainCategories>
-      
+
+      {/* Sezione Lavori Recenti */}
+      <RecentWorks />
+
+      {/* QUIZ */}
+      <section id="preventivatore" className="scroll-mt-28">
+        <InstallationQuiz />
+      </section>
+
+      {/* 1. SCANNER PREVENTIVI (QuoteDoctor) */}
+      {/* Aggiungiamo id="scanner-preventivi" e scroll-margin */}
+      <section id="scanner-preventivi" className="scroll-mt-28">
+        <QuoteDoctor />
+      </section>
+
+      <PricingSection />
+
+      {/* 2. CHECK SOTTOFONDO (QuickFloorConsult) */}
+      <section id="check-sottofondo" className="scroll-mt-28">
+        <QuickFloorConsult />
+      </section>
+
+      {/* 3. CALCOLATORE MQ (WasteCalculator) */}
+      <section id="calcolatore-mq" className="scroll-mt-28">
+        <WasteCalculator />
+      </section>
+
+      <DescrizioneMainCategories />
+
     </>
   );
 }

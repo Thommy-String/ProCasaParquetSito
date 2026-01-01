@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { COMPANY_NAME, PHONE_NUMBER } from '../utils/constants';
 import { servicesData } from '../utils/servicesData';
-import logoImage from '../assets/images/logo.png';
+import logoImage from '../assets/logo/favicon.png';
 
 const serviceLinks = Object.values(servicesData)
   .filter((service) => service.slug && service.navLabel)
