@@ -1,6 +1,6 @@
 // Dati Aziendali (DEVONO CORRISPONDERE AL TUO GBP)
 export const COMPANY_NAME = "Milano Posa Parquet"; // Il tuo nome commerciale
-export const MAIN_CATEGORY = "Posa Parquet di tutti i tipi";
+export const MAIN_CATEGORY = "Posa Parquet";
 export const PRIMARY_CITY = "Milano";
 
 // Usa il numero di telefono REALE che hai sul GBP

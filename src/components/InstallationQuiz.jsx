@@ -15,6 +15,7 @@ import parquetSPCSpina from '../assets/images/parquet/parquetSPCSpina.png';
 import parquetSPC from '../assets/images/parquet/parquetSPC.png';
 import battiscopa5cm from '../assets/images/parquet/battiscopa5cm.png';
 import battiscopa10cm from '../assets/images/parquet/battiscopa10cm.png';
+import parquetFlottante from '../assets/images/primaDopoLavori/dopo2.jpg'
 
 
 
@@ -38,7 +39,7 @@ const iconMap = {
 // --- CONFIGURAZIONE PREZZI (Invariata) ---
 const POSA_PRICES = {
   base: {
-    prefinito_dritto: 25, prefinito_spina: 30, spc_dritto: 15, spc_spina: 22,
+    prefinito_dritto: 25, prefinito_spina: 30, prefinito_flottante: 22, spc_dritto: 15, spc_spina: 22,
     laminato: 15, battiscopa_low: 7, battiscopa_high: 9,
   },
   variables: {
@@ -53,6 +54,11 @@ const POSA_PROCESS_STEPS = {
     { icon: 'clipboard-check', title: 'Fase 1: Preparazione Fondo', description: 'Verifica umidità e planarità del massetto. Stesura del collante ecologico.' },
     { icon: 'layers', title: 'Fase 2: Posa Incollata Dritta', description: 'Incolliamo ogni tavola con precisione, garantendo una posa solida, stabile e silenziosa.' },
     { icon: 'timer', title: 'Fase 3: Assestamento (24-48h)', description: 'Il pavimento necessita di 24-48 ore per l\'asciugatura completa della colla prima di poter essere calpestato.' }
+  ],
+  prefinito_flottante: [
+    { icon: 'move-3d', title: 'Fase 1: Posa del Materassino', description: 'Stendiamo un materassino fonoassorbente di alta qualità per proteggere il legno e ridurre il rumore.' },
+    { icon: 'layout-grid', title: 'Fase 2: Posa Flottante', description: 'Le tavole in legno nobile vengono posate a secco incastrandole (o incollando solo l\'incastro maschio-femmina).' },
+    { icon: 'sparkles', title: 'Fase 3: Finitura Immediata', description: 'Il pavimento è subito calpestabile non essendo incollato a terra. Installiamo il battiscopa e consegnamo.' }
   ],
   prefinito_spina: [
     { icon: 'compass', title: 'Fase 1: Tracciatura Millimetrica', description: 'La posa a spina (Italiana, Francese o Ungherese) richiede una tracciatura a terra precisa dell\'asse centrale.' },
@@ -90,6 +96,7 @@ const POSA_PROCESS_STEPS = {
 const SERVICE_NAME_MAP = {
   prefinito_dritto: "Posa Prefinito Dritto",
   prefinito_spina: "Posa Prefinito a Spina",
+  prefinito_flottante: "Posa Prefinito Flottante",
   spc_dritto: "Posa SPC Dritto",
   spc_spina: "Posa SPC a Spina",
   laminato: "Posa Laminato",
@@ -100,6 +107,7 @@ const SERVICE_NAME_MAP = {
 const SERVICE_BACKGROUND_MAP = {
   prefinito_dritto: rovereNaturale,
   prefinito_spina: rovereSpina,
+  prefinito_flottante: parquetFlottante,
   spc_dritto: parquetSPC,
   spc_spina: parquetSPCSpina,
   laminato: parquetLaminato,
@@ -110,6 +118,7 @@ const SERVICE_BACKGROUND_MAP = {
 const SERVICE_PRODUCTIVITY = {
   prefinito_dritto: { unitPerDay: 35, setupBuffer: 0.5 },
   prefinito_spina: { unitPerDay: 20, setupBuffer: 0.5 },
+  prefinito_flottante: { unitPerDay: 45, setupBuffer: 0.3 },
   spc_dritto: { unitPerDay: 55, setupBuffer: 0.3 },
   spc_spina: { unitPerDay: 35, setupBuffer: 0.3 },
   laminato: { unitPerDay: 60, setupBuffer: 0.3 },
@@ -213,7 +222,7 @@ function InstallationQuiz() {
   const unitLabel = isBattiscopa ? 'ml' : 'mq';
   const canShowDetails = isExpanded && Boolean(answers.serviceType);
   const showExtraQuestions = canShowDetails && !isBattiscopa;
-  const isFloatingService = ['laminato', 'spc_dritto', 'spc_spina'].includes(answers.serviceType);
+  const isFloatingService = ['laminato', 'spc_dritto', 'spc_spina', 'prefinito_flottante'].includes(answers.serviceType);
   const isPrefinito = ['prefinito_dritto', 'prefinito_spina'].includes(answers.serviceType);
   const requiresGlueQuestion = showExtraQuestions && !isFloatingService;
 
@@ -384,6 +393,12 @@ function InstallationQuiz() {
 
 
   const handleWhatsAppClick = () => {
+
+    // 1. Traccia la conversione (senza URL per evitare conflitti di redirect)
+    if (typeof window.gtag_report_conversion === 'function') {
+      window.gtag_report_conversion();
+    }
+
     if (!estimate) return;
 
     // 1. Prepara la lista
@@ -416,13 +431,17 @@ function InstallationQuiz() {
 
     const message = lines.join("\n");
     const encodedMessage = encodeURIComponent(message);
-    
+
     // Lascia wa.me/?text=... vuoto così l'utente sceglie a chi inviarlo (se stesso)
     window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
   };
 
   // Funzione per INVIARE il preventivo ALL'AZIENDA
   const handleSendToCompany = () => {
+    // 1. Traccia la conversione
+    if (typeof window.gtag_report_conversion === 'function') {
+      window.gtag_report_conversion();
+    }
     if (!estimate) return;
 
     // 1. Prepara la lista voci
@@ -448,7 +467,7 @@ function InstallationQuiz() {
 
     const message = lines.join("\n");
     const encodedMessage = encodeURIComponent(message);
-    
+
     // QUI LA DIFFERENZA: Inseriamo cleanPhone nell'URL
     window.open(`https://wa.me/${cleanPhone}?text=${encodedMessage}`, '_blank');
   };
@@ -458,7 +477,7 @@ function InstallationQuiz() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-2">
           <h3 className="text-2xl font-extrabold text-gray-900 mb-4">
-            Preventivo in 30sec
+            Preventivo in 1 minuto
           </h3>
         </div>
 
@@ -475,6 +494,7 @@ function InstallationQuiz() {
                 <p className="text-sm text-gray-500 mb-6">Seleziona una voce per sbloccare gli altri passaggi.</p>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   <QuizOption label="Prefinito Dritto" description="(Incollato)" name="serviceType" value="prefinito_dritto" background={SERVICE_BACKGROUND_MAP.prefinito_dritto} selectedValue={answers.serviceType} onChange={handleChange} />
+                  <QuizOption label="Prefinito Flottante" description="(Senza Colla)" name="serviceType" value="prefinito_flottante" background={SERVICE_BACKGROUND_MAP.prefinito_flottante} selectedValue={answers.serviceType} onChange={handleChange} />
                   <QuizOption label="Prefinito Spina" description="90°, 45°, 60°" name="serviceType" value="prefinito_spina" background={SERVICE_BACKGROUND_MAP.prefinito_spina} selectedValue={answers.serviceType} onChange={handleChange} />
                   <QuizOption label="Laminato" description="(Flottante)" name="serviceType" value="laminato" background={SERVICE_BACKGROUND_MAP.laminato} selectedValue={answers.serviceType} onChange={handleChange} />
                   <QuizOption label="SPC Dritto" description="(Flottante)" name="serviceType" value="spc_dritto" background={SERVICE_BACKGROUND_MAP.spc_dritto} selectedValue={answers.serviceType} onChange={handleChange} />
@@ -638,42 +658,42 @@ function InstallationQuiz() {
                     </div>
                   </div>
 
-                {/* --- CONTENITORE DI CONTROLLO SPAZIATURA --- */}
-                <div className="flex flex-col gap-6 mt-8"> 
-                  
-                  {/* GRUPPO 1: Azioni Secondarie (Disclaimer + Modifica) */}
-                  <div className="flex flex-col gap-2">
-                    <p className="text-[11px] text-gray-400 italic leading-tight">
-                      *Stima indicativa. Adeguamenti confermati post-sopralluogo.
-                    </p>
-                    
-                    <button
-                      type="button"
-                      onClick={handleEdit}
-                      className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 py-2.5 text-xs font-semibold text-gray-600 transition hover:border-gray-300 hover:bg-gray-50"
-                    >
-                      Modifica voci
-                    </button>
-                  </div>
+                  {/* --- CONTENITORE DI CONTROLLO SPAZIATURA --- */}
+                  <div className="flex flex-col gap-6 mt-8">
 
-                  {/* GRUPPO 2: Azione PRIMARIA (WhatsApp + Spiegazione) */}
-                  <div className="flex flex-col gap-2"> {/* gap-2 tiene la spiegazione vicina al bottone */}
-                    <button
-                      onClick={handleWhatsAppClick}
-                      type="button"
-                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-6 py-4 text-sm font-bold text-white shadow-lg shadow-green-500/20 transition hover:bg-[#20bd5a] hover:shadow-green-500/40 active:scale-[0.98]"
-                    >
-                      <Bookmark className="w-5 h-5 fill-current" /> {/* Icona Bookmark riempita */}
-                      Salva la stima su Whatsapp
-                    </button>
-                    
-                    {/* Micro-copy esplicativa */}
-                    <p className="text-[10px] text-gray-500 text-center leading-snug px-2">
-                      Si aprirà la tua rubrica WhatsApp: potrai inviare il preventivo <span className="font-semibold text-gray-700">a te stesso o alla famiglia</span> per non perderlo.
-                    </p>
-                  </div>
+                    {/* GRUPPO 1: Azioni Secondarie (Disclaimer + Modifica) */}
+                    <div className="flex flex-col gap-2">
+                      <p className="text-[11px] text-gray-400 italic leading-tight">
+                        *Stima indicativa. Adeguamenti confermati post-sopralluogo.
+                      </p>
 
-                </div>
+                      <button
+                        type="button"
+                        onClick={handleEdit}
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 py-2.5 text-xs font-semibold text-gray-600 transition hover:border-gray-300 hover:bg-gray-50"
+                      >
+                        Modifica voci
+                      </button>
+                    </div>
+
+                    {/* GRUPPO 2: Azione PRIMARIA (WhatsApp + Spiegazione) */}
+                    <div className="flex flex-col gap-2"> {/* gap-2 tiene la spiegazione vicina al bottone */}
+                      <button
+                        onClick={handleWhatsAppClick}
+                        type="button"
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-6 py-4 text-sm font-bold text-white shadow-lg shadow-green-500/20 transition hover:bg-[#20bd5a] hover:shadow-green-500/40 active:scale-[0.98]"
+                      >
+                        <Bookmark className="w-5 h-5 fill-current" /> {/* Icona Bookmark riempita */}
+                        Salva la stima su Whatsapp
+                      </button>
+
+                      {/* Micro-copy esplicativa */}
+                      <p className="text-[10px] text-gray-500 text-center leading-snug px-2">
+                        Si aprirà la tua rubrica WhatsApp: potrai inviare il preventivo <span className="font-semibold text-gray-700">a te stesso o alla famiglia</span> per non perderlo.
+                      </p>
+                    </div>
+
+                  </div>
                 </div>
 
                 {/* Colonna 2: Processo di Posa */}
@@ -721,6 +741,19 @@ function InstallationQuiz() {
                   {/* Pulsante Chiama */}
                   <a
                     href={`tel:${PHONE_NUMBER}`}
+                    onClick={(e) => {
+                      // Impediamo al browser di chiamare subito
+                      e.preventDefault();
+
+                      if (typeof window.gtag_report_conversion === 'function') {
+                        // Passiamo l'URL "tel:..." a Google. 
+                        // Lo snippet registrerà la conversione e POI farà partire la chiamata.
+                        window.gtag_report_conversion(`tel:${PHONE_NUMBER}`);
+                      } else {
+                        // Fallback se lo snippet non è caricato (es. AdBlocker)
+                        window.location.href = `tel:${PHONE_NUMBER}`;
+                      }
+                    }}
                     className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border-2 border-blue-600 bg-white px-6 py-3 text-sm font-bold text-blue-600 shadow-sm transition hover:bg-blue-50 md:px-8 md:py-3"
                   >
                     Chiama ora

@@ -10,13 +10,13 @@ function Hero() {
 
                 {/* Contenuto Testuale (colonna sinistra) */}
                 <div className="text-center md:text-left">
-                    
+
                     {/* Valutazione con badge gradient */}
                     <div className="flex justify-center md:justify-start mb-4">
                         <div className="inline-flex rounded-full bg-gradient-to-r from-blue-400/60 via-pink-400/60 to-cyan-400/60 p-[1px] shadow-[0_2px_10px_rgba(14,165,233,0.2)]">
                             <div className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-xs font-medium text-gray-700">
                                 <span className="text-xs leading-none text-amber-400 tracking-[0.1em]">★★★★★</span>
-                                <span className="text-xs font-semibold text-gray-700">4.7 / 5 clienti soddisfatti</span>
+                                <span className="text-xs font-semibold text-gray-700">4.7</span>
                             </div>
                         </div>
                     </div>
@@ -31,22 +31,42 @@ function Hero() {
                     <HeroStats></HeroStats>
 
                     {/* 2. CONTENITORE FLEX PER I CTA */}
+                    {/* 2. CONTENITORE FLEX PER I CTA */}
                     <div className="mt-8 flex flex-row justify-center md:justify-start gap-4">
-                        {/* MODIFICATO: flex-row per forzare l'allineamento, gap-4 per più spazio */}
 
-                        {/* CTA principale (Chiama Ora) */}
-                        <a
-                            href={`tel:${PHONE_NUMBER}`}
-                            className="inline-block bg-blue-600 text-white font-bold px-6 py-3 border-2 border-transparent rounded-lg shadow-xl hover:bg-blue-700 transition-all duration-300 text-base transform hover:scale-105"
-                            // MODIFICATO: px-4 -> px-6, py-2 -> py-3, text-sm -> text-base
-                            title={`Chiama ${COMPANY_NAME} per un preventivo rapido`}
+                        {/* NUOVO BOTTONE INTERATTIVO */}
+                        <button
+                            onClick={() => document.getElementById('preventivatore')?.scrollIntoView({ behavior: 'smooth' })}
+                            className="
+            group
+            relative overflow-hidden
+            bg-blue-600 hover:bg-blue-700
+            text-white font-bold text-base md:text-lg 
+            py-4 px-8 md:px-10 
+            rounded-full 
+            shadow-[0_10px_20px_-5px_rgba(37,99,235,0.4)]
+            transition-all duration-300 transform hover:-translate-y-1 active:scale-95
+            flex items-center gap-3
+        "
+                            title="Vai al preventivatore online"
                         >
-                            Chiama Ora
-                        </a>
+                            {/* Effetto luce (opzionale) */}
+                            <div className="absolute top-0 -left-full w-1/2 h-full bg-white/20 skew-x-[25deg] group-hover:animate-[shimmer_1s_infinite]"></div>
+
+
+                            <span>Calcola Preventivo in 1 Minuto</span>
+                        </button>
+
+                    </div>
+                    {/* Micro-copy rassicurante sotto il bottone */}
+                    <div className="flex justify-center md:justify-start mt-3">
+                        <p className="text-xs text-gray-500 font-medium ml-4">
+                            ⚡ Risultato immediato • Senza registrazione
+                        </p>
                     </div>
                 </div>
 
-                {/* Immagine del parquettista (colonna destra) */}
+                {/* Immagine (colonna destra) */}
                 <div className="hidden md:flex items-center justify-center">
                     <img
                         src={rovereMielato} // Assicurati che il percorso sia corretto

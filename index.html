@@ -1,20 +1,20 @@
 <!doctype html>
-<html lang="it"> <head>
-    <meta charset="UTF-8" />
+<html lang="it">
 
-    <title>Servizio di posa di pavimento in legno a Milano | ProCasa Parquet</title>
+<head>
+  <meta charset="UTF-8" />
 
-    <meta 
-      name="description" 
-      content="Servizio di posa di pavimento in legno a Milano, specializzati in posa parquet prefinito, SPC, LVT e laminato, rivestimento gradini e battiscopa. Richiedi un preventivo gratuito." 
-    />
+  <title>Servizio di posa di pavimento in legno a Milano | ProCasa Parquet</title>
 
-    <link rel="canonical" href="https://www.posaparquetmilano.it" />
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/favicon.png" /> 
-    <base href="/" />
-    <script type="application/ld+json">
+  <meta name="description"
+    content="Servizio di posa di pavimento in legno a Milano, specializzati in posa parquet prefinito, SPC, LVT e laminato, rivestimento gradini e battiscopa. Richiedi un preventivo gratuito." />
+
+  <link rel="canonical" href="https://www.posaparquetmilano.it" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <base href="/" />
+  <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Organization",
@@ -23,9 +23,60 @@
         "logo": "https://www.posaparquetmilano.it/favicon.png"
       }
     </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+
+ <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17830431434">
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-17830431434');
+</script>
+
+<!-- Event snippet for Richiesta preventivo conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-17830431434/Jsb4CJL0rdkbEMqVm7ZC',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
+
+
+<!-- Event snippet for Click quiz preventivo conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-17830431434/HyGkCI-jqtkbEMqVm7ZC',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
+
+
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>

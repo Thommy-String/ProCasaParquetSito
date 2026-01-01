@@ -14,6 +14,9 @@ import {
   GBP_CATEGORIES,
   SERVICE_AREAS
 } from '../utils/constants';
+import RecentWorks from '../components/RecentWorks';
+import FloorMatcher from '../components/QuoteDoctor';
+import QuoteDoctor from '../components/QuoteDoctor';
 
 function HomePage() {
   
@@ -68,6 +71,8 @@ function HomePage() {
       </script>
       
       <Hero />
+      <RecentWorks></RecentWorks>
+      <QuoteDoctor></QuoteDoctor>
       <InstallationQuiz></InstallationQuiz>
       <PricingSection></PricingSection>
       <DescrizioneMainCategories></DescrizioneMainCategories>

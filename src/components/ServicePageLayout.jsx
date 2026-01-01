@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { PHONE_NUMBER } from '../utils/constants';
 import { ArrowDown } from 'lucide-react';
 import { pricingData } from '../utils/pricingData';
-import { PricingCard } from './PricingSection';
+import  PricingCard  from './PricingCard';
 import ProcessModal from './ProcessModal';
 
 function ServicePageLayout({ service }) {
@@ -54,7 +54,7 @@ function ServicePageLayout({ service }) {
           <div className="container mx-auto max-w-5xl px-6 sm:px-10">
             <div className="mb-10 text-center">
               <h2 className="text-3xl font-extrabold text-slate-900">
-                Preventivo in 30 sec
+                Preventivo in 1 minuto
               </h2>
             </div>
             <div className="mx-auto max-w-3xl">
