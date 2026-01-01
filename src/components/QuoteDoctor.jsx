@@ -3,7 +3,7 @@ import {
  AlertTriangle, FileSearch,
   CheckCircle2, XCircle, Send, ArrowRight,
   Trees, Layers, RefreshCcw, Armchair, Hammer,
-  HelpCircle, Copy, Check, FileWarning
+  HelpCircle, Copy, Check, FileWarning, Activity
 } from 'lucide-react';
 import { PHONE_NUMBER } from '../utils/constants';
 
@@ -203,6 +203,12 @@ function QuoteDoctor() {
   };
 
   const handleWhatsAppReview = () => {
+    // 1. Traccia la conversione (senza URL per evitare conflitti di redirect)
+    if (typeof window.gtag_report_conversion === 'function') {
+      window.gtag_report_conversion();
+    }
+
+    if (!estimate) return;
     const cleanPhone = PHONE_NUMBER.replace(/[^0-9]/g, '');
     const text = `Ciao, ho fatto il check preventivo sul vostro sito.\nTi mando la foto del preventivo che ho ricevuto (oscurata) per un parere gratuito?`;
     window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(text)}`, '_blank');
@@ -223,7 +229,7 @@ function QuoteDoctor() {
                   <FileSearch className="w-5 h-5 text-white animate-pulse" />
                 </div>
                 <div>
-                  <h3 className="text-white font-bold text-lg leading-none">Preventivo-Check™</h3>
+                  <h3 className="text-white font-bold text-lg leading-none">Scanner Anti-Fregatura</h3>
                   <p className="text-gray-400 text-[10px] mt-1 uppercase tracking-wider">Analisi Anti-Sorprese</p>
                 </div>
               </div>
@@ -241,12 +247,13 @@ function QuoteDoctor() {
             </div>
           </div>
 
+          
           {/* STEP 0: INTRO - "RED FLAG" */}
           {step === 0 && (
             <div className="p-8 flex-1 flex flex-col justify-center text-center animate-fadeIn">
 
               {/* IMMAGINE VETTORIALE "PREVENTIVO SBAGLIATO" */}
-              <div className="relative w-24 h-32 mx-auto mb-8 bg-white border border-gray-200 shadow-xl rounded-lg transform rotate-[-2deg]">
+              <div className="relative w-24 h-32 mx-auto mb-6 bg-white border border-gray-200 shadow-xl rounded-lg transform rotate-[-2deg]">
                 <div className="absolute top-2 left-2 right-2 h-2 bg-gray-100 rounded"></div>
                 <div className="absolute top-6 left-2 w-1/2 h-2 bg-gray-100 rounded"></div>
                 <div className="absolute top-12 left-2 right-2 space-y-2">
@@ -254,24 +261,36 @@ function QuoteDoctor() {
                   <div className="h-1 bg-gray-100 rounded w-full"></div>
                   <div className="h-1 bg-gray-100 rounded w-3/4"></div>
                 </div>
-                {/* Cerchi Rossi */}
                 <div className="absolute top-10 right-4 w-6 h-6 border-2 border-red-500 rounded-full opacity-80 animate-ping"></div>
                 <div className="absolute bottom-8 left-4 w-8 h-8 border-2 border-red-500 rounded-full opacity-80"></div>
-                {/* Icona Warning */}
                 <div className="absolute -right-4 -bottom-2 bg-red-100 p-2 rounded-full border border-red-200 shadow-lg">
                   <FileWarning className="w-6 h-6 text-red-600" />
                 </div>
               </div>
 
+              {/* --- NUOVO BADGE SOCIAL PROOF --- */}
+              <div className="flex justify-center mb-6">
+                 <div className="inline-flex items-center gap-2 bg-green-50 border border-green-100 px-3 py-1.5 rounded-full shadow-sm">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                    <span className="text-[10px] font-bold text-green-700 uppercase tracking-wide">
+                       9 preventivi analizzati oggi
+                    </span>
+                 </div>
+              </div>
+              {/* ------------------------------- */}
+
               <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-4 leading-tight">
                 Hai già un preventivo? <br />
-                <span className="font-bold text-red-600 bg-red-50 px-1">Scanner ANTI-FREGATURA</span>
+                <span className="font-bold text-red-600 bg-red-50 px-1">Analizzalo con Scanner ANTI-FREGATURA</span>
               </h2>
               <p className="text-gray-600 mb-8 text-lg leading-relaxed">
                 Spesso il "prezzo più basso" nasconde costi che ti presenteranno a lavori iniziati.
                 <br /><br />
-                Nel 70% dei casi mancano voci critiche come <span className="font-medium text-gray-800">taglio porte, primer o smaltimento</span>.
-                Risultato? <span className="font-bold text-red-600 bg-red-50 px-1">Il prezzo finale schizza alle stelle </span> senza che tu possa farci nulla.
+                Nel 70% dei casi mancano voci critiche come <span className="font-medium text-gray-800">taglio porte, primer o profili</span>.
+                Risultato? <span className="font-bold text-red-600 bg-red-50 px-1">Il prezzo finale schizza. </span> Togliti ogni dubbio.
               </p>
 
               <button
@@ -280,6 +299,11 @@ function QuoteDoctor() {
               >
                 Inizia il Check Gratuito (30sec) <ArrowRight className="w-5 h-5" />
               </button>
+              
+              <p className="text-xs text-gray-400 mt-4">
+                 <Activity className="w-3 h-3 inline mr-1"/> 
+                 Oltre 478 proprietari di casa salvati da costi extra.
+              </p>
             </div>
           )}
 

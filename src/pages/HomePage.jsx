@@ -17,6 +17,7 @@ import {
 import RecentWorks from '../components/RecentWorks';
 import FloorMatcher from '../components/QuoteDoctor';
 import QuoteDoctor from '../components/QuoteDoctor';
+import WasteCalculator from '../components/WasteCalculator';
 
 function HomePage() {
   
@@ -72,9 +73,10 @@ function HomePage() {
       
       <Hero />
       <RecentWorks></RecentWorks>
-      <QuoteDoctor></QuoteDoctor>
       <InstallationQuiz></InstallationQuiz>
+      <QuoteDoctor></QuoteDoctor>
       <PricingSection></PricingSection>
+      <WasteCalculator></WasteCalculator>
       <DescrizioneMainCategories></DescrizioneMainCategories>
       
     </>
