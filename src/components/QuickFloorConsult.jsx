@@ -36,7 +36,7 @@ function QuickFloorConsult() {
     const cleanPhone = PHONE_NUMBER.replace(/[^0-9]/g, '');
     const context = floorType === 'screed' ? 'MASSETTO GREZZO' : 'PAVIMENTO ESISTENTE';
     const text = `Ciao! Ho caricato una foto del mio ${context} sul sito. Ve la allego qui sotto per sapere se è idoneo alla posa o se servono preparazioni specifiche.`;
-    window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(text)}`, '_blank');
+    window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(text)}`, '_self');
   };
 
   return (

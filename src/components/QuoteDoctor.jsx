@@ -211,7 +211,7 @@ function QuoteDoctor() {
     if (!estimate) return;
     const cleanPhone = PHONE_NUMBER.replace(/[^0-9]/g, '');
     const text = `Ciao, ho fatto il check preventivo sul vostro sito.\nTi mando la foto del preventivo che ho ricevuto (oscurata) per un parere gratuito?`;
-    window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(text)}`, '_blank');
+    window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(text)}`, '_self');
   };
 
   return (

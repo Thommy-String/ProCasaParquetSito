@@ -16,22 +16,30 @@ import {
 const EXTRA_SERVICES = [
   // LOGISTICA
   { 
-    id: 'ex_mob', name: 'Spostamento Mobili', price: '50-200', unit: 'stanza', isExtra: true, icon: <Armchair className="w-5 h-5 text-indigo-500" />,
+    id: 'ex_mob', name: 'Spostamento Mobili', price: '50-200', unit: 'totale', isExtra: true, icon: <Armchair className="w-5 h-5 text-indigo-500" />,
     details: "Spostiamo noi i mobili pesanti (armadi, divani, librerie) per liberare la stanza prima della posa e li rimettiamo al loro posto a lavoro finito. Il costo varia in base alla quantità e al peso degli arredi."
   },
   { 
-    id: 'ex_sma', name: 'Smaltimento Macerie', price: '150', unit: 'viaggio', isExtra: true, icon: <Truck className="w-5 h-5 text-orange-500" />,
+    id: 'ex_sma', name: 'Smaltimento Macerie', price: '60-150', unit: 'totale', isExtra: true, icon: <Truck className="w-5 h-5 text-orange-500" />,
     details: "Ci occupiamo del carico, trasporto e smaltimento del vecchio pavimento o battiscopa presso discariche autorizzate, rilasciando il formulario rifiuti. Zero polvere e zero fatica per te."
   },
 
   // RIMOZIONI (Correggi ID unici qui sotto)
   { 
-    id: 'ex_bat_rem', name: 'Rimozione Battiscopa', price: '3', unit: 'ml', isExtra: true, icon: <Trash2 className="w-5 h-5 text-red-400" />,
+    id: 'ex_bat_rem_wood', name: 'Rimozione Battiscopa in Legno', price: '3', unit: 'ml', isExtra: true, icon: <Trash2 className="w-5 h-5 text-red-400" />,
     details: "Stacchiamo il vecchio zoccolino esistente con cura per non rovinare l'intonaco. Necessario per posare il nuovo pavimento accostato correttamente al muro."
+  },
+   { 
+    id: 'ex_bat_rem_gres', name: 'Rimozione Battiscopa in Gres', price: '5', unit: 'ml', isExtra: true, icon: <Trash2 className="w-5 h-5 text-red-400" />,
+    details: "Stacchiamo il vecchio zoccolino esistente in gres/mattonella con cura. Essendo un battiscopa murato potrebbe essere necessario effettura la 'rasatura' per posare poi il nuovo battiscopa."
   },
   { 
     id: 'ex_moq', name: 'Rimozione Moquette', price: '7', unit: 'mq', isExtra: true, icon: <Trash2 className="w-5 h-5 text-red-400" />,
     details: "Rimuoviamo la vecchia moquette e raschiamo via i residui di colla superficiali per preparare il fondo alla nuova posa."
+  },
+    { 
+    id: 'ex_prq_old_floating', name: 'Rimozione pavimento flottante', price: '5', unit: 'mq', isExtra: true, icon: <Trash2 className="w-5 h-5 text-red-400" />,
+    details: "Rimozione del pavimento flottante (non incollato) e dell'eventuale materassino."
   },
   { 
     id: 'ex_prq_old', name: 'Rimozione Vecchio Parquet', price: '9', unit: 'mq', isExtra: true, icon: <Trash2 className="w-5 h-5 text-red-400" />,
@@ -40,10 +48,6 @@ const EXTRA_SERVICES = [
   { 
     id: 'ex_pia', name: 'Rimozione Piastrelle', price: '15', unit: 'mq', isExtra: true, icon: <Trash2 className="w-5 h-5 text-red-400" />,
     details: "Demolizione completa di pavimenti in ceramica o gres. Attenzione: questa operazione richiede quasi sempre un successivo rifacimento del massetto o autolivellante."
-  },
-  { 
-    id: 'ex_mar', name: 'Rimozione Marmo / Granito', price: '18', unit: 'mq', isExtra: true, icon: <Trash2 className="w-5 h-5 text-red-400" />,
-    details: "Rimozione di pavimentazioni in pietra naturale. Operazione rumorosa e polverosa, consigliata solo se strettamente necessaria per problemi di quote."
   },
 
   // PREPARAZIONE
@@ -56,21 +60,21 @@ const EXTRA_SERVICES = [
     details: "Stesura di un composto liquido cementizio che si autolivella per eliminare dislivelli, buchi o pendenze errate. A volte indispensabile per la posa di SPC o formati grandi."
   },
   { 
-    id: 'ex_prm', name: 'Primer Promotore', price: '7', unit: 'mq', isExtra: true, icon: <Paintbrush className="w-5 h-5 text-yellow-500" />,
+    id: 'ex_prm', name: 'Primer Promotore', price: '5', unit: 'mq', isExtra: true, icon: <Paintbrush className="w-5 h-5 text-yellow-500" />,
     details: "Applicazione di una resina liquida che funge da 'ponte di adesione' tra il vecchio fondo e la nuova colla. Blocca anche eventuale polverosità residua."
   },
 
   // ADATTAMENTI
   { 
-    id: 'ex_tgi', name: 'Taglio Porte Interne', price: '30', unit: 'cad.', isExtra: true, icon: <Scissors className="w-5 h-5 text-gray-600" />,
+    id: 'ex_tgi', name: 'Taglio Porte Interne', price: '60', unit: 'cad.', isExtra: true, icon: <Scissors className="w-5 h-5 text-gray-600" />,
     details: "Accorciamo le porte in legno esistenti (senza smontare il telaio se possibile) per adattarle al nuovo livello del pavimento sovrapposto."
   },
   { 
-    id: 'ex_tgb', name: 'Taglio Blindata', price: '180', unit: 'cad.', isExtra: true, icon: <DoorOpen className="w-5 h-5 text-gray-800" />,
+    id: 'ex_tgb', name: 'Taglio Blindata', price: '150', unit: 'cad.', isExtra: true, icon: <DoorOpen className="w-5 h-5 text-gray-800" />,
     details: "Smontaggio della porta blindata, taglio della lamiera e dei pannelli, rimontaggio e regolazione. Operazione complessa e delicata eseguita da un nostro parquettista specializzato."
   },
   { 
-    id: 'ex_prf', name: 'Profili e Soglie', price: '25', unit: 'cad.', isExtra: true, icon: <Move className="w-5 h-5 text-green-600" />,
+    id: 'ex_prf', name: 'Posa Profili e Soglie', price: '20', unit: 'cad.', isExtra: true, icon: <Move className="w-5 h-5 text-green-600" />,
     details: "Installazione di profili di raccordo in alluminio (o colore simile al legno) in corrispondenza delle porte o cambi di pavimentazione."
   },
 ];
@@ -90,10 +94,10 @@ const getCategory = (service) => {
   return 'wood';
 };
 
-function PricingSection() {
+function PricingSection({ defaultCategory = 'wood' }) {
   const [selectedService, setSelectedService] = useState(null); // Per i servizi standard (Calcolatore)
   const [selectedExtra, setSelectedExtra] = useState(null);     // Per gli extra (Popup info)
-  const [activeCategory, setActiveCategory] = useState('wood');
+  const [activeCategory, setActiveCategory] = useState(defaultCategory);
 
   const filteredData = useMemo(() => {
     if (activeCategory === 'extra') return EXTRA_SERVICES;
@@ -121,7 +125,7 @@ function PricingSection() {
         
         <div className="text-center mb-10">
           <h2 className="text-4xl font-extrabold text-gray-900 tracking-tight mb-3">
-            Listino per Milano - 2026
+            Listino prezzi 2026
           </h2>
           <p className="text-gray-500">
             Scegli la categoria per vedere i costi dettagliati.

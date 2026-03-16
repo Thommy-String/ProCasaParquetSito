@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { 
   Calculator, ArrowUp, ArrowUpRight, ChevronsUp, 
-   Info, FileText 
+   Info, FileText, Plus, Minus 
 } from 'lucide-react';
 import { PHONE_NUMBER } from '../utils/constants';
 
@@ -38,22 +38,57 @@ const PATTERNS = {
 function WasteCalculator() {
   const [sqm, setSqm] = useState(50);
   const [pattern, setPattern] = useState('straight');
+  const timerRef = useRef(null);
+
+  const adjustSqm = (amount) => {
+    setSqm(prev => {
+      const next = prev + amount;
+      if (next < 1) return 1;
+      if (next > 1000) return 1000;
+      return next;
+    });
+  };
+
+  const startAdjusting = (amount) => {
+    adjustSqm(amount);
+    // Start repeating after a short delay
+    timerRef.current = setTimeout(() => {
+      timerRef.current = setInterval(() => {
+        adjustSqm(amount);
+      }, 60);
+    }, 400);
+  };
+
+  const stopAdjusting = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  };
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => stopAdjusting();
+  }, []);
 
   const selectedPattern = PATTERNS[pattern];
   const wasteAmount = sqm * selectedPattern.percent;
   const totalAmount = sqm + wasteAmount;
   const safeOrder = Math.ceil(totalAmount); 
 
-  // Funzione specifica per chi manda la piantina
   const handleWhatsappPlan = () => {
-    // 1. Traccia la conversione (senza URL per evitare conflitti di redirect)
+    // 1. Traccia la conversione
     if (typeof window.gtag_report_conversion === 'function') {
       window.gtag_report_conversion();
     }
     const cleanPhone = PHONE_NUMBER.replace(/[^0-9]/g, '');
     const text = `Ciao! Ho una piantina e vorrei un calcolo preciso dei mq necessari per una ${selectedPattern.label}. Posso inviartela qui?`;
-    window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(text)}`, '_blank');
+    window.location.href = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(text)}`;
   };
+
+  const netPercent = (sqm / totalAmount) * 100;
+  const wastePercent = (wasteAmount / totalAmount) * 100;
 
   return (
     <section className="py-16 px-4">
@@ -77,20 +112,62 @@ function WasteCalculator() {
           
           <div className="p-8 pb-6">
             
-            {/* INPUT GIGANTE */}
-            <div className="flex flex-col items-center justify-center mb-10">
-              <label className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-                Inserisci i Mq Netti
+            {/* INPUT REFACTORED: SLIDER + PULSANTONI */}
+            <div className="flex flex-col items-center justify-center mb-12">
+              <label className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-8">
+                Metri Quadrati Netti
               </label>
-              <div className="relative group">
+
+              <div className="flex items-center justify-between w-full max-w-[320px] mb-10 text-center">
+                {/* Bottone Meno */}
+                <button 
+                  onMouseDown={() => startAdjusting(-1)}
+                  onMouseUp={stopAdjusting}
+                  onMouseLeave={stopAdjusting}
+                  onTouchStart={(e) => { e.preventDefault(); startAdjusting(-1); }}
+                  onTouchEnd={stopAdjusting}
+                  className="w-14 h-14 flex items-center justify-center rounded-2xl border-[2.5px] border-gray-900 bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all select-none"
+                >
+                  <Minus className="w-6 h-6 text-gray-900" strokeWidth={3} />
+                </button>
+
+                <div className="flex flex-col items-center select-none flex-1">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-7xl font-black text-gray-900 tabular-nums leading-none">
+                      {sqm}
+                    </span>
+                    <span className="text-lg font-bold text-gray-400">mq</span>
+                  </div>
+                </div>
+
+                {/* Bottone Più */}
+                <button 
+                  onMouseDown={() => startAdjusting(1)}
+                  onMouseUp={stopAdjusting}
+                  onMouseLeave={stopAdjusting}
+                  onTouchStart={(e) => { e.preventDefault(); startAdjusting(1); }}
+                  onTouchEnd={stopAdjusting}
+                  className="w-14 h-14 flex items-center justify-center rounded-2xl border-[2.5px] border-gray-900 bg-white shadow-[4px_4px_0px_0px_#2563eb] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all select-none"
+                >
+                  <Plus className="w-6 h-6 text-gray-900" strokeWidth={3} />
+                </button>
+              </div>
+
+              {/* Slider Range */}
+              <div className="w-full max-w-sm px-4">
                 <input 
-                  type="number" 
+                  type="range"
+                  min="1"
+                  max="300"
+                  step="1"
                   value={sqm}
                   onChange={(e) => setSqm(Number(e.target.value))}
-                  className="w-48 text-center text-6xl font-extrabold text-gray-900 border-b-2 border-gray-100 focus:border-blue-500 outline-none pb-2 bg-transparent transition-all placeholder-gray-200 group-hover:border-gray-200"
-                  placeholder="0"
+                  className="w-full h-2 bg-gray-100 rounded-lg appearance-none cursor-pointer accent-blue-600 border border-gray-100"
                 />
-                <span className="absolute -right-8 bottom-6 text-gray-400 font-bold text-lg">mq</span>
+                <div className="flex justify-between mt-3 px-1">
+                  <span className="text-[10px] font-bold text-gray-300">1 mq</span>
+                  <span className="text-[10px] font-bold text-gray-300">300 mq</span>
+                </div>
               </div>
             </div>
 
@@ -130,13 +207,19 @@ function WasteCalculator() {
 
             {/* BARRA VISIVA */}
             <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 mb-2">
-              <div className="flex justify-between text-xs font-bold text-gray-500 uppercase mb-2 px-1">
+              <div className="flex justify-between text-[10px] font-black text-gray-400 uppercase mb-2 px-1">
                 <span>Netto: {sqm}mq</span>
                 <span className="text-amber-600">+ Sfrido {wasteAmount.toFixed(1)}mq</span>
               </div>
               <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden flex">
-                <div className="h-full bg-gray-800 rounded-l-full transition-all duration-500" style={{ width: '85%' }}></div>
-                <div className="h-full bg-amber-400 rounded-r-full transition-all duration-500 relative pattern-diagonal-lines" style={{ width: '15%' }}></div>
+                <div 
+                  className="h-full bg-gray-900 transition-all duration-300" 
+                  style={{ width: `${netPercent}%` }}
+                ></div>
+                <div 
+                  className="h-full bg-amber-400 transition-all duration-300 relative pattern-diagonal-lines" 
+                  style={{ width: `${wastePercent}%` }}
+                ></div>
               </div>
             </div>
 

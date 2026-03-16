@@ -1,14 +1,24 @@
-import heroPrefinito from '../assets/images/parquet/rovereNaturale.png';
-import heroPrefinitoFlottante from '../assets/images/parquet/rovereMielato.png';
-import heroPrefinitoSpina from '../assets/images/parquet/rovereSpina90.png';
-import heroSpc from '../assets/images/parquet/parquetSPC.png';
-import heroLaminato from '../assets/images/parquet/parquetLaminato.png';
-import heroBattiscopa from '../assets/images/parquet/battiscopa10cm.png';
+import heroPrefinito from '../assets/images/parquet/rovereNaturale.jpg';
+import heroPrefinitoFlottante from '../assets/images/parquet/rovereMielato.jpg';
+import heroPrefinitoSpina from '../assets/images/parquet/rovereSpina90.jpg';
+import heroLaminato from '../assets/images/parquet/parquetLaminato.jpg';
+import heroBattiscopa from '../assets/images/parquet/battiscopa10cm.jpg';
 import heroScale from '../assets/images/parquet/posaScala.jpg';
-import misuraUmiditaMassetto from '../assets/images/parquet/misuraUmiditaMassetto.png';
-import tracciaturaLaserParquet from '../assets/images/parquet/tracciaturaLaserParquet.png';
-import posaParquetIncollato from '../assets/images/parquet/posaParquetIncollato.png';
-import posaParquetFlottante from '../assets/images/parquet/posaParquetFlottante.png';
+import misuraUmiditaMassetto from '../assets/images/parquet/misuraUmiditaMassetto.jpg';
+import tracciaturaLaserParquet from '../assets/images/parquet/tracciaturaLaserParquet.jpg';
+import posaParquetIncollato from '../assets/images/parquet/posaParquetIncollato.jpg';
+import posaParquetFlottante from '../assets/images/parquet/posaParquetFlottante.jpg';
+import fotoRivestimentoGradini from "../assets/images/parquet/rivestimentoScaleRovere.jpg"
+
+//video — served from public/ to avoid bundling into JS
+const videoPosaPrefinitoIncollato = '/videos/parquet/posaPrefinitoIncollato.mp4';
+const videoPosaPrefinitoFlottante = '/videos/parquet/posaPrefinitoFlottante.mp4';
+const videoPosaPrefinitoSpina = '/videos/parquet/posaPrefinitoSpina.mp4';
+const videoPosaSPC = '/videos/parquet/posaSpc.mp4';
+const videoPosaBattiscopa = '/videos/parquet/posaBattiscopa.mp4';
+const spcAnimation = '/videos/parquet/SPCANIMATION.mp4';
+import laminatoImage from '../assets/images/parquet/montaggioLaminato.webp';
+
 
 export const servicesData = {
   'posa-parquet-prefinito-milano': {
@@ -20,7 +30,7 @@ export const servicesData = {
     metaDescription:
       'Posa parquet prefinito a Milano: analisi del massetto, incollaggio professionale e finiture certificate. Squadra specializzata si parquettisti',
     hero: {
-      h1: 'Posa parquet prefinito a Milano',
+      h1: 'Posa parquet in legno',
       subtitle: 'Incolliamo o posiamo flottante il tuo pavimento in legno con tempi certi e finitura perfetta.',
       image: heroPrefinito,
     },
@@ -28,64 +38,68 @@ export const servicesData = {
       'Il parquet prefinito nasce per chi desidera il calore del legno con tempi di cantiere rapidi. Con Milano Posa Parquet ottieni un sopralluogo tecnico, se necessario la preparazione del sottofondo e la posa professionale con collanti certificati EC1.',
     sections: [
       {
-        title: 'Sopralluogo tecnico e diagnosi del sottofondo',
-        image: misuraUmiditaMassetto,
-        paragraphs: [
-          'Rileviamo l’umidità residua con igrometro a carburo e controlliamo planarità e resistenza del massetto per evitare distacchi nel tempo.',
-          'Definiamo lo schema di posa, la necessità di giunti di dilatazione e la direzione della luce naturale per valorizzare le venature della doga.',
-        ],
-        bullets: [
-          {
-            label: 'Analisi umidità CM',
-            detail: 'Interveniamo solo se il valore rientra nei parametri (<2%) oppure pianifichiamo primer e barriera vapore.',
-          },
-          {
-            label: 'Collanti certificati',
-            detail: 'Utilizziamo adesivi silanici o poliuretanici EC1, elastici e privi di solventi.',
-          },
-          {
-            label: 'Tracciatura ambienti',
-            detail: 'Disegniamo assi e riferimenti in laser per allineare i tagli con porte e aperture.',
-          },
-        ],
+        id: '01',
+        title: 'Diagnosi Massetto',
+        description: 'Al sopralluogo rileviamo l’umidità con igrometro a carburo e verifichiamo la planarità.',
+        detail: 'Preveniamo distacchi e scricchiolii futuri.',
+        icon: '📏',
+        size: 'big',
+        image: misuraUmiditaMassetto
       },
       {
-        title: 'Preparazione, incollaggio e pressatura',
-        image: posaParquetIncollato,
-        paragraphs: [
-          'Stendiamo primer consolidanti o autolivellanti dove necessario e incolliamo le doghe con spatola dentata adeguata al formato.',
-          'Ogni fila viene pressata con martinetti e battitori in gomma per annullare micro-fughe e differenze di quota.',
-        ],
-        bullets: [
-          {
-            label: 'Giunzioni invisibili',
-            detail: 'Tagliamo con troncatrice radiale e giunti a 45° nelle soglie per un risultato sartoriale.',
-          },
-          {
-            label: 'Battiscopa coordinato',
-            detail: 'Posiamo profili in MDF, legno o alluminio con silicone neutro colore parete.',
-          },
-        ],
+        id: '02',
+        title: 'Posa in opera ',
+        description: 'Le mani dei nostri parquettisti hanno anni di esperienza. Che sia una posa incollata o flottante, ogni tavola è posata con cura.',
+        detail: 'Ambiente salubre e massima tenuta meccanica.',
+        icon: '🧪',
+        size: 'small',
+        image: posaParquetIncollato
       },
       {
-        title: 'Finiture e collaudo finale',
-        image: heroPrefinito,
-        paragraphs: [
-          'Lasciamo assestare l’adesivo per 24-48 ore, rimuoviamo residui e sigilliamo giunti per un’estetica impeccabile.',
-          'Consegniamo scheda prodotti e protocollo di manutenzione per garantire la durabilità del pavimento.',
-        ],
-        bullets: [
-          {
-            label: 'Pulizia professionale',
-            detail: 'Utilizziamo detergenti neutri senza aloni per lasciare il pavimento pronto all’arredo.',
-          },
-          {
-            label: 'Collaudo con cliente',
-            detail: 'Verifichiamo insieme stabilità, allineamenti e dettagli prima della consegna lavori.',
-          },
-        ],
-      },
+        id: '04',
+        title: 'Collaudo Finale',
+        description: 'Pulizia dell\'ambiente di lavoro e consegna finale.',
+        detail: 'Pronto per il calpestio dopo 24h se installazione con collante, o subito se installazione flottante (con materassino).',
+        icon: '✨',
+        size: 'big',
+        image: heroPrefinito
+      }
     ],
+    priceDisplay: "€25 / mq",
+    videoSrc: videoPosaPrefinitoIncollato,
+    stats: {
+      projects: "180+",
+      mq: "6.200",
+      year: "2025"
+    },
+    layout: [
+      { type: 'HeroHome' },
+      { type: 'RecentWorks', props: { category: 'prefinito', title: 'I nostri ultimi lavori' } },
+      { type: 'ServiceDescription' },
+    ],
+    features: [
+      {
+        id: 'senza-sbatti',
+        icon: 'Footprints', // Nome della lucide-icon
+        tag: 'Calpestabile subito',
+        label: 'Anche su pavimento esistente',
+        color: 'text-blue-400'
+      },
+      {
+        id: 'casa-piena',
+        icon: 'Armchair',
+        tag: 'Anche in case abitate con mobili',
+        label: 'Anche in case abitate con mobili',
+        color: 'text-amber-400'
+      },
+      {
+        id: 'tipo',
+        icon: 'Hammer', // Nome della lucide-icon
+        tag: 'Montaggio con o senza colla',
+        label: 'incollato: €25 / mq - flottante: €22 / mq',
+        color: 'text-green-400'
+      },
+    ]
   },
   'posa-parquet-prefinito-flottante-milano': {
     order: 2,
@@ -96,7 +110,7 @@ export const servicesData = {
     metaDescription:
       'Posa parquet prefinito flottante a Milano: materassino certificato, posa a click e battiscopa coordinati. Squadra Milano Posa Parquet.',
     hero: {
-      h1: 'Posa parquet prefinito flottante a Milano',
+      h1: 'Posa parquet flottante',
       subtitle: 'Il comfort del legno con posa senza colla: veloce, pulita e subito calpestabile.',
       image: heroPrefinitoFlottante,
     },
@@ -104,60 +118,87 @@ export const servicesData = {
       'Il prefinito flottante è ideale per ristrutturazioni rapide: posa a click su materassino tecnico, zero colla e possibilità di sostituire singole doghe nel tempo.',
     sections: [
       {
-        title: 'Materassino tecnico e preparazione del sottofondo',
-        image: 'https://media.adeo.com/media/556713/media.png?width=300',
-        paragraphs: [
-          'Valutiamo planarità e rigidità del supporto, intervenendo con rasature veloci quando necessario.',
-          'Scegliamo materassini certificati per impianti radianti o isolamento acustico condominiale.',
-        ],
-        bullets: [
-          {
-            label: 'Barriera anti umidità',
-            detail: 'Film PE integrato per posa su pavimenti esistenti senza rischio di risalita.',
-          },
-          {
-            label: 'Spessori calibrati',
-            detail: 'Compensano micro dislivelli mantenendo le tolleranze del produttore.',
-          },
-        ],
+        id: '00',
+        title: 'Controllo sottofondo esistente',
+        description: 'Al sopralluogo rileviamo l’umidità con igrometro a carburo e verifichiamo la planarità.',
+        detail: 'Preveniamo distacchi e scricchiolii futuri.',
+        icon: '📏',
+        size: 'big',
+        image: 'https://media.adeo.com/media/556713/media.png?width=300'
       },
       {
-        title: 'Assemblaggio flottante con sistemi click',
-        image: posaParquetFlottante,
-        paragraphs: [
-          'Utilizziamo blocchi di battuta e martelli in gomma per proteggere gli incastri.',
-          'Sagomiamo stipiti e colonne con seghe a lama fine per giunti invisibili.',
-        ],
-        bullets: [
-          {
-            label: 'Giunti perimetrali controllati',
-            detail: 'Distanziatori calibrati assicurano la corretta dilatazione del legno.',
-          },
-          {
-            label: 'Sistema reversibile',
-            detail: 'È possibile sostituire singole doghe in futuro senza intaccare l’intero pavimento.',
-          },
-        ],
+        id: '01',
+        title: 'Inizio posa - Stesura materassino',
+        description: 'Posa di materassino per isolamento acustico + eventuale barriera a vapore.',
+        detail: 'Comfort termico e abbattimento rumore calpestio.',
+        icon: '🛡️',
+        size: 'big',
+        image: 'https://media.adeo.com/media/556713/media.png?width=300'
       },
       {
-        title: 'Finiture e consegna lavori',
-        image: heroPrefinitoFlottante,
-        paragraphs: [
-          'Installiamo battiscopa coordinati o verniciabili e sigilliamo la parte superiore per evitare fughe d’ombra.',
-          'Puliamo a fondo il pavimento e consegniamo il kit di manutenzione consigliato.',
-        ],
-        bullets: [
-          {
-            label: 'Soglie complanari',
-            detail: 'Profili bassi in alluminio per raccordare ambienti con pavimenti differenti.',
-          },
-          {
-            label: 'Consigli di manutenzione',
-            detail: 'Scheda detergenti neutri e istruzioni per la cura quotidiana.',
-          },
-        ],
+        id: '02',
+        title: 'Posa flottante',
+        description: 'Assemblaggio senza colla: veloce, pulito e immediatamente utilizzabile.',
+        detail: 'Ideale per case abitate e uffici.',
+        icon: '🧩',
+        size: 'small',
+        image: posaParquetFlottante
       },
+      {
+        id: '03',
+        title: 'Battiscopa',
+        description: 'Se previsto come da accordi: finitura con tagli precisi a 45 gradi e sigillatura.',
+        detail: 'Zero rigonfiamenti nel tempo.',
+        icon: '🔨',
+        size: 'small',
+        image: heroPrefinitoFlottante
+      },
+      {
+        id: '04',
+        title: 'Consegna',
+        description: 'Pulizia dell\'area di lavoro e chiusura. Il sistema flottante in futuro permette di sostituire singole doghe senza smontare tutta la stanza.',
+        detail: 'Manutenzione facile per tutta la vita. Calpestabile subito dopo la posa.',
+        icon: '📦',
+        size: 'big',
+        image: heroPrefinitoFlottante
+      }
     ],
+     priceDisplay: "€22 / mq",
+    videoSrc: videoPosaPrefinitoFlottante,
+    stats: {
+      projects: "180+",
+      mq: "6.200",
+      year: "2025"
+    },
+    layout: [
+      { type: 'HeroHome' },
+      { type: 'RecentWorks', props: { category: 'prefinito-flottante', title: 'I nostri ultimi lavori' } },
+      { type: 'ServiceDescription' },
+    ],
+    features: [
+      {
+       id: 'materassino',
+       icon: 'DropletOff',
+       tag: 'Senza colla',
+       label: 'apoggiato su tappeto isolante',
+       color: 'text-green-400'
+     },
+      {
+        id: 'SENZA COLLA',
+        icon: 'Layers2', // Nome della lucide-icon
+        tag: 'Su materassino',
+        label: 'posa senza colla anche su pavimento esistente',
+        color: 'text-blue-400'
+      },
+      {
+        id: 'casa-piena',
+        icon: 'Sofa',
+        tag: 'Anche in case con mobili',
+        label: 'Anche in case abitate con mobili',
+        color: 'text-amber-400'
+      },
+      
+    ]
   },
   'posa-parquet-prefinito-spina-milano': {
     order: 3,
@@ -168,140 +209,172 @@ export const servicesData = {
     metaDescription:
       'Posa parquet prefinito a spina a Milano: tracciatura laser, incollaggio professionale e finiture sartoriali. Prenota un sopralluogo con noi di Milano Posa Parquet.',
     hero: {
-      h1: 'Posa parquet prefinito a spina a Milano',
-      subtitle: 'Spina italiana, francese o ungherese: precisione millimetrica e incollaggio ad alte prestazioni.',
+      h1: 'Posa parquet a spina',
+      subtitle: 'Spina italiana, francese o ungherese: precisione millimetrica e incollaggio che dura.',
       image: heroPrefinitoSpina,
     },
     overview:
       'Studiamo geometrie e simmetrie, tagliamo ogni doga a misura e incolliamo con collanti elastici certificati per uno schema a spina stabile e scenografico.',
-    sections: [
-      {
-        title: 'Tracciatura laser e definizione dello schema',
-        image: tracciaturaLaserParquet,
-        paragraphs: [
-          'Definiamo l’asse principale con laser e calcoliamo sfondati per centrare l’effetto visivo.',
-          'Realizziamo un campo di prova per verificare angolo e ritmo della spina prima dell’incollaggio definitivo.',
-        ],
-        bullets: [
-          {
-            label: 'Allineamento corridoi e porte',
-            detail: 'Posizioniamo l’asse per ottenere file simmetriche nelle zone di passaggio.',
-          },
-          {
-            label: 'Scelta schema',
-            detail: 'Presentiamo varianti italiana 90°, francese 45° o ungherese 60°.',
-          },
-        ],
+   sections: [
+    {
+        id: '00',
+        title: 'Controllo sottofondo esistente',
+        description: 'Al sopralluogo rileviamo l’umidità con e verifichiamo la planarità.',
+        detail: 'Stabilità eterna per schemi complessi.',
+        icon: '🕵🏻‍♂️',
+        size: 'small',
+        image: 'https://mrsander.co.uk/wp-content/uploads/chevron-vs-herringbone-engineered-oak-herringbone-parquet-glue-down.jpeg'
       },
       {
-        title: 'Incollaggio e tagli sartoriali',
-        image: 'https://mrsander.co.uk/wp-content/uploads/chevron-vs-herringbone-engineered-oak-herringbone-parquet-glue-down.jpeg',
-        paragraphs: [
-          'Stendiamo collante silanico bicomponente e posiamo con pressori per evitare micro fughe.',
-          'Tagliamo con troncatrice radiale e rifiniamo con filettature su richiesta per un effetto boiserie.',
-        ],
-        bullets: [
-          {
-            label: 'Collanti elastici',
-            detail: 'Assorbono le tensioni e riducono il rischio di scricchiolii nel tempo.',
-          },
-          {
-            label: 'Tagli a vista invisibili',
-            detail: 'Lame extra fini e carteggiatura bordo garantiscono chiusure precise.',
-          },
-        ],
+        id: '01',
+        title: 'Tracciatura',
+        description: 'Tracciatura per centrare la geometria della spina negli ambienti.',
+        detail: 'Simmetria perfetta tra corridoi e stanze.',
+        icon: '📐',
+        size: 'big',
+        image: tracciaturaLaserParquet
       },
       {
-        title: 'Sigillatura e protezione finale',
-        image: heroPrefinitoSpina,
-        paragraphs: [
-          'Sigilliamo lungo le pareti con silicone neutro e installiamo battiscopa e profili coordinati.',
-          'Puliamo e consegniamo il protocollo di manutenzione, con opzione trattamento UV protettivo.',
-        ],
-        bullets: [
-          {
-            label: 'Trattamento opzionale UV',
-            detail: 'Protegge il legno da macchie e variazioni cromatiche nelle aree trafficante.',
-          },
-          {
-            label: 'Collaudo con cliente',
-            detail: 'Verifichiamo allineamento degli incroci e planarità prima del rilascio lavori.',
-          },
-        ],
+        id: '03',
+        title: 'Posa a spina',
+        description: 'Gestione spina italiana, francese o ungherese con tagli di precisione.',
+        detail: 'Verso di posa a scelta del cliente, anche diagonale.',
+        icon: '👷🏼‍♂️',
+        size: 'small',
+        image: heroPrefinitoSpina
       },
+      {
+        id: '04',
+        title: 'Consegna Finale',
+        description: 'Pulizia dell\'ambiente di lavoro e consegna finale.',
+        detail: 'Pronto per il calpestio dopo 24h.',
+        icon: '✨',
+        size: 'big',
+        image: heroPrefinito
+      }
     ],
+     priceDisplay: "€30 / mq",
+    videoSrc: videoPosaPrefinitoSpina,
+    stats: {
+      projects: "180+",
+      mq: "6.200",
+      year: "2025"
+    },
+    layout: [
+      { type: 'HeroHome' },
+      { type: 'RecentWorks', props: { category: 'prefinito-spina', title: 'I nostri ultimi lavori' } },
+      { type: 'ServiceDescription' },
+    ],
+    features: [
+      {
+       id: 'tipologie',
+       icon: 'Gavel',
+       tag: 'Tutti i tipi di spina',
+       label: 'spina italiana, francese o ungherese',
+       color: 'text-green-400'
+     },
+      {
+        id: 'collante',
+        icon: 'PaintBucket', // Nome della lucide-icon
+        tag: 'posa incollata',
+        label: 'su massetto o su pavimenti esistenti',
+        color: 'text-blue-400'
+      },
+      {
+        id: 'casa-piena',
+        icon: 'Armchair',
+        tag: 'Anche in case abitate con mobili',
+        label: 'Anche in case abitate con mobili',
+        color: 'text-amber-400'
+      },
+    ]
   },
   'posa-pavimento-spc-milano': {
     order: 4,
     navLabel: 'Posa SPC a click',
     slug: 'posa-pavimento-spc-milano',
     pricingId: 'spc',
-    pageTitle: 'Posa SPC a Milano | Incastro click e 100% impermeabile',
+    pageTitle: 'Parquettisti per posa SPC a Milano',
     metaDescription:
       "Posa parquet SPC a click a Milano senza colla. Pavimento vinilico 100% impermeabile, stabile e silenzioso anche su piastrelle esistenti. Sopralluogo e preventivo gratuiti.",
     hero: {
-      h1: 'Posa pavimenti SPC a click a Milano',
-      subtitle: 'Impermeabile, stabile e sottile: ideale per ristrutturazioni rapide senza demolizioni.',
-      image: heroSpc,
+      h1: 'Installiamo il tuo nuovo SPC.',
+      subtitle: 'Esperti nel montaggio di SPC / LVT direttamente sul pavimento esistente, senza colla, e ai mobili ci pensiamo noi.',
+      image: videoPosaSPC,
     },
     overview:
       'SPC abbina l’estetica del legno alla resistenza della pietra. È impermeabile e perfetto per bagni, cucine e locali commerciali. Ci occupiamo di tutto: dalla verifica del supporto alla posa a click con finiture coordinate.',
     sections: [
-      {
-        title: 'Accertamento dislivelli',
-        image: 'https://m.media-amazon.com/images/I/51BBYk6GqPL._AC_UF1000,1000_QL80_.jpg',
-        paragraphs: [
-          'Misuriamo le differenze di quota: analizziamo insieme se necessario autolivellante rapido o materassini HD per uniformare micro dislivelli.',
-          'Se necessario installiamo tappetini extra acustici certificati per impianti radianti o soluzioni anti-rumore.',
-        ],
-        bullets: [
-          {
-            label: 'Materassini specifici',
-            detail: 'Utilizziamo tappetini con protezione anti-umidità integrata per posa su pavimenti esistenti.',
-          },
-          {
-            label: 'Taglio porte e battute',
-            detail: 'Rialziamo le porte esistenti e rimuoviamo battute ostacolanti per una posa continua.',
-          },
-        ],
-      },
-      {
-        title: 'Posa a click',
-        image: 'https://sc04.alicdn.com/kf/H0fb5232f9e9d41a98d5c0146482bd7e3y.jpg',
-        paragraphs: [
-          'Montaggio a incastro click preciso e rifinito per evitare tensioni lungo le pareti.',
-          'Utilizziamo distanziatori calibrati per mantenere il giusto giunto perimetrale ed evitare rigonfiamenti nel tempo.',
-        ],
-        bullets: [
-          {
-            label: 'Incastro rinforzato',
-            detail: 'Martello in gomma e blocchi di posa evitano micro-sbeccature sugli incastri.',
-          },
-          {
-            label: 'Tagli complessi',
-            detail: 'Sagomiamo intorno a colonne e sanitari con troncatrici a nastro per finiture precise.',
-          },
-        ],
-      },
-      {
-        title: '',
-        image: 'https://m.media-amazon.com/images/I/711s59GfBkL.jpg',
-        paragraphs: [
-          'Montiamo profili di terminazione coordinati, siliconiamo punti sensibili (docce, cucine) e installiamo battiscopa o coprifili.',
-          'Consegniamo il pavimento già pronto al calpestio: niente tempi di asciugatura o odori.',
-        ],
-        bullets: [
-          {
-            label: 'Finitura bordo doccia',
-            detail: 'Sigilliamo con silicone antibatterico trasparente ottimizzato per ambienti umidi.',
-          },
-          {
-            label: 'Consigli manutentivi',
-            detail: 'Fornitura scheda detergenti anti-graffio e guida per la pulizia quotidiana.',
-          },
-        ],
-      },
+  {
+    id: '01',
+    title: 'Sopralluogo Gratuito',
+    description: 'Analisi planarità del sottofondo e altezze porte.',
+    detail: 'Eliminiamo il rischio di imprevisti o costi extra dopo l’inizio.',
+    icon: '📏',
+    size: 'big'
+  },
+  {
+    id: '02',
+    title: 'Preventivo',
+    descripion: 'Documento dettagliato con tutte le voci viste insieme.',
+    detail: 'Trasparenza totale: sai esattamente cosa paghi.',
+    icon: '📄',
+    size: 'small'
+  },
+  {
+    id: '03',
+    title: 'Conferma e inizio Posa',
+    description: 'Installazione SPC a incastro click anche su pavimenti esistenti ben livellati, senza polvere o colle chimiche.',
+    detail: 'Ambiente calpestabile subito dopo la posa.',
+    icon: '👷🏼‍♂️',
+    size: 'small'
+  },
+  {
+    id: '04',
+    title: 'Chiusura e Pulizia',
+    description: 'Finitura battiscopa se prevista e pulizia dello spazio di lavoro.',
+    detail: 'Ti riconsegniamo la casa pronta da vivere.',
+    icon: '✨',
+    size: 'big'
+  }
+],
+    priceDisplay: "€17 / mq",
+    videoSrc: spcAnimation,
+    stats: {
+      projects: "180+",
+      mq: "6.200",
+      year: "2025"
+    },
+    layout: [
+      { type: 'HeroHome' },
+      { type: 'RecentWorks', props: { category: 'spc', title: 'Costo montaggio?' } },
+      { type: 'ServiceFAQ' },
+      { type: 'ServiceDescription' },
     ],
+    features: [
+      {
+       id: 'incastro',
+       icon: 'Hammer',
+       tag: 'Sul pavimento esistente',
+       label: 'tempi medi montaggio: 1-2 giorni',
+       color: 'text-blue-400'
+     },
+     {
+        id: 'casa-piena',
+        icon: 'Armchair',
+        tag: 'Anche in case con mobili',
+        label: 'Anche in case abitate con mobili',
+        color: 'text-amber-400'
+      },
+      {
+        id: 'colla',
+        icon: 'DropletOff',
+        tag: 'senza colla o demolizioni',
+        label: 'direttamente sul pavimento esistente',
+        color: 'text-green-400'
+      },
+
+    ]
   },
   'posa-pavimento-laminato-milano': {
     order: 5,
@@ -312,68 +385,82 @@ export const servicesData = {
     metaDescription:
       'Posa parquet laminato a Milano su materassino, tagli a misura e rifiniture sartoriali. Preventivo rapido online.',
     hero: {
-      h1: 'Posa parquet laminato a Milano',
-      subtitle: 'Soluzione senza colla ad alta resistenza: perfetta per rinnovare casa senza troppi lavori.',
+      h1: 'Installiamo il tuo nuovo laminato, sul pavimento esistente.',
+      subtitle: 'Installazione rapida sul vecchio pavimento. Senza colla, senza demolizioni, e se hai mobili ci pensiamo noi.',
       image: heroLaminato,
     },
     overview:
       'Il laminato è l’alleato ideale per un restyling veloce: si posa flottante, resiste a graffi e usura e richiede poca manutenzione. Studiamo il progetto, prepariamo il piano di posa e montiamo battiscopa e profili per un risultato coerente con il tuo stile.',
-    sections: [
-      {
-        title: 'Analisi e preparazione del piano di posa',
-        image: 'https://m.media-amazon.com/images/I/51BBYk6GqPL._AC_UF1000,1000_QL80_.jpg',
-        paragraphs: [
-          'Controlliamo planarità e stabilità del supporto: se necessario interveniamo con rasature rapide o pannelli correttivi.',
-          'Selezioniamo il materassino più adatto (acustico, termico, barriera vapore) in funzione dell’ambiente e dell’impianto radiante.',
-        ],
-        bullets: [
-          {
-            label: 'Materassini certificati',
-            detail: 'Soluzioni 19dB condominiali o specifiche per riscaldamento a pavimento.',
-          },
-          {
-            label: 'Posa sopra pavimento esistente',
-            detail: 'Gestiamo soglie e differenze quota con profili adattatori coordinati.',
-          },
-        ],
-      },
-      {
-        title: 'Posa flottante con sistemi click',
-        image: 'https://cdn.manomano.com/media/edison/a/c/5/e/ac5e7257aeea.jpg',
-        paragraphs: [
-          'Assemblaggio veloce ma preciso, con controllo continuo dei giunti perimetrali per consentire la dilatazione del laminato.',
-          'Sagomiamo gli elementi con sega circolare e rifinitori per ottenere incastri puliti attorno a stipiti e pilastri.',
-        ],
-        bullets: [
-          {
-            label: 'Protezione incastri',
-            detail: 'Utilizziamo kit di battitura dedicati per evitare scheggiature.',
-          },
-          {
-            label: 'Giunzioni sottoporta',
-            detail: 'Profili bassi in alluminio o PVC per continuità estetica fra ambienti.',
-          },
-        ],
-      },
-      {
-        title: 'Collaudo finale',
-        image: 'https://www.floorcity.com/cdn/shop/collections/0445U_01027_ROOM.webp?v=1705635924',
-        paragraphs: [
-          'Installiamo battiscopa coordinati o verniciabili, sigillando lungo i muri per un aspetto ordinato.',
-          'Prima della consegna effettuiamo un check completo e forniamo le istruzioni di manutenzione consigliate dal produttore.',
-        ],
-        bullets: [
-          {
-            label: 'Tagli invisibili',
-            detail: 'Angoli a 45° e accostamenti senza fessure visibili.',
-          },
-          {
-            label: 'Consegna documentazione',
-            detail: 'Schede tecniche e certificati del materiale posato.',
-          },
-        ],
-      },
+     sections: [
+  {
+    id: '01',
+    title: 'Sopralluogo Tecnico',
+    description: 'Analisi planarità del sottofondo e altezze porte.',
+    detail: 'Eliminiamo il rischio di imprevisti o costi extra dopo l’inizio.',
+    icon: '📏',
+    size: 'big'
+  },
+  {
+    id: '02',
+    title: 'Ricezione Preventivo',
+    description: 'Documento dettagliato con tutte le voci viste insieme.',
+    detail: 'Trasparenza totale: sai esattamente cosa paghi.',
+    icon: '📄',
+    size: 'small'
+  },
+  {
+    id: '03',
+    title: 'Conferma e inizio Posa',
+    description: 'Stesura materassino isolante e successiva installazione parquet laminato a incastro anche su pavimenti esistenti ben livellati, senza polvere o colle chimiche.',
+    detail: 'Ambiente calpestabile subito dopo la posa.',
+    icon: '👷🏼‍♂️',
+    size: 'small'
+  },
+  {
+    id: '04',
+    title: 'Chiusura e Pulizia',
+    description: 'Finitura battiscopa se prevista e pulizia dello spazio di lavoro.',
+    detail: 'Ti riconsegniamo la casa pronta da vivere.',
+    icon: '✨',
+    size: 'big'
+  }
+],
+     priceDisplay: "€17 / mq",
+    imageSrc: laminatoImage,
+    stats: {
+      projects: "180+",
+      mq: "6.200",
+      year: "2025"
+    },
+    layout: [
+      { type: 'HeroHome' },
+      { type: 'RecentWorks', props: { category: 'laminato', title: 'Quanto costa?' } },
+      { type: 'ServiceFAQ' },
+      { type: 'ServiceDescription' },
     ],
+    features: [
+      {
+       id: 'incastro',
+       icon: 'Puzzle',
+       tag: 'posa rapida sul vecchio pavimento',
+       label: 'a incastro su materassino isolante',
+       color: 'text-green-400'
+     },
+      {
+        id: 'colla',
+        icon: 'DropletOff', // Nome della lucide-icon
+        tag: 'senza colla',
+        label: 'su pavimenti esistenti ben livellati',
+        color: 'text-blue-400'
+      },
+      {
+        id: 'casa-piena',
+        icon: 'Armchair',
+        tag: 'Anche in case con mobili',
+        label: 'Anche in case abitate con mobili',
+        color: 'text-amber-400'
+      },
+    ]
   },
   'posa-battiscopa-milano': {
     order: 6,
@@ -384,7 +471,7 @@ export const servicesData = {
     metaDescription:
       'Posa professionale battiscopa a Milano: rilievo, taglio a 45°, incollaggio e sigillatura. Sopralluogo e preventivo gratuiti online',
     hero: {
-      h1: 'Posa battiscopa su misura a Milano',
+      h1: 'Posa battiscopa',
       subtitle: 'Taglio di precisione, incollaggio pulito e sigillatura finale per stanze impeccabili.',
       image: heroBattiscopa,
     },
@@ -392,60 +479,69 @@ export const servicesData = {
       'Un battiscopa perfetto chiude il lavoro in modo professionale. Realizziamo sopralluogo, tagliamo con troncatrice a 45°, incolliamo o fissiamo con chiodini invisibili e sigilliamo la parte superiore per un risultato rifinito.',
     sections: [
       {
-        title: 'Rilievo misure e scelta del profilo',
-        image: 'https://m.media-amazon.com/images/I/61gfc0lQ2+L.jpg',
-        paragraphs: [
-          'Misuriamo lineari, angoli e nicchie per calcolare giacenze e punti critici.',
-          'Consigliamo essenze o finiture laccate in funzione del pavimento e delle pareti.',
-        ],
-        bullets: [
-          {
-            label: 'Soluzioni coordinate',
-            detail: 'Legno massello, MDF laccato, alluminio anodizzato o copricavi integrati.',
-          },
-          {
-            label: 'Compatibilità impianti',
-            detail: 'Studiamo tagli e forature per passaggi TV, rete o pompe di calore.',
-          },
-        ],
+        id: '01',
+        title: 'Rilievo',
+        description: 'Misurazione dei lineari e consulenza sulla scelta del battiscopa (MDF, Legno, Alluminio).',
+        detail: 'Soluzioni coordinate al pavimento e alle pareti.',
+        icon: '🕵🏻‍♂️',
+        size: 'big',
+        image: 'https://m.media-amazon.com/images/I/61gfc0lQ2+L.jpg'
       },
       {
-        title: 'Taglio e posa senza sbavature',
-        image: 'https://lirp.cdn-website.com/bf9fdae6/dms3rep/multi/opt/massimo_gambino_lucidatura_pavimenti_016-432w.jpg',
-        paragraphs: [
-          'Tagliamo ogni pezzo con troncatrice radiale professionale e lame a 80 denti per evitare scheggiature.',
-          'Applichiamo adesivi a presa rapida o chiodini in acciaio con finitura invisibile.',
-        ],
-        bullets: [
-          {
-            label: 'Angoli a coda di rondine',
-            detail: 'Per angoli interni perfetti utilizziamo giunzioni a dente riducendo al minimo le fughe.',
-          },
-          {
-            label: 'Corretta dilatazione',
-            detail: 'Garantiamo micro-giunti perimetrali in presenza di pavimenti flottanti.',
-          },
-        ],
+        id: '02',
+        title: 'Inizio Posa',
+        description: 'Tagli millimetrici per incroci perfetti e incollaggio angoli senza sbavature.',
+        detail: 'Incroci perfetti anche su muri fuori squadro.',
+        icon: '⚙️',
+        size: 'small',
+        image: 'https://lirp.cdn-website.com/bf9fdae6/dms3rep/multi/opt/massimo_gambino_lucidatura_pavimenti_016-432w.jpg'
       },
       {
-        title: 'Sigillatura e controllo finale',
-        image: 'https://prestoimpresa.it/cdn/shop/products/Battiscopa55959659_grande.jpg?v=1673983876',
-        paragraphs: [
-          'Sigilliamo la parte superiore con silicone verniciabile o acrilico per eliminare fughe d’ombra.',
-          'Puliamo le superfici e consegniamo l’ambiente pronto per l’arredo.',
-        ],
-        bullets: [
-          {
-            label: 'Silicone tono su tono',
-            detail: 'Campioniamo il colore parete per un effetto ottico uniforme.',
-          },
-          {
-            label: 'Collaudo',
-            detail: 'Controlliamo la tenuta meccanica e l’allineamento prima di lasciare il cantiere.',
-          },
-        ],
+        id: '03',
+        title: 'Fissaggio Smart',
+        description: 'Incollaggio a presa rapida o micro-chiodini in acciaio.',
+        detail: 'Tenuta estrema senza sporcare le pareti.',
+        icon: '📌',
+        size: 'small',
+        image: 'https://prestoimpresa.it/cdn/shop/products/Battiscopa55959659_grande.jpg?v=1673983876'
       },
+      {
+        id: '04',
+        title: 'Sigillatura',
+        description: 'Chiusura delle fughe d’ombra con silicone acrilico verniciabile o tono su tono.',
+        detail: 'Effetto ottico uniforme e pulizia facilitata.',
+        icon: '🖌️',
+        size: 'big',
+        image: heroBattiscopa
+      }
     ],
+     priceDisplay: "€5-7 / ml",
+    videoSrc: videoPosaBattiscopa,
+    stats: {
+      projects: "180+",
+      mq: "6.200",
+      year: "2025"
+    },
+    layout: [
+      { type: 'HeroHome' },
+      { type: 'ServiceDescription' },
+    ],
+    features: [
+      {
+       id: 'tagli',
+       icon: 'Slice',
+       tag: 'Tagli precisi',
+       label: 'a 45 gradi per incroci perfetti',
+       color: 'text-green-400'
+     },
+      {
+        id: 'sigillatura',
+        icon: 'Paintbrush', // Nome della lucide-icon
+        tag: 'Sigillatura pulita',
+        label: 'pulita per finitura estetica',
+        color: 'text-blue-400'
+      },
+    ]
   },
   'rivestimento-scale-milano': {
     order: 7,
@@ -454,69 +550,69 @@ export const servicesData = {
     pricingId: 'scala-parquet',
     pageTitle: 'Rivestimento Scale in Parquet a Milano | Progettazione su misura',
     metaDescription:
-      'Rivestiamo scale a Milano con legno prefinito o massello, pedate antiscivolo e finiture coordinate. Sopralluogo e preventivo gratuiti.',
+      'Rivestiamo scale a Milano con legno prefinito, pedate antiscivolo e finiture coordinate. Sopralluogo e preventivo gratuiti.',
     hero: {
-      h1: 'Rivestimento scale in parquet su misura',
-      subtitle: 'Sagomatura millimetrica, profili antiscivolo e finiture coordinate per scale scenografiche.',
+      h1: 'Rivestimento scale in legno',
+      subtitle: 'Sagomatura millimetrica, profili antiscivolo e finiture coordinate per scale perfette.',
       image: heroScale,
     },
     overview:
       'Trasformiamo la tua scala con rivestimenti in legno o SPC che si integrano con il pavimento esistente. Uniamo rilievo tridimensionale, taglio CNC e montaggio in opera per un risultato di design resistente nel tempo.',
     sections: [
       {
-        title: 'Rilievo e progettazione del rivestimento',
-        image: 'https://m.media-amazon.com/images/I/61gfc0lQ2+L.jpg',
-        paragraphs: [
-          'Rileviamo alzate e pedate con laser e modelli cartacei per replicare ogni geometria',
-          'Definiamo battute, sagome dei pianerottoli e profili terminali in base allo stile della casa.',
-        ],
-        bullets: [
-          {
-            label: 'Campionatura finiture',
-            detail: 'Disponiamo grafiche compatibili con il pavimento orizzontale o soluzioni a contrasto.',
-          },
-          {
-            label: 'Studio antiscivolo',
-            detail: 'Profili in alluminio zigrinato o fresature integrate per la massima sicurezza.',
-          },
-        ],
+        id: '01',
+        title: 'Rilievo',
+        description: 'Controllo di alzate e pedate per replicare esattamente la geometria della scala.',
+        detail: 'Precisione su ogni gradino.',
+        icon: '📐',
+        size: 'big',
+        image: 'https://m.media-amazon.com/images/I/61gfc0lQ2+L.jpg'
       },
       {
-        title: 'Taglio e assemblaggio sartoriale',
-        image: 'https://www.valles-parquet.it/wp-content/uploads/scale-in-legno-rovere-2.jpg',
-        paragraphs: [
-          'Sagomiamo ogni elemento con macchine CNC o sega a formato per ottenere incastri millimetrici.',
-          'Incolliamo su supporti in compensato marino per garantire la stabilità anche in presenza di scale in cemento non perfette.',
-        ],
-        bullets: [
-          {
-            label: 'Incollaggio strutturale',
-            detail: 'Adesivi poliuretanici bicomponente per un fissaggio definitivo.',
-          },
-          {
-            label: 'Pedate monopezzo',
-            detail: 'Utilizziamo tavole fino a 2,4 metri per evitare giunzioni visibili.',
-          },
-        ],
+        id: '03',
+        title: 'Posa Strutturale',
+        description: 'Incollaggio solido per garantire stabilità e silenziosità al calpestio.',
+        detail: 'Eliminiamo scricchiolii e movimenti nel tempo.',
+        icon: '🏗️',
+        size: 'small',
+        image: 'https://www.casiraghiparquet.com/wp-content/uploads/2019/04/scala-in-rovere.jpg'
       },
       {
-        title: 'Finiture, e collaudo',
-        image: 'https://www.casiraghiparquet.com/wp-content/uploads/2019/04/scala-in-rovere.jpg',
-        paragraphs: [
-          'Se necessario Installiamo profili led, battiscopa laterali e raccordi con il pavimento del piano superiore.',
-          'Trattiamo i bordi con vernici protettive antiscivolo e verifichiamo ogni alzata con il cliente.',
-        ],
-        bullets: [
-          {
-            label: 'Illuminazione integrata',
-            detail: 'Opzionale: strip LED incassata con alimentazione nascosta.',
-          },
-          {
-            label: 'Manutenzione programmata',
-            detail: 'Consigliamo kit per il ritocco e la manutenzione annuale.',
-          },
-        ],
-      },
+        id: '04',
+        title: 'Safety Check',
+        description: 'Installazione di profili antiscivolo e collaudo finale di ogni singola alzata.',
+        detail: 'Sicurezza prima di tutto.',
+        icon: '🛡️',
+        size: 'big',
+        image: fotoRivestimentoGradini
+      }
     ],
+      priceDisplay: "€70 / gradino",
+    videoSrc: fotoRivestimentoGradini,
+    stats: {
+      projects: "180+",
+      mq: "6.200",
+      year: "2025"
+    },
+    layout: [
+      { type: 'HeroHome' },
+      { type: 'ServiceDescription' },
+    ],
+    features: [
+      {
+       id: 'tagli',
+       icon: 'Slice',
+       tag: 'Rivestimento completo o parziale',
+       label: 'per incroci perfetti',
+       color: 'text-green-400'
+     },
+      {
+        id: 'tipo',
+        icon: 'Paintbrush', // Nome della lucide-icon
+        tag: 'finiture precise',
+        label: 'rivestimento completo o parziale',
+        color: 'text-blue-400'
+      },
+    ]
   },
 };

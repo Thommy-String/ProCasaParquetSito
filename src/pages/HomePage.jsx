@@ -1,8 +1,18 @@
+import React from 'react';
 import Hero from '../components/Hero';
-import PricingSection from '../components/PricingSection';
 import InstallationQuiz from '../components/InstallationQuiz';
+import RecentWorks from '../components/RecentWorks';
+
+// Below-fold: importazioni dirette — evitiamo decine di micro-chunk separati
+// che creano waterfall di rete e bloccano il rendering.
+import PricingSection from '../components/PricingSection';
+import ValuePropsSection from '../components/ValuePropsSection';
+import QuickFloorConsult from '../components/QuickFloorConsult';
+import WasteCalculator from '../components/WasteCalculator';
+import QuoteDoctor from '../components/QuoteDoctor';
+import ServiceFAQ from '../components/ServiceFAQ';
 import DescrizioneMainCategories from '../components/DescrizioneMainCategories';
-import logoImage from '../assets/images/logo.png';
+import logoImage from '../assets/logo/favicon.png';
 import {
   COMPANY_NAME,
   WEBSITE_URL,
@@ -14,12 +24,6 @@ import {
   GBP_CATEGORIES,
   SERVICE_AREAS
 } from '../utils/constants';
-
-import RecentWorks from '../components/RecentWorks';
-import FloorMatcher from '../components/QuoteDoctor';
-import QuoteDoctor from '../components/QuoteDoctor';
-import WasteCalculator from '../components/WasteCalculator';
-import QuickFloorConsult from '../components/QuickFloorConsult';
 
 function HomePage() {
 
@@ -74,21 +78,18 @@ function HomePage() {
 
       <Hero />
 
-      {/* Sezione Lavori Recenti */}
-      <RecentWorks />
-
       {/* QUIZ */}
       <section id="preventivatore" className="scroll-mt-28">
         <InstallationQuiz />
       </section>
 
-      {/* 1. SCANNER PREVENTIVI (QuoteDoctor) */}
-      {/* Aggiungiamo id="scanner-preventivi" e scroll-margin */}
-      <section id="scanner-preventivi" className="scroll-mt-28">
-        <QuoteDoctor />
-      </section>
+      {/* Sezione Lavori Recenti */}
+      <RecentWorks showFilter={true} />
 
+      {/* Below-fold sections — caricamento diretto (bundle unico, zero waterfall) */}
       <PricingSection />
+
+      <ValuePropsSection />
 
       {/* 2. CHECK SOTTOFONDO (QuickFloorConsult) */}
       <section id="check-sottofondo" className="scroll-mt-28">
@@ -100,8 +101,15 @@ function HomePage() {
         <WasteCalculator />
       </section>
 
-      <DescrizioneMainCategories />
+      {/* SCANNER PREVENTIVI (QuoteDoctor) */}
+      <section id="scanner-preventivi" className="scroll-mt-28">
+        <QuoteDoctor />
+      </section>
 
+      {/* FAQ HOMEPAGE GENERICHE */}
+      <ServiceFAQ service={{ slug: 'home-general' }} />
+
+      <DescrizioneMainCategories />
     </>
   );
 }

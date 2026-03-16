@@ -24,10 +24,8 @@
       }
     </script>
 
-
- <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17830431434">
-</script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17830431434"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -36,7 +34,8 @@
   gtag('config', 'AW-17830431434');
 </script>
 
-<!-- Event snippet for Richiesta preventivo conversion page
+
+<!-- Event snippet for Contatto (1) conversion page
 In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
 <script>
 function gtag_report_conversion(url) {
@@ -46,7 +45,9 @@ function gtag_report_conversion(url) {
     }
   };
   gtag('event', 'conversion', {
-      'send_to': 'AW-17830431434/Jsb4CJL0rdkbEMqVm7ZC',
+      'send_to': 'AW-17830431434/VEeoCILfveAbEMqVm7ZC',
+      'value': 1.0,
+      'currency': 'EUR',
       'event_callback': callback
   });
   return false;
@@ -54,28 +55,54 @@ function gtag_report_conversion(url) {
 </script>
 
 
-<!-- Event snippet for Click quiz preventivo conversion page
-In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
-<script>
-function gtag_report_conversion(url) {
-  var callback = function () {
-    if (typeof(url) != 'undefined') {
-      window.location = url;
-    }
-  };
-  gtag('event', 'conversion', {
-      'send_to': 'AW-17830431434/HyGkCI-jqtkbEMqVm7ZC',
-      'event_callback': callback
-  });
-  return false;
-}
-</script>
 
-
+<link rel="stylesheet" href="/cookie-banner.css" />
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <!-- Skeleton loader che simula la struttura reale della Hero -->
+    <div id="initial-loader" style="min-height:100vh;background:#fff;font-family:system-ui,-apple-system,sans-serif;overflow:hidden;">
+      <!-- Fake header bar -->
+      <div style="height:56px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;padding:0 16px;">
+        <div style="width:32px;height:32px;border-radius:8px;background:#f3f4f6;"></div>
+      </div>
+      <!-- Fake Hero content -->
+      <div style="max-width:1200px;margin:0 auto;padding:48px 24px;">
+        <!-- Fake badge -->
+        <div style="width:200px;height:24px;background:#f3f4f6;border-radius:12px;margin-bottom:24px;animation:pulse 1.5s ease-in-out infinite;"></div>
+        <!-- Fake title lines -->
+        <div style="width:80%;height:36px;background:#f3f4f6;border-radius:8px;margin-bottom:12px;animation:pulse 1.5s ease-in-out infinite;"></div>
+        <div style="width:60%;height:36px;background:#f3f4f6;border-radius:8px;margin-bottom:24px;animation:pulse 1.5s ease-in-out infinite;"></div>
+        <!-- Fake subtitle -->
+        <div style="width:90%;height:16px;background:#f9fafb;border-radius:4px;margin-bottom:8px;animation:pulse 1.5s ease-in-out infinite;"></div>
+        <div style="width:70%;height:16px;background:#f9fafb;border-radius:4px;margin-bottom:32px;animation:pulse 1.5s ease-in-out infinite;"></div>
+        <!-- Fake CTA buttons -->
+        <div style="display:flex;gap:12px;">
+          <div style="width:180px;height:48px;background:#1a1a1a;border-radius:12px;"></div>
+          <div style="width:160px;height:48px;background:#fff;border:2px solid #1a1a1a;border-radius:12px;"></div>
+        </div>
+      </div>
+      <style>@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}</style>
+    </div>
+  </div>
+  <!-- Cookie Banner: lo script PRIMA del banner definisce le funzioni globali -->
+  <script>
+  function _cb_set(n,v){var d=new Date();d.setTime(d.getTime()+31536e6);document.cookie=n+'='+v+';expires='+d.toUTCString()+';path=/;SameSite=Lax';}
+  function _cb_hide(){var b=document.getElementById('cookie-banner');if(b)b.style.cssText='display:none!important';}
+  function _cb_accept(){_cb_hide();_cb_set('gdpr_consent','accepted');try{if(typeof initializeGtagWithConsent==='function')initializeGtagWithConsent();}catch(e){}}
+  function _cb_decline(){_cb_hide();_cb_set('gdpr_consent','declined');try{if(typeof gtag==='function')gtag('consent','update',{'analytics_storage':'denied','ad_storage':'denied'});}catch(e){}}
+  // Se il cookie esiste già, nascondi subito (prima ancora che il CSS carichi)
+  if(document.cookie.indexOf('gdpr_consent=')!==-1){document.write('<style>#cookie-banner{display:none!important}</style>');}
+  </script>
+  <!-- Cookie Banner HTML -->
+  <div id="cookie-banner">
+    <p>Facendo clic su «Accetta», acconsenti alla memorizzazione dei cookie sul tuo dispositivo per scopi funzionali, analitici e pubblicitari. <a href="/privacy-policy">Informativa sulla Privacy</a>.</p>
+    <div class="cookie-buttons">
+      <button id="accept-cookies" onclick="_cb_accept()">Accetta</button>
+      <button id="decline-cookies" onclick="_cb_decline()">Rifiuta</button>
+    </div>
+  </div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 

@@ -1,10 +1,10 @@
 import React from 'react';
-import rovereNaturale from '../assets/images/parquet/rovereNaturale.png';
-import rovereMielato from '../assets/images/parquet/rovereMielato.png';
-import rovereSpinaItaliana from '../assets/images/parquet/rovereNaturaleSpinaItaliana.png';
-import rovere90 from '../assets/images/parquet/rovereNaturale90.png';
-import rovereIta from '../assets/images/parquet/rovereIta.png';
-import rovereSpina90 from '../assets/images/parquet/rovereSpina90.png';
+import rovereNaturale from '../assets/images/parquet/rovereNaturale.jpg';
+import rovereMielato from '../assets/images/parquet/rovereMielato.jpg';
+import rovereSpinaItaliana from '../assets/images/parquet/rovereNaturaleSpinaItaliana.jpg';
+import rovere90 from '../assets/images/parquet/rovereNaturale90.jpg';
+import rovereIta from '../assets/images/parquet/rovereIta.jpg';
+import rovereSpina90 from '../assets/images/parquet/rovereSpina90.jpg';
 
 const parquetImages = [
   { src: rovereNaturale, alt: 'Parquet Rovere Naturale' },
@@ -17,60 +17,46 @@ const parquetImages = [
 
 function HeroStats() {
   return (
-    <div className="flex justify-center w-full py-6">
+    // MODIFICA: Rimossi bg-white, shadow, border, rounded e padding eccessivi.
+    // Ora è un flex container pulito che non occupa spazio verticale inutile.
+    <div className="flex flex-col sm:flex-row items-center sm:items-end gap-6 sm:gap-10 pt-4">
       
-      {/* CARD UNICA "GLASS" - Sembra un widget sospeso */}
-      <div className="
-        inline-flex flex-col sm:flex-row items-center gap-6 sm:gap-10 
-        bg-white/80 backdrop-blur-md border border-gray-100 
-        shadow-[0_8px_30px_rgb(0,0,0,0.04)] 
-        rounded-3xl py-4 px-8 md:px-10
-        transition-transform hover:scale-[1.02] duration-500
-      ">
-
-        {/* LATO SINISTRO: La "Community" visiva */}
-        <div className="flex flex-col items-center sm:items-end gap-1">
-          {/* I Parquet (Face-pile) */}
-          <div className="flex -space-x-4 pl-2">
+      {/* LATO SINISTRO: Progetti e Face-pile */}
+      <div className="flex items-center gap-4">
+        {/* I Parquet (Face-pile leggermente più compatto) */}
+        <div className="flex -space-x-3">
             {parquetImages.slice(0, 5).map((img, index) => (
-              <div key={index} className="relative z-0 hover:z-10 transition-all duration-300 hover:-translate-y-2">
+              <div key={index} className="relative transition-transform hover:-translate-y-1 duration-300">
                  <img
-                  className="
-                    h-10 w-10 md:h-12 md:w-12 
-                    rounded-full border-[3px] border-white 
-                    object-cover shadow-sm 
-                  "
+                  className="h-9 w-9 rounded-full border-[2px] border-white object-cover shadow-sm"
                   src={img.src}
                   alt={img.alt}
                 />
               </div>
             ))}
             <div className="
-              flex h-10 w-10 md:h-12 md:w-12 items-center justify-center 
-              rounded-full border-[3px] border-white bg-gray-900 
-              text-xs font-bold text-white shadow-sm z-10
+              flex h-9 w-9 items-center justify-center 
+              rounded-full border-[2px] border-white bg-gray-900 
+              text-[10px] font-bold text-white shadow-sm z-10
             ">
-              +150
+              +300
             </div>
-          </div>
-          <span className="text-xs font-medium text-gray-400 mt-1 mr-2">156 Progetti realizzati</span>
         </div>
-
-        {/* DIVISORE (Punto centrale) */}
-        <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-gray-200"></div>
-
-        {/* LATO DESTRO: Il Dato puro */}
-        <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-          <div className="flex items-baseline">
-             <span className="text-4xl md:text-5xl font-black text-gray-900 tracking-tighter">
-                5926
-             </span>
-             <span className="text-lg md:text-xl font-medium text-gray-400 ml-1">m²</span>
-          </div>
-          <span className="text-xs font-medium text-gray-400">Posati nel 2025</span>
+        
+        {/* Testo Progetti (Allineato a destra delle immagini, non sotto) */}
+        <div className="flex flex-col text-left leading-tight">
+              <div className="flex items-center gap-1.5 opacity-80">
+                                        <span className="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded border border-blue-100 font-bold uppercase tracking-tighter">
+                                            🏆 327+ installazioni
+                                        </span>
+                                    </div>
+             <span className="text-[10px] font-medium text-gray-500 uppercase tracking-wide">ogni anno in lombardia</span>
         </div>
-
       </div>
+
+      {/* DIVISORE (Linea sottile verticale, solo su desktop) */}
+      <div className="hidden sm:block w-px h-8 bg-gray-300"></div>
+
     </div>
   );
 }

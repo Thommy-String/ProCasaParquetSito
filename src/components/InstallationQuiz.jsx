@@ -1,23 +1,23 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { PHONE_NUMBER } from '../utils/constants';
+import CompactSocialProof from './CompactSocialProof';
 
 // --- IMPORTA TUTTE LE ICONE NECESSARIE ---
 import {
   ClipboardCheck, Layers, Timer, Move3d, LayoutGrid,
   Sparkles, Compass, GitBranch, Scissors, Hammer, Paintbrush, Scaling,
   Search, MessageCircle, Bookmark,
-  Pencil
+  Calculator, Settings2, Plus, Minus,
+  DoorOpen, Trash2, Check, Lock, Truck, Sofa, Package, Phone
 } from 'lucide-react';
-import rovereNaturale from '../assets/images/parquet/rovereNaturale.png';
-import rovereSpina from '../assets/images/parquet/rovereNaturaleSpinaItaliana.png';
-import parquetLaminato from '../assets/images/parquet/parquetLaminato.png';
-import parquetSPCSpina from '../assets/images/parquet/parquetSPCSpina.png';
-import parquetSPC from '../assets/images/parquet/parquetSPC.png';
-import battiscopa5cm from '../assets/images/parquet/battiscopa5cm.png';
-import battiscopa10cm from '../assets/images/parquet/battiscopa10cm.png';
+import rovereNaturale from '../assets/images/parquet/rovereNaturale.jpg';
+import rovereSpina from '../assets/images/parquet/rovereNaturaleSpinaItaliana.jpg';
+import parquetLaminato from '../assets/images/parquet/parquetLaminato.jpg';
+import parquetSPCSpina from '../assets/images/parquet/parquetSPCspina.jpg';
+import parquetSPC from '../assets/images/parquet/parquetSPC.jpg';
+import battiscopa5cm from '../assets/images/parquet/battiscopa5cm.jpg';
+import battiscopa10cm from '../assets/images/parquet/battiscopa10cm.jpg';
 import parquetFlottante from '../assets/images/primaDopoLavori/dopo2.jpg'
-
-
 
 // --- MAPPA ICONE PER LE FASI ---
 const iconMap = {
@@ -36,15 +36,20 @@ const iconMap = {
   'scaling': (props) => <Scaling {...props} />,
 };
 
-// --- CONFIGURAZIONE PREZZI (Invariata) ---
+// --- CONFIGURAZIONE PREZZI ---
 const POSA_PRICES = {
   base: {
-    prefinito_dritto: 25, prefinito_spina: 30, prefinito_flottante: 22, spc_dritto: 15, spc_spina: 22,
-    laminato: 15, battiscopa_low: 7, battiscopa_high: 9,
+    prefinito_dritto: 25, prefinito_spina: 30, prefinito_flottante: 22, spc_dritto: 17, spc_spina: 25,
+    laminato: 17, battiscopa_low: 7, battiscopa_high: 9,
   },
   variables: {
-    primer_su_vecchio_mq: 7, rimozione_e_smaltimento_mq: 12,
-    spostamento_mobili_fisso: 150, colla_al_mq: 7,
+    primer_su_vecchio_mq: 5, rimozione_e_smaltimento_mq: 12,
+    spostamento_mobili_piccoli: 90, spostamento_mobili_grandi: 150,
+    colla_al_mq: 7,
+    rimozione_battiscopa_ml: 3.50,
+    taglio_porte_cad: 60,
+    taglio_porta_blindata_cad: 150,
+    smaltimento_rifiuti_forfait: 100,
   }
 };
 
@@ -127,49 +132,152 @@ const SERVICE_PRODUCTIVITY = {
   default: { unitPerDay: 40, setupBuffer: 0.4 },
 };
 
-// Componente helper per le card-bottone (Invariato, corretto)
-function QuizOption({ label, description, name, value, selectedValue, onChange, background }) {
+// --- ICONE E LABEL PERSONALIZZATE PER I BOTTONI DELLA CTA (Estimate) ---
+
+// Configurazione per le pagine di servizio: mappa pricingId → opzioni Step 1
+const SERVICE_PAGE_CONFIG = {
+  'prefinito': {
+    step1Title: 'Che tipo di posa vuoi?',
+    allowedTypes: ['prefinito_dritto', 'prefinito_spina', 'prefinito_flottante'],
+    categories: null, // Mostra come griglia singola
+  },
+  'prefinito-flottante': {
+    step1Title: 'Posa flottante selezionata',
+    allowedTypes: ['prefinito_flottante'],
+    categories: null,
+  },
+  'prefinito-spina': {
+    step1Title: 'Posa a spina selezionata',
+    allowedTypes: ['prefinito_spina'],
+    categories: null,
+  },
+  'spc': {
+    step1Title: 'Che tipo di posa SPC vuoi?',
+    allowedTypes: ['spc_dritto', 'spc_spina'],
+    categories: null,
+  },
+  'laminato': {
+    step1Title: 'Posa laminato selezionata',
+    allowedTypes: ['laminato'],
+    categories: null,
+  },
+  'battiscopa': {
+    step1Title: 'Altezza del battiscopa',
+    allowedTypes: ['battiscopa_low', 'battiscopa_high'],
+    categories: null,
+  },
+  'scala-parquet': {
+    step1Title: 'Rivestimento scala',
+    allowedTypes: [],
+    categories: null,
+  },
+};
+
+const whatsappButton = {
+  label: "Invia a Me Stesso",
+  icon: MessageCircle,
+  bg: "bg-[#25D366]",
+  hoverBg: "hover:bg-[#128C7E]",
+  textColor: "text-white"
+};
+const callButton = {
+  label: "Chiama Ora",
+  icon: PHONE_NUMBER ? PHONE_NUMBER : '',
+  // Stili allineati con la Hero
+  bg: "bg-white",
+  border: "border-slate-900",
+  textColor: "text-slate-900",
+  shadow: "shadow-[4px_4px_0px_0px_rgba(15,23,42,1)]"
+};
+
+// Componente helper per le card-bottone in stile neo-brutalist
+function QuizOption({ label, description, name, value, selectedValue, onChange, background, price }) {
   const isSelected = selectedValue === value;
+
+  // Stile "Card Rettangolare" neo-brutalist per le opzioni con immagine (Step 1)
   if (background) {
     return (
       <label
-        className={`relative flex min-h-[140px] cursor-pointer overflow-hidden rounded-2xl border transition-all ${isSelected
-          ? 'border-blue-500 ring-2 ring-blue-400'
-          : 'border-gray-200 hover:border-blue-200'
-          }`}
+        className={`group relative flex min-h-[140px] cursor-pointer overflow-hidden rounded-xl border-[2.5px] transition-all duration-200 ${
+          isSelected
+            ? 'border-slate-900 shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] scale-[1.01]'
+            : 'border-slate-300 hover:border-slate-900 hover:shadow-[3px_3px_0px_0px_rgba(15,23,42,0.4)]'
+        }`}
       >
-        <div
-          className="absolute inset-0 bg-cover bg-center scale-105"
-          style={{ backgroundImage: `url(${background})` }}
-        />
-        <div className="absolute inset-0 bg-slate-900/45" />
-        <div className="relative z-10 flex w-full flex-col justify-end p-4 text-white">
-          <span className="text-sm font-semibold drop-shadow-md">{label}</span>
-          {description && (
-            <p className="text-xs text-white/80 mt-1 drop-shadow-md">
-              {description}
-            </p>
-          )}
-        </div>
         <input
           type="radio"
           name={name}
           value={value}
           checked={isSelected}
-          onChange={onChange}
+          onChange={() => onChange(name, value)}
           className="sr-only"
         />
+
+        {/* Immagine di sfondo */}
+        <div
+          className={`absolute inset-0 bg-cover bg-center transition-transform duration-500 ${
+            isSelected ? 'scale-110' : 'group-hover:scale-105'
+          }`}
+          style={{ backgroundImage: `url(${background})` }}
+        />
+        
+        {/* Overlay scuro */}
+        <div className={`absolute inset-0 transition-colors duration-300 ${
+          isSelected ? 'bg-slate-900/25' : 'bg-slate-900/35 group-hover:bg-slate-900/20'
+        }`} />
+        
+        {/* Contenuto */}
+        <div className="relative z-10 flex w-full flex-col justify-between p-4 text-white">
+          <div className="flex justify-between items-start">
+            <div>
+              <span className="text-sm font-bold drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)] leading-tight block">{label}</span>
+              {description && (
+                <p className="text-[11px] text-white/80 mt-1 drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)] font-medium">{description}</p>
+              )}
+            </div>
+            {/* Checkmark neo-brutalist */}
+            {isSelected && (
+              <div className="bg-white p-1 rounded-md border-2 border-slate-900 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] flex-shrink-0 ml-2">
+                <Check className="w-3.5 h-3.5 text-slate-900" strokeWidth={3.5} />
+              </div>
+            )}
+          </div>
+          
+          {/* Prezzo in basso */}
+          {price && (
+            <div className="mt-3 flex items-baseline gap-1">
+              <span className="text-2xl font-black drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)] leading-none">{price}€</span>
+              <span className="text-[10px] text-white/80 font-bold uppercase">/mq</span>
+            </div>
+          )}
+        </div>
       </label>
     );
   }
 
+  // Stile "List Item" neo-brutalist per le altre opzioni
   return (
     <label
-      className={`block cursor-pointer rounded-2xl border p-4 transition-all ${isSelected
-        ? 'border-blue-500 ring-2 ring-blue-400 bg-blue-50'
-        : 'border-gray-200 hover:border-blue-200 bg-white'
+      className={`group flex items-center justify-between cursor-pointer rounded-xl border-[2.5px] px-4 py-3 transition-all duration-200 ${isSelected
+          ? 'border-slate-900 bg-slate-50 shadow-[3px_3px_0px_0px_rgba(15,23,42,1)]'
+          : 'border-slate-200 bg-white hover:border-slate-400 hover:shadow-[2px_2px_0px_0px_rgba(15,23,42,0.2)]'
         }`}
     >
+      <div className="flex flex-col">
+        <span className={`text-sm font-bold ${isSelected ? 'text-slate-900' : 'text-slate-700'}`}>
+          {label}
+        </span>
+        {description && (
+          <p className="text-xs text-slate-500 mt-0.5">{description}</p>
+        )}
+      </div>
+      
+      <div className={`w-5 h-5 rounded-md border-[2.5px] flex items-center justify-center transition-all ${
+        isSelected ? 'border-slate-900 bg-slate-900' : 'border-slate-300 group-hover:border-slate-400'
+      }`}>
+        {isSelected && <Check className="w-3 h-3 text-white" strokeWidth={3.5} />}
+      </div>
+
       <input
         type="radio"
         name={name}
@@ -178,33 +286,78 @@ function QuizOption({ label, description, name, value, selectedValue, onChange, 
         onChange={onChange}
         className="sr-only"
       />
-      <span className="text-sm font-semibold text-gray-900">{label}</span>
-      {description && (
-        <p className="text-xs text-gray-600 mt-1">
-          {description}
-        </p>
-      )}
     </label>
   );
 }
 
 // Il componente principale del Quiz
-function InstallationQuiz() {
+function InstallationQuiz({ service }) {
+  // Configurazione per pagina di servizio (se presente)
+  const pricingId = service?.pricingId;
+  const pageConfig = pricingId ? SERVICE_PAGE_CONFIG[pricingId] : null;
+  const isServicePage = Boolean(pageConfig);
+  // Auto-select se c'è una sola opzione
+  const autoSelectedType = pageConfig?.allowedTypes?.length === 1 ? pageConfig.allowedTypes[0] : null;
+
   const [unitValue, setUnitValue] = useState(50);
+  const unitTimerRef = useRef(null);
   const [showResult, setShowResult] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(Boolean(autoSelectedType));
   const formTopRef = useRef(null);
   const estimateRef = useRef(null);
   const [answers, setAnswers] = useState({
-    serviceType: '',
+    serviceType: autoSelectedType || '',
     subfloor: 'massetto',
-    removal: 'no',
     furniture: 'no',
-    colla: 'no'
+    colla: 'no',
+    add_battiscopa: 'no',
+    rimozione_battiscopa: 'no',
+    taglio_porte: 0,
+    taglio_porta_blindata: 0,
+    smaltimento: 'no',
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const adjustUnitValue = (amount) => {
+    setUnitValue(prev => {
+      const next = prev + amount;
+      if (next < 10) return 10;
+      if (next > 1000) return 1000;
+      return next;
+    });
+    setShowResult(false);
+  };
+
+  const startAdjustingUnit = (amount) => {
+    adjustUnitValue(amount);
+    unitTimerRef.current = setTimeout(() => {
+      unitTimerRef.current = setInterval(() => {
+        adjustUnitValue(amount);
+      }, 60);
+    }, 400);
+  };
+
+  const stopAdjustingUnit = () => {
+    if (unitTimerRef.current) {
+      clearTimeout(unitTimerRef.current);
+      clearInterval(unitTimerRef.current);
+      unitTimerRef.current = null;
+    }
+  };
+
+  useEffect(() => {
+    return () => stopAdjustingUnit();
+  }, []);
+
+  const handleChange = (nameOrEvent, directValue) => {
+    // Supporta sia chiamata diretta (name, value) che evento nativo (e)
+    let name, value;
+    if (typeof nameOrEvent === 'string') {
+      name = nameOrEvent;
+      value = directValue;
+    } else {
+      name = nameOrEvent.target.name;
+      value = nameOrEvent.target.value;
+    }
     setAnswers(prev => ({ ...prev, [name]: value }));
     if (name === 'serviceType' && value) {
       setIsExpanded(true);
@@ -217,11 +370,22 @@ function InstallationQuiz() {
     setShowResult(false);
   };
 
+  const handleCalculate = () => {
+    setShowResult(true);
+    // Piccolo delay per permettere il render/animazione prima dello scroll
+    setTimeout(() => {
+        if(estimateRef.current) {
+            estimateRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, 100);
+  };
+
   // --- LOGICA DINAMICA (Invariata) ---
   const isBattiscopa = answers.serviceType?.includes('battiscopa') ?? false;
   const unitLabel = isBattiscopa ? 'ml' : 'mq';
   const canShowDetails = isExpanded && Boolean(answers.serviceType);
   const showExtraQuestions = canShowDetails && !isBattiscopa;
+  const showBattiscopaOption = canShowDetails && !isBattiscopa;
   const isFloatingService = ['laminato', 'spc_dritto', 'spc_spina', 'prefinito_flottante'].includes(answers.serviceType);
   const isPrefinito = ['prefinito_dritto', 'prefinito_spina'].includes(answers.serviceType);
   const requiresGlueQuestion = showExtraQuestions && !isFloatingService;
@@ -233,7 +397,7 @@ function InstallationQuiz() {
 
   // --- MOTORE DI CALCOLO AGGIORNATO ---
   const estimate = useMemo(() => {
-    const { serviceType, subfloor, removal, furniture, colla } = answers;
+    const { serviceType, subfloor, furniture, colla, add_battiscopa, rimozione_battiscopa, taglio_porte, taglio_porta_blindata, smaltimento } = answers;
 
     if (!serviceType) {
       return null;
@@ -257,21 +421,7 @@ function InstallationQuiz() {
     };
 
     if (showExtraQuestions) {
-      if (removal === 'si') {
-        const unitPrice = POSA_PRICES.variables.rimozione_e_smaltimento_mq;
-        const cost = unitPrice * unitValue;
-        variableItems.push({
-          label: 'Rimozione e smaltimento pavimento',
-          quantity: unitValue,
-          unitType: 'mq',
-          unitPrice,
-          unitDisplay: 'mq',
-          displayQuantity: `~${unitValue}mq`,
-          total: cost,
-        });
-        total += cost;
-      }
-      if (removal === 'no' && subfloor === 'pavimento_esistente' && isPrefinito) {
+      if (subfloor === 'pavimento_esistente' && isPrefinito) {
         const unitPrice = POSA_PRICES.variables.primer_su_vecchio_mq;
         const cost = unitPrice * unitValue;
         variableItems.push({
@@ -301,19 +451,100 @@ function InstallationQuiz() {
       }
     }
 
-    if (furniture === 'si') {
-      const unitPrice = POSA_PRICES.variables.spostamento_mobili_fisso;
-      const cost = unitPrice;
+    // --- NUOVO CALCOLO BATTISCOPA AGGIUNTIVO ---
+    if (add_battiscopa === 'si' && !isBattiscopa) {
+        const unitPrice = 7; // Costo fisso €7 al ml
+        const cost = unitPrice * unitValue;
+        variableItems.push({
+          label: 'Posa Battiscopa',
+          quantity: unitValue,
+          unitType: 'ml',
+          unitPrice,
+          unitDisplay: 'ml',
+          displayQuantity: `~${unitValue}ml (stima)`,
+          total: cost,
+        });
+        total += cost;
+    }
+
+    // --- RIMOZIONE BATTISCOPA VECCHIO ---
+    if (rimozione_battiscopa === 'si' && !isBattiscopa) {
+        const unitPrice = POSA_PRICES.variables.rimozione_battiscopa_ml;
+        const cost = unitPrice * unitValue;
+        variableItems.push({
+          label: 'Rimozione Battiscopa Vecchio',
+          quantity: unitValue,
+          unitType: 'ml',
+          unitPrice,
+          unitDisplay: 'ml',
+          displayQuantity: `~${unitValue}ml (stima)`,
+          total: cost,
+        });
+        total += cost;
+    }
+
+    // --- TAGLIO PORTE ---
+    if (taglio_porte > 0 && !isBattiscopa) {
+        const unitPrice = POSA_PRICES.variables.taglio_porte_cad;
+        const cost = unitPrice * taglio_porte;
+        variableItems.push({
+          label: 'Taglio Porte',
+          quantity: taglio_porte,
+          unitType: 'cad',
+          unitPrice,
+          unitDisplay: 'cad',
+          displayQuantity: `${taglio_porte} ${taglio_porte === 1 ? 'porta' : 'porte'}`,
+          total: cost,
+        });
+        total += cost;
+    }
+
+    // --- TAGLIO PORTA BLINDATA ---
+    if (taglio_porta_blindata > 0 && !isBattiscopa) {
+        const unitPrice = POSA_PRICES.variables.taglio_porta_blindata_cad;
+        const cost = unitPrice * taglio_porta_blindata;
+        variableItems.push({
+          label: 'Taglio Porta Blindata',
+          quantity: taglio_porta_blindata,
+          unitType: 'cad',
+          unitPrice,
+          unitDisplay: 'cad',
+          displayQuantity: `${taglio_porta_blindata} ${taglio_porta_blindata === 1 ? 'porta' : 'porte'}`,
+          total: cost,
+        });
+        total += cost;
+    }
+
+    // --- SMALTIMENTO RIFIUTI (forfait fisso) ---
+    if (smaltimento === 'si' && !isBattiscopa) {
+        const cost = POSA_PRICES.variables.smaltimento_rifiuti_forfait;
+        variableItems.push({
+          label: 'Smaltimento Rifiuti',
+          quantity: 1,
+          unitType: 'voce',
+          unitPrice: cost,
+          unitDisplay: 'voce',
+          displayQuantity: 'Forfait',
+          total: cost,
+        });
+        total += cost;
+    }
+
+    if (furniture === 'piccoli' || furniture === 'grandi') {
+      const unitPrice = furniture === 'piccoli'
+        ? POSA_PRICES.variables.spostamento_mobili_piccoli
+        : POSA_PRICES.variables.spostamento_mobili_grandi;
+      const label = furniture === 'piccoli' ? 'Spostamento Piccoli Mobili' : 'Spostamento Grandi Mobili';
       variableItems.push({
-        label: 'Spostamento mobili',
+        label,
         quantity: 1,
         unitType: 'voce',
         unitPrice,
         unitDisplay: 'voce',
-        displayQuantity: 'Costo da definire insieme',
-        total: cost,
+        displayQuantity: 'Forfait',
+        total: unitPrice,
       });
-      total += cost;
+      total += unitPrice;
     }
 
     let typeStepsKey = serviceType;
@@ -331,14 +562,29 @@ function InstallationQuiz() {
         const productivity = SERVICE_PRODUCTIVITY[serviceType] || SERVICE_PRODUCTIVITY.default;
         let estimatedDays = (productivity.setupBuffer ?? 0) + (unitValue / (productivity.unitPerDay || 1));
 
-        if (removal === 'si') {
-          estimatedDays += 0.4;
+        if (furniture === 'piccoli') {
+          estimatedDays += 0.2;
         }
-        if (furniture === 'si') {
-          estimatedDays += 0.3;
+        if (furniture === 'grandi') {
+          estimatedDays += 0.4;
         }
         if (colla === 'si' && requiresGlueQuestion) {
           estimatedDays += 0.15;
+        }
+        if (add_battiscopa === 'si') {
+             estimatedDays += 0.2;
+        }
+        if (rimozione_battiscopa === 'si') {
+             estimatedDays += 0.15;
+        }
+        if (taglio_porte > 0) {
+             estimatedDays += taglio_porte * 0.05;
+        }
+        if (taglio_porta_blindata > 0) {
+             estimatedDays += taglio_porta_blindata * 0.1;
+        }
+        if (smaltimento === 'si') {
+             estimatedDays += 0.15;
         }
 
         const adjustedDays = Math.max(0, estimatedDays - 0.3);
@@ -363,6 +609,11 @@ function InstallationQuiz() {
     }
   }, [showResult]);
 
+  // Se siamo su una pagina servizio senza tipi supportati (es. scala-parquet), non renderizziamo il quiz
+  if (isServicePage && pageConfig.allowedTypes.length === 0) {
+    return null;
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!answers.serviceType) {
@@ -373,10 +624,10 @@ function InstallationQuiz() {
   };
 
   const handleEdit = () => {
+    // Non nascondiamo più il risultato, portiamo solo su
     if (formTopRef.current) {
-      formTopRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      formTopRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-    setShowResult(false);
   };
 
   const formatCurrency = (value) =>
@@ -391,9 +642,7 @@ function InstallationQuiz() {
     return `${amount} €/${unitDisplay}`;
   };
 
-
   const handleWhatsAppClick = () => {
-
     // 1. Traccia la conversione (senza URL per evitare conflitti di redirect)
     if (typeof window.gtag_report_conversion === 'function') {
       window.gtag_report_conversion();
@@ -433,7 +682,7 @@ function InstallationQuiz() {
     const encodedMessage = encodeURIComponent(message);
 
     // Lascia wa.me/?text=... vuoto così l'utente sceglie a chi inviarlo (se stesso)
-    window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.me/?text=${encodedMessage}`, '_self');
   };
 
   // Funzione per INVIARE il preventivo ALL'AZIENDA
@@ -442,6 +691,7 @@ function InstallationQuiz() {
     if (typeof window.gtag_report_conversion === 'function') {
       window.gtag_report_conversion();
     }
+
     if (!estimate) return;
 
     // 1. Prepara la lista voci
@@ -455,144 +705,483 @@ function InstallationQuiz() {
 
     // 3. Messaggio rivolto A TE (Azienda)
     const lines = [
-      "👋 Ciao, ho appena calcolato questa stima sul sito:",
+      "👋 Ciao, ho appena calcolato questa stima sul vostro sito posaparquetmilano.it ",
       "",
       itemsList,
       "",
-      `💰 *Totale Stimato:* ${formatCurrency(estimate.total)}`,
+      `*Totale Stimato: ${formatCurrency(estimate.total)}*`,
       "",
-      "Vorrei verificare la disponibilità e fissare un sopralluogo.",
-      `Link riferimento: ${window.location.href}`
+      ""
     ];
 
     const message = lines.join("\n");
-    const encodedMessage = encodeURIComponent(message);
+    const encMsg = encodeURIComponent(message);
 
-    // QUI LA DIFFERENZA: Inseriamo cleanPhone nell'URL
-    window.open(`https://wa.me/${cleanPhone}?text=${encodedMessage}`, '_blank');
+    // Invia al TUO numero
+    // Utilizza window.location per non aprire una nuova tab vuota se l'utente torna indietro
+    window.location.href = `https://wa.me/${cleanPhone}?text=${encMsg}`;
   };
 
   return (
-    <section id="preventivatore" className="py-10 bg-gray-50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-2">
-          <h3 className="text-2xl font-extrabold text-gray-900 mb-4">
-            Preventivo in 1 minuto
-          </h3>
+    <section id="home-preventivatore" className="pt-16 pb-24 bg-white relative overflow-hidden">
+      {/* Background sfumato sottile come Hero */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+        <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-blue-50/40 blur-3xl"></div>
+        <div className="absolute top-[60%] -left-[10%] w-[40%] h-[40%] rounded-full bg-cyan-50/40 blur-3xl"></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        
+        {/* Intestazione Sezione - Neo-brutalist */}
+        <div className="max-w-3xl mx-auto text-center mb-14">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white border-[2px] border-slate-900 rounded-lg shadow-[3px_3px_0px_0px_rgba(15,23,42,1)] mb-6">
+            <Calculator className="w-4 h-4 text-slate-900" strokeWidth={2.5} />
+            <span className="text-[11px] font-black text-slate-900 uppercase tracking-widest">Preventivatore online</span>
+          </div>
+          {isServicePage ? (
+            <>
+              <h2 className="text-3xl md:text-5xl font-[800] text-slate-900 tracking-tight leading-tight mb-4">
+                <span className="bg-yellow-100 px-2 rounded-sm">Preventivo</span> rapido
+              </h2>
+              <p className="text-base md:text-lg text-slate-500 font-medium max-w-lg mx-auto">
+                {service?.navLabel ? `${service.navLabel} — inserisci i metri e scopri subito il prezzo.` : 'Inserisci i metri e scopri subito il prezzo.'}
+              </p>
+            </>
+          ) : (
+            <>
+              <h2 className="text-3xl md:text-5xl font-[800] text-slate-900 tracking-tight leading-tight mb-4">
+                Calcola il tuo <span className="bg-yellow-100 px-2 rounded-sm">preventivo</span> in 1 minuto
+              </h2>
+              <p className="text-base md:text-lg text-slate-500 font-medium max-w-lg mx-auto">
+                Seleziona il servizio, inserisci i metri e scopri subito il prezzo.
+              </p>
+            </>
+          )}
         </div>
 
-        <div className="max-w-4xl mx-auto">
-          {/* --- IL FORM --- */}
-          <form onSubmit={handleSubmit}>
-            <div className="bg-white p-6 md:p-10 rounded-2xl border border-gray-200 shadow-xl">
 
-              {/* Step 1 - Tipo di servizio */}
-              <div className="pb-8">
-                <h3 ref={formTopRef} className="text-xl font-semibold text-gray-900 mb-2">
-                  1. Cosa devi installare?
-                </h3>
-                <p className="text-sm text-gray-500 mb-6">Seleziona una voce per sbloccare gli altri passaggi.</p>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  <QuizOption label="Prefinito Dritto" description="(Incollato)" name="serviceType" value="prefinito_dritto" background={SERVICE_BACKGROUND_MAP.prefinito_dritto} selectedValue={answers.serviceType} onChange={handleChange} />
-                  <QuizOption label="Prefinito Flottante" description="(Senza Colla)" name="serviceType" value="prefinito_flottante" background={SERVICE_BACKGROUND_MAP.prefinito_flottante} selectedValue={answers.serviceType} onChange={handleChange} />
-                  <QuizOption label="Prefinito Spina" description="90°, 45°, 60°" name="serviceType" value="prefinito_spina" background={SERVICE_BACKGROUND_MAP.prefinito_spina} selectedValue={answers.serviceType} onChange={handleChange} />
-                  <QuizOption label="Laminato" description="(Flottante)" name="serviceType" value="laminato" background={SERVICE_BACKGROUND_MAP.laminato} selectedValue={answers.serviceType} onChange={handleChange} />
-                  <QuizOption label="SPC Dritto" description="(Flottante)" name="serviceType" value="spc_dritto" background={SERVICE_BACKGROUND_MAP.spc_dritto} selectedValue={answers.serviceType} onChange={handleChange} />
-                  <QuizOption label="SPC Spina" description="(Flottante)" name="serviceType" value="spc_spina" background={SERVICE_BACKGROUND_MAP.spc_spina} selectedValue={answers.serviceType} onChange={handleChange} />
-                  <QuizOption label="Battiscopa (fino 5cm)" name="serviceType" value="battiscopa_low" background={SERVICE_BACKGROUND_MAP.battiscopa_low} selectedValue={answers.serviceType} onChange={handleChange} />
-                  <QuizOption label="Battiscopa (oltre 5cm)" name="serviceType" value="battiscopa_high" background={SERVICE_BACKGROUND_MAP.battiscopa_high} selectedValue={answers.serviceType} onChange={handleChange} />
-                </div>
+        <div className="max-w-5xl mx-auto">
+          {/* --- IL FORM --- */}
+          <form onSubmit={handleSubmit} className="relative z-10">
+            {/* Card Form Stile Documento */}
+            {/* Rimosso pointer-events-none e opacity reduction su showResult per permettere modifica diretta */}
+            <div className={`bg-white rounded-2xl border border-slate-200 shadow-lg overflow-hidden transition-all duration-500 ease-in-out`}>
+              
+              {/* Barra di progresso decorativa in alto */}
+              <div className="h-1.5 w-full bg-emerald-100">
+                 <div 
+                   className="h-full bg-emerald-500 rounded-r-full transition-all duration-500 ease-out"
+                   style={{ 
+                     width: canShowDetails 
+                       ? (showResult ? '100%' : '66%') 
+                       : '33%' 
+                   }}
+                 />
               </div>
 
-              {canShowDetails && (
-                <>
-                  {/* Step 2 - Quantità */}
-                  <div className="py-8 border-t border-gray-200">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      2. Seleziona i {isBattiscopa ? "Metri Lineari" : "Metri Quadri"}
+              <div className="p-6 md:p-10">
+                {/* Step 1 - Tipo di servizio */}
+                <div className="pb-8">
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-900 border-[2px] border-slate-900 text-white font-black text-sm shadow-[2px_2px_0px_0px_rgba(15,23,42,0.3)]">1</span>
+                    <h3 ref={formTopRef} className="text-xl font-bold text-slate-900">
+                       {isServicePage ? (pageConfig.step1Title || 'Scegli il tipo') : 'Scegli il tuo pavimento'}
                     </h3>
-                    <div className="relative pt-6">
-                      <span
-                        className="absolute text-blue-600 text-2xl font-bold"
-                        style={{
-                          left: `${thumbPositionPercentage}%`,
-                          transform: 'translateX(-50%)',
-                          top: '0',
-                        }}
-                      >
-                        {unitValue} {unitLabel}
-                      </span>
-                      <input
-                        type="range" min={10} max={200} step={1} value={unitValue} onChange={handleUnitChange}
-                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-thumb-blue"
-                      />
-                    </div>
                   </div>
-
-                  {/* Step 3 - Dettagli fondo (solo se necessario) */}
-                  {showExtraQuestions && (
-                    <div className="py-8 border-t border-gray-200 space-y-8">
-                      <h3 className="text-xl font-semibold text-gray-900">3. Dettagli sul sottofondo</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-                        <div>
-                          <h4 className="text-base font-semibold text-gray-700 mb-3">Su cosa posiamo?</h4>
-                          <div className="space-y-3">
-                            <QuizOption label="Massetto" name="subfloor" value="massetto" selectedValue={answers.subfloor} onChange={handleChange} />
-                            <QuizOption label="Pavimento esistente" name="subfloor" value="pavimento_esistente" selectedValue={answers.subfloor} onChange={handleChange} />
-                          </div>
-                        </div>
-                        <div>
-                          <h4 className="text-base font-semibold text-gray-700 mb-3">Devi rimuovere il pavimento attuale?</h4>
-                          <div className="space-y-3">
-                            <QuizOption label="No, posiamo sopra" name="removal" value="no" selectedValue={answers.removal} onChange={handleChange} />
-                            <QuizOption label="Sì, va rimosso" name="removal" value="si" selectedValue={answers.removal} onChange={handleChange} />
-                          </div>
-                        </div>
+                  
+                  {/* ── SERVICE PAGE: auto-selected (1 option) → confirmed badge ── */}
+                  {isServicePage && autoSelectedType && (
+                    <div className="flex items-center gap-3 p-4 bg-emerald-50 border-[2px] border-emerald-300 rounded-xl">
+                      <div className="bg-emerald-500 p-1 rounded-md flex-shrink-0">
+                        <Check className="w-4 h-4 text-white" strokeWidth={3} />
                       </div>
-                      {requiresGlueQuestion && (
-                        <div>
-                          <h4 className="text-base font-semibold text-gray-700 mb-3">Hai bisogno della fornitura di colla?</h4>
-                          <div className="grid grid-cols-2 gap-4">
-                            <QuizOption label="Sì, fornita da voi" name="colla" value="si" selectedValue={answers.colla} onChange={handleChange} />
-                            <QuizOption label="No, l'ho già io" name="colla" value="no" selectedValue={answers.colla} onChange={handleChange} />
+                      <div>
+                        <span className="font-bold text-slate-900 text-sm">{SERVICE_NAME_MAP[autoSelectedType]}</span>
+                        <span className="text-[11px] text-slate-500 font-medium ml-2">{POSA_PRICES.base[autoSelectedType]}€/{isBattiscopa ? 'ml' : 'mq'}</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ── SERVICE PAGE: multiple options → flat filtered grid ── */}
+                  {isServicePage && !autoSelectedType && pageConfig.allowedTypes.length > 0 && (
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      {pageConfig.allowedTypes.map((typeKey) => (
+                        <QuizOption
+                          key={typeKey}
+                          label={SERVICE_NAME_MAP[typeKey]?.replace('Posa ', '') || typeKey}
+                          name="serviceType"
+                          value={typeKey}
+                          background={SERVICE_BACKGROUND_MAP[typeKey]}
+                          price={POSA_PRICES.base[typeKey]}
+                          selectedValue={answers.serviceType}
+                          onChange={handleChange}
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  {/* ── HOMEPAGE: full 2-category grid ── */}
+                  {!isServicePage && (
+                    <>
+                      {/* CATEGORIA 1: PARQUET LEGNO (PREFINITO) */}
+                      <div className="mb-12">
+                          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6 text-center">Parquet in Legno (Prefinito)</p>
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <QuizOption label="Parquet prefinito" description="Posa Incollata" name="serviceType" value="prefinito_dritto" background={SERVICE_BACKGROUND_MAP.prefinito_dritto} price={POSA_PRICES.base.prefinito_dritto} selectedValue={answers.serviceType} onChange={handleChange} />
+                            <QuizOption label="Prefinito Spina" description="Tutti i tipi di spina" name="serviceType" value="prefinito_spina" background={SERVICE_BACKGROUND_MAP.prefinito_spina} price={POSA_PRICES.base.prefinito_spina} selectedValue={answers.serviceType} onChange={handleChange} />
+                            <QuizOption label="Prefinito Flottante" description="Senza Colla" name="serviceType" value="prefinito_flottante" background={SERVICE_BACKGROUND_MAP.prefinito_flottante} price={POSA_PRICES.base.prefinito_flottante} selectedValue={answers.serviceType} onChange={handleChange} />
+                          </div>
+                      </div>
+
+                      {/* CATEGORIA 2: VINILICI E LAMINATI */}
+                      <div className="mb-6">
+                          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6 text-center">Vinilici (SPC) & Laminati</p>
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                             <QuizOption label="SPC Dritto" description="Vinilico Click" name="serviceType" value="spc_dritto" background={SERVICE_BACKGROUND_MAP.spc_dritto} price={POSA_PRICES.base.spc_dritto} selectedValue={answers.serviceType} onChange={handleChange} />
+                             <QuizOption label="SPC Spina" description="Vinilico Spina" name="serviceType" value="spc_spina" background={SERVICE_BACKGROUND_MAP.spc_spina} price={POSA_PRICES.base.spc_spina} selectedValue={answers.serviceType} onChange={handleChange} />
+                             <QuizOption label="Laminato" description="Flottante Click" name="serviceType" value="laminato" background={SERVICE_BACKGROUND_MAP.laminato} price={POSA_PRICES.base.laminato} selectedValue={answers.serviceType} onChange={handleChange} />
+                          </div>
+                      </div>
+                    </>
+                  )}
+
+                </div>
+
+                <div className={`transition-all duration-700 ease-in-out overflow-hidden ${canShowDetails ? 'max-h-[3000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                    
+                    <div className="py-8"></div> {/* Spaziatore bianco */}
+                    
+                    <hr className="border-slate-100 mb-8" />
+                    
+                    {/* Step 2 - Quantità */}
+                    <div className="pb-12 border-b border-slate-100 mb-10">
+                       <div className="flex items-center gap-3 mb-8">
+                        <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-900 border-[2px] border-slate-900 text-white font-black text-sm shadow-[2px_2px_0px_0px_rgba(15,23,42,0.3)]">2</span>
+                        <h3 className="text-xl font-bold text-slate-900">
+                          Quanto è grande l'area?
+                        </h3>
+                      </div>
+                      
+                      <div className="bg-slate-50 rounded-xl p-8 border-[2px] border-slate-200 flex flex-col items-center justify-center">
+                          
+                          <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-8 text-center">
+                            Metri Quadrati
+                          </label>
+
+                          <div className="flex items-center justify-between w-full max-w-[340px] mb-8 select-none">
+                            {/* Bottone Meno — neo-brutalist */}
+                            <button 
+                              type="button"
+                              onMouseDown={() => startAdjustingUnit(-1)}
+                              onMouseUp={stopAdjustingUnit}
+                              onMouseLeave={stopAdjustingUnit}
+                              onTouchStart={(e) => { e.preventDefault(); startAdjustingUnit(-1); }}
+                              onTouchEnd={stopAdjustingUnit}
+                              className="w-14 h-14 flex items-center justify-center rounded-xl border-[2.5px] border-slate-900 bg-white shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer hover:bg-slate-50"
+                            >
+                              <Minus className="w-6 h-6 text-slate-900" strokeWidth={3} />
+                            </button>
+
+                            <div className="flex flex-col items-center flex-1">
+                              <div className="flex items-baseline gap-1">
+                                <span className="text-5xl font-black text-slate-900 tabular-nums leading-none tracking-tighter">
+                                  {unitValue}
+                                </span>
+                                <span className="text-xl font-bold text-slate-400">{unitLabel}</span>
+                              </div>
+                            </div>
+
+                            {/* Bottone Più — neo-brutalist green shadow */}
+                            <button 
+                              type="button"
+                              onMouseDown={() => startAdjustingUnit(1)}
+                              onMouseUp={stopAdjustingUnit}
+                              onMouseLeave={stopAdjustingUnit}
+                              onTouchStart={(e) => { e.preventDefault(); startAdjustingUnit(1); }}
+                              onTouchEnd={stopAdjustingUnit}
+                              className="w-14 h-14 flex items-center justify-center rounded-xl border-[2.5px] border-slate-900 bg-white shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer hover:bg-slate-50"
+                            >
+                              <Plus className="w-6 h-6 text-slate-900" strokeWidth={3} />
+                            </button>
+                          </div>
+                      
+                          {/* Slider */}
+                          <div className="w-full max-w-sm px-4 opacity-60 hover:opacity-100 transition-opacity">
+                            <input
+                              type="range" min={5} max={250} step={1} value={unitValue} onChange={handleUnitChange}
+                              className="range-quiz"
+                              style={{
+                                background: `linear-gradient(to right, #0f172a ${((unitValue - 5) / (250 - 5)) * 100}%, #e2e8f0 ${((unitValue - 5) / (250 - 5)) * 100}%)`
+                              }}
+                            />
+                             <div className="flex justify-between text-[9px] text-slate-400 mt-3 font-bold uppercase tracking-widest">
+                              <span>Min 5</span>
+                              <span>250+</span>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+
+                    {/* Step 3 - Logistica & Extra */}
+                    {(showExtraQuestions || (!showExtraQuestions && canShowDetails)) && (
+                      <div className="pb-4">
+                         <div className="flex items-center gap-3 mb-6">
+                          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-900 border-[2px] border-slate-900 text-white font-black text-sm shadow-[2px_2px_0px_0px_rgba(15,23,42,0.3)]">3</span>
+                          <h3 className="text-xl font-bold text-slate-900">
+                            Dettagli & Servizi Extra
+                          </h3>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                          
+                          {/* Sottofondo & Superficie */}
+                          {showExtraQuestions && (
+                            <div className="space-y-6">
+                               <div>
+                                <label className="block text-sm font-bold text-slate-700 mb-2">Superficie di posa</label>
+                                <div className="space-y-2">
+                                  <QuizOption label="Pavimento esistente" description="Copre il vecchio" name="subfloor" value="pavimento_esistente" selectedValue={answers.subfloor} onChange={handleChange} />
+                                  <QuizOption label="Massetto" name="subfloor" value="massetto" selectedValue={answers.subfloor} onChange={handleChange} />
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Colla */}
+                          {requiresGlueQuestion && (
+                            <div className="space-y-6">
+                              <div>
+                                <label className="block text-sm font-bold text-slate-700 mb-2">Hai bisogno anche della colla?</label>
+                                <div className="space-y-2">
+                                  <QuizOption label="Aggiungete la colla al preventivo" description={`+${POSA_PRICES.variables.colla_al_mq}€/mq`} name="colla" value="si" selectedValue={answers.colla} onChange={handleChange} />
+                                  <QuizOption label="Ho già la colla" name="colla" value="no" selectedValue={answers.colla} onChange={handleChange} />
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                      </div>
+
+                      {/* --- SERVIZI EXTRA TOGGLEABILI (Compact Colored Cards) --- */}
+                      {showBattiscopaOption && (
+                        <div className="mt-10 pt-8 border-t-2 border-dashed border-slate-200">
+                          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6 text-center">Servizi aggiuntivi (opzionali)</p>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+
+                            {/* ── Piccoli Mobili (amber) ── */}
+                            <button
+                              type="button"
+                              onClick={() => handleChange('furniture', answers.furniture === 'piccoli' ? 'no' : 'piccoli')}
+                              className={`group flex items-center gap-2.5 px-3 py-3 rounded-xl border-[2.5px] transition-all duration-200 text-left ${
+                                answers.furniture === 'piccoli'
+                                  ? 'border-amber-500 bg-amber-50 shadow-[3px_3px_0px_0px_rgba(245,158,11,0.6)]'
+                                  : 'border-slate-200 bg-white hover:border-amber-300 hover:shadow-[2px_2px_0px_0px_rgba(245,158,11,0.2)]'
+                              }`}
+                            >
+                              <div className={`p-2 rounded-lg flex-shrink-0 transition-colors ${answers.furniture === 'piccoli' ? 'bg-amber-500 text-white' : 'bg-amber-50 text-amber-600 group-hover:bg-amber-100'}`}>
+                                <Package className="w-4 h-4" strokeWidth={2.5} />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <span className="text-[13px] font-bold text-slate-900 block leading-tight truncate">Piccoli Mobili</span>
+                                <span className="text-[11px] text-slate-500 font-semibold">€90 forfait</span>
+                                <span className="text-[10px] text-slate-400 block leading-snug mt-0.5">Sedie, tavolini, oggetti leggeri</span>
+                              </div>
+                              {answers.furniture === 'piccoli' && (
+                                <div className="bg-amber-500 p-0.5 rounded-md flex-shrink-0">
+                                  <Check className="w-3 h-3 text-white" strokeWidth={3.5} />
+                                </div>
+                              )}
+                            </button>
+
+                            {/* ── Grandi Mobili (orange) ── */}
+                            <button
+                              type="button"
+                              onClick={() => handleChange('furniture', answers.furniture === 'grandi' ? 'no' : 'grandi')}
+                              className={`group flex items-center gap-2.5 px-3 py-3 rounded-xl border-[2.5px] transition-all duration-200 text-left ${
+                                answers.furniture === 'grandi'
+                                  ? 'border-orange-500 bg-orange-50 shadow-[3px_3px_0px_0px_rgba(249,115,22,0.6)]'
+                                  : 'border-slate-200 bg-white hover:border-orange-300 hover:shadow-[2px_2px_0px_0px_rgba(249,115,22,0.2)]'
+                              }`}
+                            >
+                              <div className={`p-2 rounded-lg flex-shrink-0 transition-colors ${answers.furniture === 'grandi' ? 'bg-orange-500 text-white' : 'bg-orange-50 text-orange-600 group-hover:bg-orange-100'}`}>
+                                <Sofa className="w-4 h-4" strokeWidth={2.5} />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <span className="text-[13px] font-bold text-slate-900 block leading-tight truncate">Grandi Mobili</span>
+                                <span className="text-[11px] text-slate-500 font-semibold">€150 forfait</span>
+                                <span className="text-[10px] text-slate-400 block leading-snug mt-0.5">Armadi, divani, librerie pesanti</span>
+                              </div>
+                              {answers.furniture === 'grandi' && (
+                                <div className="bg-orange-500 p-0.5 rounded-md flex-shrink-0">
+                                  <Check className="w-3 h-3 text-white" strokeWidth={3.5} />
+                                </div>
+                              )}
+                            </button>
+
+                            {/* ── Posa Battiscopa (emerald) ── */}
+                            <button
+                              type="button"
+                              onClick={() => handleChange('add_battiscopa', answers.add_battiscopa === 'si' ? 'no' : 'si')}
+                              className={`group flex items-center gap-2.5 px-3 py-3 rounded-xl border-[2.5px] transition-all duration-200 text-left ${
+                                answers.add_battiscopa === 'si'
+                                  ? 'border-emerald-500 bg-emerald-50 shadow-[3px_3px_0px_0px_rgba(16,185,129,0.6)]'
+                                  : 'border-slate-200 bg-white hover:border-emerald-300 hover:shadow-[2px_2px_0px_0px_rgba(16,185,129,0.2)]'
+                              }`}
+                            >
+                              <div className={`p-2 rounded-lg flex-shrink-0 transition-colors ${answers.add_battiscopa === 'si' ? 'bg-emerald-500 text-white' : 'bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100'}`}>
+                                <Hammer className="w-4 h-4" strokeWidth={2.5} />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <span className="text-[13px] font-bold text-slate-900 block leading-tight truncate">Posa Battiscopa</span>
+                                <span className="text-[11px] text-slate-500 font-semibold">€7 / ml</span>
+                                <span className="text-[10px] text-slate-400 block leading-snug mt-0.5">Taglio a 45°, incollaggio e sigillatura</span>
+                              </div>
+                              {answers.add_battiscopa === 'si' && (
+                                <div className="bg-emerald-500 p-0.5 rounded-md flex-shrink-0">
+                                  <Check className="w-3 h-3 text-white" strokeWidth={3.5} />
+                                </div>
+                              )}
+                            </button>
+
+                            {/* ── Rimozione Battiscopa (red) ── */}
+                            <button
+                              type="button"
+                              onClick={() => handleChange('rimozione_battiscopa', answers.rimozione_battiscopa === 'si' ? 'no' : 'si')}
+                              className={`group flex items-center gap-2.5 px-3 py-3 rounded-xl border-[2.5px] transition-all duration-200 text-left ${
+                                answers.rimozione_battiscopa === 'si'
+                                  ? 'border-red-500 bg-red-50 shadow-[3px_3px_0px_0px_rgba(239,68,68,0.6)]'
+                                  : 'border-slate-200 bg-white hover:border-red-300 hover:shadow-[2px_2px_0px_0px_rgba(239,68,68,0.2)]'
+                              }`}
+                            >
+                              <div className={`p-2 rounded-lg flex-shrink-0 transition-colors ${answers.rimozione_battiscopa === 'si' ? 'bg-red-500 text-white' : 'bg-red-50 text-red-600 group-hover:bg-red-100'}`}>
+                                <Trash2 className="w-4 h-4" strokeWidth={2.5} />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <span className="text-[13px] font-bold text-slate-900 block leading-tight truncate">Rim. Battiscopa</span>
+                                <span className="text-[11px] text-slate-500 font-semibold">€3,50 / ml</span>
+                                <span className="text-[10px] text-slate-400 block leading-snug mt-0.5">Stacchiamo il vecchio zoccolino</span>
+                              </div>
+                              {answers.rimozione_battiscopa === 'si' && (
+                                <div className="bg-red-500 p-0.5 rounded-md flex-shrink-0">
+                                  <Check className="w-3 h-3 text-white" strokeWidth={3.5} />
+                                </div>
+                              )}
+                            </button>
+
+                            {/* ── Taglio Porte (blue, stepper) ── */}
+                            <div
+                              className={`group flex items-center gap-2.5 px-3 py-3 rounded-xl border-[2.5px] transition-all duration-200 ${
+                                answers.taglio_porte > 0
+                                  ? 'border-blue-500 bg-blue-50 shadow-[3px_3px_0px_0px_rgba(59,130,246,0.6)]'
+                                  : 'border-slate-200 bg-white hover:border-blue-300'
+                              }`}
+                            >
+                              <div className={`p-2 rounded-lg flex-shrink-0 transition-colors ${answers.taglio_porte > 0 ? 'bg-blue-500 text-white' : 'bg-blue-50 text-blue-600 group-hover:bg-blue-100'}`}>
+                                <DoorOpen className="w-4 h-4" strokeWidth={2.5} />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <span className="text-[13px] font-bold text-slate-900 block leading-tight truncate">Taglio Porte</span>
+                                <span className="text-[11px] text-slate-500 font-semibold">€60 / cad</span>
+                                <span className="text-[10px] text-slate-400 block leading-snug mt-0.5">Accorciamo le porte al nuovo livello</span>
+                              </div>
+                              <div className="flex items-center gap-1.5 flex-shrink-0">
+                                <button type="button" onClick={() => handleChange('taglio_porte', Math.max(0, answers.taglio_porte - 1))}
+                                  className="w-7 h-7 flex items-center justify-center rounded-lg border-[2px] border-slate-300 bg-white hover:border-blue-500 transition-all active:scale-95">
+                                  <Minus className="w-3 h-3 text-slate-700" strokeWidth={3} />
+                                </button>
+                                <span className="text-sm font-black text-slate-900 tabular-nums w-5 text-center">{answers.taglio_porte}</span>
+                                <button type="button" onClick={() => handleChange('taglio_porte', Math.min(20, answers.taglio_porte + 1))}
+                                  className="w-7 h-7 flex items-center justify-center rounded-lg border-[2px] border-slate-300 bg-white hover:border-blue-500 transition-all active:scale-95">
+                                  <Plus className="w-3 h-3 text-slate-700" strokeWidth={3} />
+                                </button>
+                              </div>
+                            </div>
+
+                            {/* ── Porta Blindata (violet, stepper) ── */}
+                            <div
+                              className={`group flex items-center gap-2.5 px-3 py-3 rounded-xl border-[2.5px] transition-all duration-200 ${
+                                answers.taglio_porta_blindata > 0
+                                  ? 'border-violet-500 bg-violet-50 shadow-[3px_3px_0px_0px_rgba(139,92,246,0.6)]'
+                                  : 'border-slate-200 bg-white hover:border-violet-300'
+                              }`}
+                            >
+                              <div className={`p-2 rounded-lg flex-shrink-0 transition-colors ${answers.taglio_porta_blindata > 0 ? 'bg-violet-500 text-white' : 'bg-violet-50 text-violet-600 group-hover:bg-violet-100'}`}>
+                                <Lock className="w-4 h-4" strokeWidth={2.5} />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <span className="text-[13px] font-bold text-slate-900 block leading-tight truncate">Porta Blindata</span>
+                                <span className="text-[11px] text-slate-500 font-semibold">€150 / cad</span>
+                                <span className="text-[10px] text-slate-400 block leading-snug mt-0.5">Smontaggio, taglio e rimontaggio</span>
+                              </div>
+                              <div className="flex items-center gap-1.5 flex-shrink-0">
+                                <button type="button" onClick={() => handleChange('taglio_porta_blindata', Math.max(0, answers.taglio_porta_blindata - 1))}
+                                  className="w-7 h-7 flex items-center justify-center rounded-lg border-[2px] border-slate-300 bg-white hover:border-violet-500 transition-all active:scale-95">
+                                  <Minus className="w-3 h-3 text-slate-700" strokeWidth={3} />
+                                </button>
+                                <span className="text-sm font-black text-slate-900 tabular-nums w-5 text-center">{answers.taglio_porta_blindata}</span>
+                                <button type="button" onClick={() => handleChange('taglio_porta_blindata', Math.min(10, answers.taglio_porta_blindata + 1))}
+                                  className="w-7 h-7 flex items-center justify-center rounded-lg border-[2px] border-slate-300 bg-white hover:border-violet-500 transition-all active:scale-95">
+                                  <Plus className="w-3 h-3 text-slate-700" strokeWidth={3} />
+                                </button>
+                              </div>
+                            </div>
+
+                            {/* ── Smaltimento Rifiuti (teal) ── */}
+                            <button
+                              type="button"
+                              onClick={() => handleChange('smaltimento', answers.smaltimento === 'si' ? 'no' : 'si')}
+                              className={`group flex items-center gap-2.5 px-3 py-3 rounded-xl border-[2.5px] transition-all duration-200 text-left ${
+                                answers.smaltimento === 'si'
+                                  ? 'border-teal-500 bg-teal-50 shadow-[3px_3px_0px_0px_rgba(20,184,166,0.6)]'
+                                  : 'border-slate-200 bg-white hover:border-teal-300 hover:shadow-[2px_2px_0px_0px_rgba(20,184,166,0.2)]'
+                              }`}
+                            >
+                              <div className={`p-2 rounded-lg flex-shrink-0 transition-colors ${answers.smaltimento === 'si' ? 'bg-teal-500 text-white' : 'bg-teal-50 text-teal-600 group-hover:bg-teal-100'}`}>
+                                <Truck className="w-4 h-4" strokeWidth={2.5} />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <span className="text-[13px] font-bold text-slate-900 block leading-tight truncate">Smaltimento Rifiuti</span>
+                                <span className="text-[11px] text-slate-500 font-semibold">€50-150 forfait</span>
+                                <span className="text-[10px] text-slate-400 block leading-snug mt-0.5">Trasporto e smaltimento in discarica</span>
+                              </div>
+                              {answers.smaltimento === 'si' && (
+                                <div className="bg-teal-500 p-0.5 rounded-md flex-shrink-0">
+                                  <Check className="w-3 h-3 text-white" strokeWidth={3.5} />
+                                </div>
+                              )}
+                            </button>
+
                           </div>
                         </div>
                       )}
                     </div>
                   )}
 
-                  {/* Step finale - Logistica ambienti */}
-                  <div className="py-8 border-t border-gray-200">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-6">
-                      {showExtraQuestions ? "4. Stato ambienti e logistica" : "3. Stato ambienti e logistica"}
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <h4 className="text-base font-semibold text-gray-700 mb-3">Stanze già vuote?</h4>
-                        <div className="grid grid-cols-2 gap-4">
-                          <QuizOption label="Sì, libere" name="furniture" value="no" selectedValue={answers.furniture} onChange={handleChange} />
-                          <QuizOption label="No, ci sono mobili" name="furniture" value="si" selectedValue={answers.furniture} onChange={handleChange} />
-                        </div>
-                      </div>
+                  {/* BOTTONE CALCOLA */}
+                  {!showResult && (
+                    <div className="pt-8 mt-6 border-t-2 border-slate-100 flex flex-col items-center animate-in fade-in slide-in-from-bottom-4">
+                      
+                      <button
+                        type="button"
+                        onClick={handleCalculate}
+                        disabled={!canShowDetails}
+                        className={`group relative flex items-center justify-center gap-3 bg-white border-[2.5px] border-slate-900 px-10 py-4 rounded-xl text-slate-900 font-black uppercase tracking-tighter transition-all duration-200 ${canShowDetails
+                          ? 'shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] hover:shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] hover:translate-x-1 hover:translate-y-1 active:bg-slate-50'
+                          : 'opacity-40 cursor-not-allowed border-slate-300 text-slate-400 shadow-none'
+                          }`}
+                      >
+                         <div className={`p-1.5 rounded-lg transition-colors ${canShowDetails ? 'bg-slate-100 group-hover:bg-slate-200' : 'bg-slate-100'}`}>
+                            <Calculator className="w-5 h-5 text-slate-900" strokeWidth={2.5} />
+                         </div>
+                        <span className="text-lg">Mostra la Stima</span>
+                      </button>
+                      
+                       <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-3">
+                         Risultato immediato — Senza impegno
+                       </p>
                     </div>
-                  </div>
-                </>
-              )}
-
-              {/* BOTTONE CALCOLA */}
-              <div className="text-center mt-10">
-                <button
-                  type="submit"
-                  disabled={!canShowDetails}
-                  className={`px-12 py-4 rounded-lg font-bold text-lg transition-colors shadow-lg hover:shadow-blue-500/50 ${canShowDetails
-                    ? 'bg-blue-600 text-white hover:bg-blue-700'
-                    : 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'
-                    }`}
-                >
-                  Mostra la mia stima
-                </button>
+                  )}
+                </div>
               </div>
-
             </div>
           </form>
 
@@ -600,175 +1189,164 @@ function InstallationQuiz() {
           {showResult && estimate && (
             <div
               ref={estimateRef}
-              className="mt-12 bg-white/95 p-6 md:p-10 rounded-2xl border border-gray-200 shadow-2xl animate-fadeIn"
+              className="mt-14 animate-in fade-in slide-in-from-bottom-8 duration-700"
             >
-              <h3 className="text-3xl font-semibold text-gray-900 mb-8">La tua stima è pronta</h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                {/* Colonna 1: Preventivo */}
-                <div className="space-y-8">
-                  <div className="rounded-3xl border border-slate-200 bg-white/85 px-7 py-8 md:px-9 md:py-10 shadow-sm backdrop-blur">
-                    <div className="space-y-6 text-sm text-slate-700">
-                      {[estimate.baseItem, ...estimate.variableItems].map((item, index) => {
-                        const unitRate = formatUnitRate(item.unitPrice, item.unitDisplay, item.unitType);
-                        return (
-                          <div
-                            key={`${item.label}-${index}`}
-                            className="flex items-start justify-between gap-6 border-b border-slate-200 pb-6 last:border-none last:pb-0"
-                          >
-                            <div className="space-y-1">
-                              <p className="text-sm font-semibold text-slate-800">
-                                {item.label}
-                              </p>
-                              <p className="text-[11px] font-semibold text-slate-500">
-                                {item.displayQuantity}
-                              </p>
-                            </div>
-                            <div className="text-right">
-                              <p className="text-lg font-semibold text-slate-900">
-                                {formatCurrency(item.total)}
-                              </p>
-                              {unitRate && (
-                                <p className="text-[11px] font-medium text-slate-400">
-                                  {unitRate}
-                                </p>
-                              )}
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                    <div className="mt-8 border-t border-slate-200 pt-6 flex items-end justify-between gap-6">
-                      <div className="text-left">
-                        <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
-                          Tempo stimato
-                        </p>
-                        <p className="text-base font-semibold text-slate-800">
-                          {estimate.timeEstimate?.label}
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
-                          Stima totale
-                        </p>
-                        <p className="text-xl font-semibold tracking-tight text-blue-600 md:text-2xl">
-                          {formatCurrency(estimate.total)}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* --- CONTENITORE DI CONTROLLO SPAZIATURA --- */}
-                  <div className="flex flex-col gap-6 mt-8">
-
-                    {/* GRUPPO 1: Azioni Secondarie (Disclaimer + Modifica) */}
-                    <div className="flex flex-col gap-2">
-                      <p className="text-[11px] text-gray-400 italic leading-tight">
-                        *Stima indicativa. Adeguamenti confermati post-sopralluogo.
-                      </p>
-
-                      <button
-                        type="button"
-                        onClick={handleEdit}
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 py-2.5 text-xs font-semibold text-gray-600 transition hover:border-gray-300 hover:bg-gray-50"
-                      >
-                        Modifica voci
-                      </button>
-                    </div>
-
-                    {/* GRUPPO 2: Azione PRIMARIA (WhatsApp + Spiegazione) */}
-                    <div className="flex flex-col gap-2"> {/* gap-2 tiene la spiegazione vicina al bottone */}
-                      <button
-                        onClick={handleWhatsAppClick}
-                        type="button"
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-6 py-4 text-sm font-bold text-white shadow-lg shadow-green-500/20 transition hover:bg-[#20bd5a] hover:shadow-green-500/40 active:scale-[0.98]"
-                      >
-                        <Bookmark className="w-5 h-5 fill-current" /> {/* Icona Bookmark riempita */}
-                        Salva la stima su Whatsapp
-                      </button>
-
-                      {/* Micro-copy esplicativa */}
-                      <p className="text-[10px] text-gray-500 text-center leading-snug px-2">
-                        Si aprirà la tua rubrica WhatsApp: potrai inviare il preventivo <span className="font-semibold text-gray-700">a te stesso o alla famiglia</span> per non perderlo.
-                      </p>
-                    </div>
-
-                  </div>
+              {/* ═══ TITOLO SEZIONE RISULTATO ═══ */}
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-50 border border-green-200 rounded-full mb-4">
+                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                  <span className="text-[11px] font-bold text-green-700 uppercase tracking-widest">Stima calcolata</span>
                 </div>
-
-                {/* Colonna 2: Processo di Posa */}
-                <div>
-                  <h4 className="text-xl font-semibold text-gray-900 mb-4">Il Tuo Processo di Posa</h4>
-                  <ol className="relative border-l border-gray-200">
-
-                    {/* --- MODIFICA 5: FASE 0 (Sopralluogo) --- */}
-                    <li className="mb-6 ml-6">
-                      <span className="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-8 ring-white">
-                        <Search className="w-5 h-5 text-blue-800" />
-                      </span>
-                      <div className="ml-2">
-                        <h5 className="text-sm font-semibold text-gray-900">Fase 0: Sopralluogo Gratuito</h5>
-                        <p className="text-sm text-gray-600">Confermiamo le misure e verifichiamo il sottofondo per finalizzare il preventivo senza sorprese.</p>
-                      </div>
-                    </li>
-
-                    {/* Fasi Tecniche */}
-                    {estimate.typeSteps.map((step, index) => {
-                      const Icon = iconMap[step.icon] || ClipboardCheck;
-                      return (
-                        <li key={index} className="mb-6 ml-6">
-                          <span className="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-8 ring-white">
-                            <Icon className="w-5 h-5 text-blue-800" />
-                          </span>
-                          <div className="ml-2">
-                            <h5 className="text-sm font-semibold text-gray-900">{step.title}</h5>
-                            <p className="text-sm text-gray-600">{step.description}</p>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ol>
-                </div>
-
-              </div>
-
-
-              {/* CTA Finale */}
-              <div className="text-center mt-10 border-t border-gray-200 pt-8">
-                <p className="text-xs text-gray-700 mb-4">Hai domande? Parliamone.</p>
-
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                  {/* Pulsante Chiama */}
-                  <a
-                    href={`tel:${PHONE_NUMBER}`}
-                    onClick={(e) => {
-                      // Impediamo al browser di chiamare subito
-                      e.preventDefault();
-
-                      if (typeof window.gtag_report_conversion === 'function') {
-                        // Passiamo l'URL "tel:..." a Google. 
-                        // Lo snippet registrerà la conversione e POI farà partire la chiamata.
-                        window.gtag_report_conversion(`tel:${PHONE_NUMBER}`);
-                      } else {
-                        // Fallback se lo snippet non è caricato (es. AdBlocker)
-                        window.location.href = `tel:${PHONE_NUMBER}`;
-                      }
-                    }}
-                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border-2 border-blue-600 bg-white px-6 py-3 text-sm font-bold text-blue-600 shadow-sm transition hover:bg-blue-50 md:px-8 md:py-3"
-                  >
-                    Chiama ora
-                  </a>
-
-                  {/* Pulsante WhatsApp per contattare noi (Stile Bordo Verde) */}
+                <h3 className="text-2xl md:text-4xl font-[800] text-slate-900 tracking-tight">
+                  Ecco il tuo <span className="bg-yellow-100 px-1.5 rounded-sm">preventivo</span>
+                </h3>
+                <div className="flex items-center justify-center gap-3 mt-3">
+                  <span className="text-xs text-slate-400 font-medium">{new Date().toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                  <span className="text-slate-200">•</span>
                   <button
-                    onClick={handleSendToCompany}
-                    type="button"
-                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border-2 border-[#25D366] bg-white px-6 py-3 text-sm font-bold text-[#25D366] shadow-sm transition hover:bg-green-50 md:px-8 md:py-3"
+                    onClick={handleEdit}
+                    className="inline-flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-slate-900 transition-colors"
                   >
-                    Parliamone su Whatsapp <MessageCircle className="w-4 h-4" />
+                    <Settings2 size={12} /> Modifica dati
                   </button>
                 </div>
               </div>
+
+              {/* ═══ CORPO PREVENTIVO ═══ */}
+              <div className="bg-white rounded-2xl border border-slate-200 shadow-lg overflow-hidden">
+                <div className="p-6 md:p-10">
+                    
+                  {/* Voce base */}
+                  <div className="mb-5">
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Servizio principale</p>
+                    <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-200">
+                       <div className="flex items-center gap-3">
+                          <div className="w-5 h-5 flex items-center justify-center rounded-md bg-slate-300 text-white text-[9px] font-black">1</div>
+                          <div>
+                             <p className="font-bold text-slate-900 text-[15px] leading-tight">{estimate.baseItem.label}</p>
+                             <span className="text-[11px] text-slate-400 font-mono font-medium">{estimate.baseItem.displayQuantity}</span>
+                          </div>
+                       </div>
+                       <div className="text-right pl-4">
+                         <p className="font-mono font-extrabold text-lg text-slate-900">{formatCurrency(estimate.baseItem.total)}</p>
+                         <span className="text-[10px] text-slate-400 font-medium">{formatCurrency(estimate.baseItem.unitPrice)}/{estimate.baseItem.unitDisplay}</span>
+                       </div>
+                    </div>
+                  </div>
+
+                  {/* Voci variabili */}
+                  {estimate.variableItems.length > 0 && (
+                    <div className="mb-5">
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Servizi aggiuntivi</p>
+                      <div className="space-y-2">
+                        {estimate.variableItems.map((item, index) => {
+                          const unitRate = formatUnitRate(item.unitPrice, item.unitDisplay, item.unitType);
+                          return (
+                            <div key={`${item.label}-${index}`} className="flex items-center justify-between px-4 py-3 rounded-xl border border-slate-100 hover:border-slate-200 hover:bg-slate-50/50 transition-all">
+                               <div className="flex items-center gap-3">
+                                  <div className="w-5 h-5 flex items-center justify-center rounded-md bg-slate-200 text-slate-500 text-[9px] font-black">{index + 2}</div>
+                                  <div>
+                                     <p className="font-semibold text-slate-800 text-sm leading-tight">{item.label}</p>
+                                     <span className="text-[11px] text-slate-400 font-mono font-medium">{item.displayQuantity}</span>
+                                  </div>
+                               </div>
+                               <div className="text-right pl-4">
+                                 <p className="font-mono font-bold text-[15px] text-slate-900">{formatCurrency(item.total)}</p>
+                                 {unitRate && <span className="text-[10px] text-slate-400 font-medium">{unitRate}</span>}
+                               </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ── Totale + Tempi ── */}
+                  <div className="mt-8 pt-6 border-t-2 border-dashed border-slate-200">
+                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        
+                        {/* Tempo stimato */}
+                        <div className="flex items-center gap-3 bg-slate-50 px-5 py-4 rounded-xl border border-slate-200">
+                           <div className="p-2.5 bg-white rounded-lg border border-slate-200">
+                              <Timer className="w-5 h-5 text-slate-500" />
+                           </div>
+                           <div>
+                              <p className="text-[10px] uppercase font-black text-slate-400 tracking-wider">Tempi stimati</p>
+                              <p className="font-extrabold text-xl text-slate-900 leading-none mt-0.5">{estimate.timeEstimate?.label}</p>
+                           </div>
+                        </div>
+
+                        {/* Totale */}
+                        <div className="flex items-center gap-3 bg-slate-900 px-5 py-4 rounded-xl">
+                           <div className="flex-1">
+                              <p className="text-[10px] uppercase font-black text-slate-400 tracking-wider">Totale stimato</p>
+                              <p className="text-2xl md:text-3xl font-black text-white tracking-tighter leading-none mt-0.5">{formatCurrency(estimate.total)}</p>
+                              <p className="text-[10px] text-slate-500 font-medium mt-1">IVA esclusa • Solo manodopera</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* ═══ CTA SECTION ═══ */}
+              <div className="mt-8 flex flex-col items-center">
+                
+                <div className="flex flex-col sm:flex-row items-center gap-4 w-full max-w-2xl">
+                  
+                  {/* CTA Salva Preventivo su WhatsApp — Hero-style neo-brutalist */}
+                  <button
+                    onClick={handleWhatsAppClick}
+                    className="group relative inline-flex items-center justify-center gap-4 bg-white border-[2.5px] border-slate-900 px-8 py-4 rounded-xl text-slate-900 font-black uppercase tracking-tighter transition-all duration-200 shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] hover:shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] hover:translate-x-1 hover:translate-y-1 active:bg-gray-50 w-full sm:flex-1"
+                  >
+                    <div className="p-2 bg-green-50 rounded-lg group-hover:bg-green-100 transition-colors">
+                      <Bookmark className="w-5 h-5 text-[#25D366]" strokeWidth={2.5} />
+                    </div>
+                    <div className="flex flex-col items-start leading-none">
+                      <span className="text-[10px] text-green-600 font-bold mb-1 tracking-widest uppercase">WhatsApp</span>
+                      <span className="text-lg md:text-xl italic">Salva preventivo</span>
+                    </div>
+                  </button>
+
+                  {/* CTA Chiama — Hero-style neo-brutalist */}
+                  <a
+                    href={`tel:${PHONE_NUMBER}`}
+                    onClick={() => {
+                      if (typeof window.gtag_report_conversion === 'function') {
+                        window.gtag_report_conversion();
+                      }
+                    }}
+                    className="group relative inline-flex items-center justify-center gap-4 bg-white border-[2.5px] border-slate-900 px-8 py-4 rounded-xl text-slate-900 font-black uppercase tracking-tighter transition-all duration-200 shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] hover:shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] hover:translate-x-1 hover:translate-y-1 active:bg-gray-50 w-full sm:flex-1"
+                  >
+                    <div className="p-2 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition-colors">
+                      <Phone className="w-5 h-5 text-blue-600" strokeWidth={2.5} />
+                    </div>
+                    <div className="flex flex-col items-start leading-none">
+                      <span className="text-[10px] text-blue-600 font-bold mb-1 tracking-widest uppercase">Chiama ora</span>
+                      <span className="text-lg md:text-xl italic">Parla con noi</span>
+                    </div>
+                  </a>
+                </div>
+
+                <p className="text-[11px] text-slate-500 font-medium text-center mt-4 leading-relaxed max-w-md">
+                  Salva il preventivo su WhatsApp per non perderlo.<br/>Nessun obbligo d'acquisto — preventivo gratuito.
+                </p>
+              </div>
+
+              {/* ═══ SOCIAL PROOF MINI ═══ */}
+              {!isServicePage && (
+                <div className="mt-10 text-center">
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">
+                    Scelti da 347+ famiglie a Milano
+                  </p>
+                  <div className="max-w-xl mx-auto rounded-2xl overflow-hidden border border-slate-200 bg-white h-[220px]">
+                    <div className="scale-75 origin-top-left w-[133%] h-[133%] -mt-4">
+                      <CompactSocialProof />
+                    </div>
+                  </div>
+                </div>
+              )}
+
             </div>
           )}
 

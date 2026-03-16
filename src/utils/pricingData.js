@@ -1,10 +1,13 @@
 import posaScala from '../assets/images/parquet/posaScala.jpg';
-import posaSpcVideo from '../assets/videos/parquet/posaSpc.mp4';
-import posaLaminato from '../assets/videos/parquet/posaLaminato.mp4';
-import posaPrefinitoIncollato from '../assets/videos/parquet/posaPrefinitoIncollato.mp4';
-import posaPrefinitoSpina from '../assets/videos/parquet/posaPrefinitoSpina.mp4';
-import posaBattiscopa from '../assets/videos/parquet/posaBattiscopa.mp4';
-import posaPrefinitoFlottante from '../assets/videos/parquet/posaPrefinitoFlottante.mp4';
+
+// Videos are served from public/ — use string paths instead of imports
+// This avoids bundling ~14MB of video into the JS chunk
+const posaSpcVideo = '/videos/parquet/posaSpc.mp4';
+const posaLaminato = '/videos/parquet/posaLaminato.mp4';
+const posaPrefinitoIncollato = '/videos/parquet/posaPrefinitoIncollato.mp4';
+const posaPrefinitoSpina = '/videos/parquet/posaPrefinitoSpina.mp4';
+const posaBattiscopa = '/videos/parquet/posaBattiscopa.mp4';
+const posaPrefinitoFlottante = '/videos/parquet/posaPrefinitoFlottante.mp4';
 
 export const pricingData = [
   {
@@ -50,8 +53,8 @@ export const pricingData = [
   {
     id: 'spc',
     name: 'Posa SPC / Vinilico LVT',
-    price: '€15',
-    pricePerMq: 15,
+    price: '€17',
+    pricePerMq: 17,
     unit: '/mq',
     timeFactorPerMq: 0.025, 
     mediaType: 'video',
@@ -265,8 +268,8 @@ export const pricingData = [
   {
     id: 'scala-parquet',
     name: 'Rivestimento Scala con Parquet',
-    price: '€50',
-    pricePerMq: 50,
+    price: '€70',
+    pricePerMq: 70,
     unit: '/gradino',
     timeFactorPerMq: 0.08,
     mediaType: 'image',
@@ -274,10 +277,10 @@ export const pricingData = [
     description: 'Gradini rivestiti con frontali e pedate in legno, rifiniti con profili antisdrucciolo coordinati.',
     calculator: {
       label: 'gradini',
-      min: 3,
+      min: 2,
       max: 25,
       step: 1,
-      defaultValue: 12,
+      defaultValue: 5,
     },
     features: [
       'Installazione: Taglio e incollaggio a misura',

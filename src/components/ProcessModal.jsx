@@ -22,12 +22,13 @@ import {
 } from 'lucide-react';
 
 // --- IMPORTS VIDEO LOCALI (Come fallback) ---
-import posaBattiscopa from '../assets/videos/parquet/posaBattiscopa.mp4';
-import posaLaminato from '../assets/videos/parquet/posaLaminato.mp4';
-import posaPrefinitoFlottante from '../assets/videos/parquet/posaPrefinitoFlottante.mp4';
-import posaPrefinitoIncollato from '../assets/videos/parquet/posaPrefinitoIncollato.mp4';
-import posaPrefinitoSpina from '../assets/videos/parquet/posaPrefinitoSpina.mp4';
-import posaSpc from '../assets/videos/parquet/posaSpc.mp4';
+// Videos served from public/ — string paths avoid bundling ~14MB into JS
+const posaBattiscopa = '/videos/parquet/posaBattiscopa.mp4';
+const posaLaminato = '/videos/parquet/posaLaminato.mp4';
+const posaPrefinitoFlottante = '/videos/parquet/posaPrefinitoFlottante.mp4';
+const posaPrefinitoIncollato = '/videos/parquet/posaPrefinitoIncollato.mp4';
+const posaPrefinitoSpina = '/videos/parquet/posaPrefinitoSpina.mp4';
+const posaSpc = '/videos/parquet/posaSpc.mp4';
 
 // --- MAPPA ICONE ---
 const iconMap = {

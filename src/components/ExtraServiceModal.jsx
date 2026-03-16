@@ -1,77 +1,105 @@
 import React from 'react';
-import { X, Info, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight, ShieldCheck, Info } from 'lucide-react';
 
 function ExtraServiceModal({ service, onClose }) {
   if (!service) return null;
 
+  // LOGICA DI ADATTAMENTO DATI
+  // Se il servizio ha già "sections" (es. SPC, Laminato), usiamo quelle.
+  // Se è un EXTRA (che ha "details"), creiamo una sezione fittizia per il layout Bento.
+  const displaySections = service.sections || [
+    {
+      id: '01',
+      title: 'Dettagli Servizio',
+      description: service.details || "Informazione non disponibile",
+      detail: `Tariffa: ${service.price}€ / ${service.unit}`,
+      icon: '💡',
+      size: 'big'
+    }
+  ];
+
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-      {/* Backdrop scuro */}
-      <div 
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity"
-        onClick={onClose}
-      ></div>
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto">
+      {/* Overlay per chiudere cliccando fuori */}
+      <div className="absolute inset-0" onClick={onClose}></div>
 
-      {/* Card Modale */}
-      <div className="relative bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden animate-scaleIn">
+      <div className="bg-[#F5F5F7] w-full max-w-5xl rounded-[3rem] overflow-hidden relative shadow-2xl my-auto animate-in fade-in zoom-in duration-300">
         
-        {/* Header colorato in base all'icona */}
-        <div className="bg-gray-50 px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-white rounded-lg shadow-sm border border-gray-100">
-              {service.icon}
+        {/* Bottone Chiudi */}
+        <button 
+          onClick={onClose}
+          className="absolute top-8 right-8 z-50 bg-white/80 backdrop-blur-md p-3 rounded-full hover:bg-black hover:text-white transition-all shadow-sm"
+        >
+          <ArrowUpRight className="rotate-45" size={24} />
+        </button>
+
+        <section className="py-16 px-6 md:px-12 font-sans">
+          <div className="max-w-6xl mx-auto">
+            
+            {/* Header */}
+            <div className="max-w-3xl mb-12">
+              <div className="flex items-center gap-2 text-blue-600 mb-4">
+                 <ShieldCheck size={20} />
+                 <span className="text-xs font-black uppercase tracking-[0.2em]">Scheda Tecnica Milano</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-black leading-tight">
+                {service.name || service.title}<br/>
+                <span className="text-slate-400 font-medium text-2xl md:text-3xl italic">Lavorazione Professionale</span>
+              </h2>
             </div>
-            <h3 className="text-lg font-bold text-gray-900 leading-tight">
-              {service.name}
-            </h3>
-          </div>
-          <button 
-            onClick={onClose}
-            className="p-2 bg-white hover:bg-gray-100 rounded-full transition-colors border border-transparent hover:border-gray-200"
-          >
-            <X className="w-5 h-5 text-gray-500" />
-          </button>
-        </div>
 
-        <div className="p-6">
-          {/* Prezzo in evidenza */}
-          <div className="flex items-baseline gap-2 mb-6">
-            <span className="text-3xl font-bold text-blue-600">
-              {service.price}€
-            </span>
-            <span className="text-sm font-medium text-gray-400 uppercase">
-               / {service.unit}
-            </span>
-          </div>
+            {/* Bento Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {displaySections.map((item, idx) => {
+                // Supporto per i vecchi dati (paragraphs) se presenti
+                const desc = item.description || (item.paragraphs && item.paragraphs[0]);
+                const det = item.detail || (item.bullets && item.bullets[0]?.label) || "Servizio Certificato";
 
-          {/* Descrizione del servizio */}
-          <div className="mb-6 space-y-3">
-            <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wide flex items-center gap-2">
-              <Info className="w-4 h-4" /> In cosa consiste
-            </h4>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              {service.details || "Servizio accessorio valutabile in fase di sopralluogo."}
-            </p>
-          </div>
+                return (
+                  <div 
+                    key={idx}
+                    className={`group relative overflow-hidden rounded-[2.5rem] bg-white p-8 md:p-10 border border-slate-100 flex flex-col justify-between transition-all duration-500 hover:shadow-xl ${
+                      item.size === 'big' ? 'md:col-span-2' : 'md:col-span-1'
+                    }`}
+                  >
+                    <div className="flex justify-between items-start">
+                      <div className="text-3xl bg-slate-50 w-16 h-16 flex items-center justify-center rounded-2xl border border-slate-100">
+                        {item.icon || "🛠️"}
+                      </div>
+                      <span className="text-slate-100 font-mono text-xl font-bold italic">/{item.id || idx + 1}</span>
+                    </div>
 
-          {/* Box Disclaimer Sopralluogo */}
-          <div className="bg-amber-50 border border-amber-100 rounded-xl p-4 flex gap-3">
-            <CheckCircle2 className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-            <div className="text-xs text-amber-900 leading-relaxed">
-              <strong>Niente sorprese:</strong> Il prezzo finale potrebbe variare leggermente in base alla complessità reale del cantiere. Verificheremo tutto durante il sopralluogo gratuito e il prezzo sarà bloccato prima di iniziare.
+                    <div className="mt-12">
+                      <h3 className="text-2xl font-bold text-black tracking-tight mb-3">
+                        {item.title}
+                      </h3>
+                      <p className="text-slate-500 text-lg leading-snug mb-6">
+                        {desc}
+                      </p>
+                      <div className="pt-5 border-t border-slate-50">
+                        <span className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-blue-600 bg-blue-50 px-3 py-1 rounded-md">
+                          <div className="h-1 w-1 rounded-full bg-blue-600 animate-pulse" />
+                          {det}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Footer CTA */}
+            <div className="mt-12 flex flex-col items-center">
+               <button 
+                onClick={onClose}
+                className="group flex items-center gap-4 bg-black text-white px-10 py-5 rounded-full font-bold text-lg transition-all hover:bg-slate-800"
+               >
+                  Ho capito, chiudi
+                  <ArrowUpRight size={20} className="opacity-50 group-hover:opacity-100" />
+               </button>
             </div>
           </div>
-        </div>
-
-        {/* Footer con bottone chiudi */}
-        <div className="p-4 border-t border-gray-100 bg-gray-50/50 text-center">
-          <button 
-            onClick={onClose}
-            className="w-full bg-gray-900 hover:bg-black text-white font-bold py-3 rounded-xl transition-all active:scale-95"
-          >
-            Ho capito
-          </button>
-        </div>
+        </section>
       </div>
     </div>
   );

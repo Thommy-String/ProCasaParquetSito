@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import ServicePageLayout from '../../components/ServicePageLayout';
 import { servicesData } from '../../utils/servicesData';
 
@@ -19,7 +20,29 @@ function ServicePage() {
     return <Navigate to="/" replace />;
   }
 
-  return <ServicePageLayout service={service} />;
+  // --- PREPARAZIONE DATI SEO ---
+  // Usiamo i nomi corretti che abbiamo in servicesData.js
+  const finalTitle = service.pageTitle || service.title || "Servizio Posa Parquet";
+  const finalDescription = service.metaDescription || service.seoDescription || `Scopri il servizio di ${finalTitle} a Milano.`;
+  const currentUrl = window.location.href;
+
+  return (
+    <>
+      <Helmet>
+        <title>{`${finalTitle} | Milano Posa Parquet`}</title>
+        <meta name="description" content={finalDescription} />
+        <link rel="canonical" href={currentUrl} />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content={finalTitle} />
+        <meta property="og:description" content={finalDescription} />
+        <meta property="og:url" content={currentUrl} />
+        <meta property="og:type" content="website" />
+      </Helmet>
+
+      <ServicePageLayout service={service} />
+    </>
+  );
 }
 
 export default ServicePage;
