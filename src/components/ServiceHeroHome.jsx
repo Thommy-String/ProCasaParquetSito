@@ -80,7 +80,7 @@ const SERVICE_TITLES = {
   ),
   'spc': (
     <>
-     Posiamo il tuo Nuovo pavimento spc <span className="bg-yellow-100 px-0.5 rounded-sm">sopra il vecchio in 1-2 giorni.</span>  <span className="bg-green-100 px-0.5 rounded-sm"> E Paghi alla fine</span>
+     Nuovo pavimento spc in 48 ore <span className="bg-yellow-100 px-0.5 rounded-sm">Direttamente sopra piastrelle o marmo esistente.</span>  <span className="bg-green-100 px-0.5 rounded-sm">Zero acconti: paghi alla fine</span>
     </>
   ),
   'laminato': (

@@ -3,7 +3,7 @@ import { PHONE_NUMBER } from '../utils/constants';
 
 const StickyGlassFooter = ({ 
     subtitle = "Nessun obbligo di acquisto.", 
-    buttonText = "Whatsapp",
+    buttonText = "Invia messaggio Whatsapp",
 }) => {
     
     // Nascondi il footer finché il cookie banner è visibile

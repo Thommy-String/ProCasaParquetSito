@@ -230,9 +230,9 @@ function QuizOption({ label, description, name, value, selectedValue, onChange, 
         <div className="relative z-10 flex w-full flex-col justify-between p-4 text-white">
           <div className="flex justify-between items-start">
             <div>
-              <span className="text-sm font-bold drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)] leading-tight block">{label}</span>
+              <span className="text-base font-bold drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)] leading-tight block">{label}</span>
               {description && (
-                <p className="text-[11px] text-white/80 mt-1 drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)] font-medium">{description}</p>
+                <p className="text-xs text-white/80 mt-1 drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)] font-medium">{description}</p>
               )}
             </div>
             {/* Checkmark neo-brutalist */}
@@ -247,7 +247,7 @@ function QuizOption({ label, description, name, value, selectedValue, onChange, 
           {price && (
             <div className="mt-3 flex items-baseline gap-1">
               <span className="text-2xl font-black drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)] leading-none">{price}€</span>
-              <span className="text-[10px] text-white/80 font-bold uppercase">/mq</span>
+              <span className="text-[11px] text-white/80 font-bold uppercase">/mq</span>
             </div>
           )}
         </div>
@@ -264,11 +264,11 @@ function QuizOption({ label, description, name, value, selectedValue, onChange, 
         }`}
     >
       <div className="flex flex-col">
-        <span className={`text-sm font-bold ${isSelected ? 'text-slate-900' : 'text-slate-700'}`}>
+        <span className={`text-base font-bold ${isSelected ? 'text-slate-900' : 'text-slate-700'}`}>
           {label}
         </span>
         {description && (
-          <p className="text-xs text-slate-500 mt-0.5">{description}</p>
+          <p className="text-sm text-slate-500 mt-0.5">{description}</p>
         )}
       </div>
       
@@ -307,7 +307,7 @@ function InstallationQuiz({ service }) {
   const estimateRef = useRef(null);
   const [answers, setAnswers] = useState({
     serviceType: autoSelectedType || '',
-    subfloor: 'massetto',
+    subfloor: 'pavimento_esistente',
     furniture: 'no',
     colla: 'no',
     add_battiscopa: 'no',
@@ -733,17 +733,17 @@ function InstallationQuiz({ service }) {
       <div className="container mx-auto px-4 relative z-10">
         
         {/* Intestazione Sezione - Neo-brutalist */}
-        <div className="max-w-3xl mx-auto text-center mb-14">
+        <div className="max-w-3xl mx-auto text-center mb-4">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white border-[2px] border-slate-900 rounded-lg shadow-[3px_3px_0px_0px_rgba(15,23,42,1)] mb-6">
             <Calculator className="w-4 h-4 text-slate-900" strokeWidth={2.5} />
-            <span className="text-[11px] font-black text-slate-900 uppercase tracking-widest">Preventivatore online</span>
+            <span className="text-xs font-black text-slate-900 uppercase tracking-widest">configuratore prezzi</span>
           </div>
           {isServicePage ? (
             <>
-              <h2 className="text-3xl md:text-5xl font-[800] text-slate-900 tracking-tight leading-tight mb-4">
+              <h2 className="text-3xl md:text-5xl font-[800] text-slate-900 tracking-tight leading-tight mb-2">
                 <span className="bg-yellow-100 px-2 rounded-sm">Preventivo</span> rapido
               </h2>
-              <p className="text-base md:text-lg text-slate-500 font-medium max-w-lg mx-auto">
+              <p className="text-base md:text-lg text-slate-400 font-medium max-w-lg mx-auto">
                 {service?.navLabel ? `${service.navLabel} — inserisci i metri e scopri subito il prezzo.` : 'Inserisci i metri e scopri subito il prezzo.'}
               </p>
             </>
@@ -796,8 +796,8 @@ function InstallationQuiz({ service }) {
                         <Check className="w-4 h-4 text-white" strokeWidth={3} />
                       </div>
                       <div>
-                        <span className="font-bold text-slate-900 text-sm">{SERVICE_NAME_MAP[autoSelectedType]}</span>
-                        <span className="text-[11px] text-slate-500 font-medium ml-2">{POSA_PRICES.base[autoSelectedType]}€/{isBattiscopa ? 'ml' : 'mq'}</span>
+                        <span className="font-bold text-slate-900 text-base">{SERVICE_NAME_MAP[autoSelectedType]}</span>
+                        <span className="text-xs text-slate-500 font-medium ml-2">{POSA_PRICES.base[autoSelectedType]}€/{isBattiscopa ? 'ml' : 'mq'}</span>
                       </div>
                     </div>
                   )}
@@ -825,7 +825,7 @@ function InstallationQuiz({ service }) {
                     <>
                       {/* CATEGORIA 1: PARQUET LEGNO (PREFINITO) */}
                       <div className="mb-12">
-                          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6 text-center">Parquet in Legno (Prefinito)</p>
+                          <p className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-6 text-center">Parquet in Legno (Prefinito)</p>
                           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                             <QuizOption label="Parquet prefinito" description="Posa Incollata" name="serviceType" value="prefinito_dritto" background={SERVICE_BACKGROUND_MAP.prefinito_dritto} price={POSA_PRICES.base.prefinito_dritto} selectedValue={answers.serviceType} onChange={handleChange} />
                             <QuizOption label="Prefinito Spina" description="Tutti i tipi di spina" name="serviceType" value="prefinito_spina" background={SERVICE_BACKGROUND_MAP.prefinito_spina} price={POSA_PRICES.base.prefinito_spina} selectedValue={answers.serviceType} onChange={handleChange} />
@@ -835,7 +835,7 @@ function InstallationQuiz({ service }) {
 
                       {/* CATEGORIA 2: VINILICI E LAMINATI */}
                       <div className="mb-6">
-                          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6 text-center">Vinilici (SPC) & Laminati</p>
+                          <p className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-6 text-center">Vinilici (SPC) & Laminati</p>
                           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                              <QuizOption label="SPC Dritto" description="Vinilico Click" name="serviceType" value="spc_dritto" background={SERVICE_BACKGROUND_MAP.spc_dritto} price={POSA_PRICES.base.spc_dritto} selectedValue={answers.serviceType} onChange={handleChange} />
                              <QuizOption label="SPC Spina" description="Vinilico Spina" name="serviceType" value="spc_spina" background={SERVICE_BACKGROUND_MAP.spc_spina} price={POSA_PRICES.base.spc_spina} selectedValue={answers.serviceType} onChange={handleChange} />
@@ -864,7 +864,7 @@ function InstallationQuiz({ service }) {
                       
                       <div className="bg-slate-50 rounded-xl p-8 border-[2px] border-slate-200 flex flex-col items-center justify-center">
                           
-                          <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-8 text-center">
+                          <label className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-8 text-center">
                             Metri Quadrati
                           </label>
 
@@ -914,7 +914,7 @@ function InstallationQuiz({ service }) {
                                 background: `linear-gradient(to right, #0f172a ${((unitValue - 5) / (250 - 5)) * 100}%, #e2e8f0 ${((unitValue - 5) / (250 - 5)) * 100}%)`
                               }}
                             />
-                             <div className="flex justify-between text-[9px] text-slate-400 mt-3 font-bold uppercase tracking-widest">
+                            <div className="flex justify-between text-[10px] text-slate-400 mt-3 font-bold uppercase tracking-widest">
                               <span>Min 5</span>
                               <span>250+</span>
                             </div>
@@ -938,7 +938,7 @@ function InstallationQuiz({ service }) {
                           {showExtraQuestions && (
                             <div className="space-y-6">
                                <div>
-                                <label className="block text-sm font-bold text-slate-700 mb-2">Superficie di posa</label>
+                                <label className="block text-base font-bold text-slate-700 mb-2">Superficie di posa</label>
                                 <div className="space-y-2">
                                   <QuizOption label="Pavimento esistente" description="Copre il vecchio" name="subfloor" value="pavimento_esistente" selectedValue={answers.subfloor} onChange={handleChange} />
                                   <QuizOption label="Massetto" name="subfloor" value="massetto" selectedValue={answers.subfloor} onChange={handleChange} />
@@ -951,7 +951,7 @@ function InstallationQuiz({ service }) {
                           {requiresGlueQuestion && (
                             <div className="space-y-6">
                               <div>
-                                <label className="block text-sm font-bold text-slate-700 mb-2">Hai bisogno anche della colla?</label>
+                                <label className="block text-base font-bold text-slate-700 mb-2">Hai bisogno anche della colla?</label>
                                 <div className="space-y-2">
                                   <QuizOption label="Aggiungete la colla al preventivo" description={`+${POSA_PRICES.variables.colla_al_mq}€/mq`} name="colla" value="si" selectedValue={answers.colla} onChange={handleChange} />
                                   <QuizOption label="Ho già la colla" name="colla" value="no" selectedValue={answers.colla} onChange={handleChange} />
@@ -961,166 +961,186 @@ function InstallationQuiz({ service }) {
                           )}
                       </div>
 
-                      {/* --- SERVIZI EXTRA TOGGLEABILI (Compact Colored Cards) --- */}
+                      {/* --- SERVIZI EXTRA TOGGLEABILI (Larger Colored Cards) --- */}
                       {showBattiscopaOption && (
                         <div className="mt-10 pt-8 border-t-2 border-dashed border-slate-200">
-                          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6 text-center">Servizi aggiuntivi (opzionali)</p>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                          <p className="text-sm font-black text-slate-400 uppercase tracking-[0.2em] mb-8 text-center">Servizi aggiuntivi (opzionali)</p>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 
                             {/* ── Piccoli Mobili (amber) ── */}
                             <button
                               type="button"
                               onClick={() => handleChange('furniture', answers.furniture === 'piccoli' ? 'no' : 'piccoli')}
-                              className={`group flex items-center gap-2.5 px-3 py-3 rounded-xl border-[2.5px] transition-all duration-200 text-left ${
+                              className={`group flex flex-col items-start gap-3 px-5 py-5 rounded-xl border-[2.5px] transition-all duration-200 text-left ${
                                 answers.furniture === 'piccoli'
                                   ? 'border-amber-500 bg-amber-50 shadow-[3px_3px_0px_0px_rgba(245,158,11,0.6)]'
                                   : 'border-slate-200 bg-white hover:border-amber-300 hover:shadow-[2px_2px_0px_0px_rgba(245,158,11,0.2)]'
                               }`}
                             >
-                              <div className={`p-2 rounded-lg flex-shrink-0 transition-colors ${answers.furniture === 'piccoli' ? 'bg-amber-500 text-white' : 'bg-amber-50 text-amber-600 group-hover:bg-amber-100'}`}>
-                                <Package className="w-4 h-4" strokeWidth={2.5} />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <span className="text-[13px] font-bold text-slate-900 block leading-tight truncate">Piccoli Mobili</span>
-                                <span className="text-[11px] text-slate-500 font-semibold">€90 forfait</span>
-                                <span className="text-[10px] text-slate-400 block leading-snug mt-0.5">Sedie, tavolini, oggetti leggeri</span>
-                              </div>
-                              {answers.furniture === 'piccoli' && (
-                                <div className="bg-amber-500 p-0.5 rounded-md flex-shrink-0">
-                                  <Check className="w-3 h-3 text-white" strokeWidth={3.5} />
+                              <div className="flex items-center justify-between w-full">
+                                <div className={`p-3 rounded-lg transition-colors ${answers.furniture === 'piccoli' ? 'bg-amber-500 text-white' : 'bg-amber-50 text-amber-600 group-hover:bg-amber-100'}`}>
+                                  <Package className="w-5 h-5" strokeWidth={2.5} />
                                 </div>
-                              )}
+                                {answers.furniture === 'piccoli' && (
+                                  <div className="bg-amber-500 p-1 rounded-md">
+                                    <Check className="w-4 h-4 text-white" strokeWidth={3.5} />
+                                  </div>
+                                )}
+                              </div>
+                              <div className="flex-1 w-full">
+                                <span className="text-base font-bold text-slate-900 block leading-tight">Piccoli Mobili</span>
+                                <span className="text-sm text-slate-500 font-semibold block mt-1">€90 forfait</span>
+                                <span className="text-xs text-slate-400 block leading-relaxed mt-2">Sedie, tavolini, oggetti leggeri</span>
+                              </div>
                             </button>
 
                             {/* ── Grandi Mobili (orange) ── */}
                             <button
                               type="button"
                               onClick={() => handleChange('furniture', answers.furniture === 'grandi' ? 'no' : 'grandi')}
-                              className={`group flex items-center gap-2.5 px-3 py-3 rounded-xl border-[2.5px] transition-all duration-200 text-left ${
+                              className={`group flex flex-col items-start gap-3 px-5 py-5 rounded-xl border-[2.5px] transition-all duration-200 text-left ${
                                 answers.furniture === 'grandi'
                                   ? 'border-orange-500 bg-orange-50 shadow-[3px_3px_0px_0px_rgba(249,115,22,0.6)]'
                                   : 'border-slate-200 bg-white hover:border-orange-300 hover:shadow-[2px_2px_0px_0px_rgba(249,115,22,0.2)]'
                               }`}
                             >
-                              <div className={`p-2 rounded-lg flex-shrink-0 transition-colors ${answers.furniture === 'grandi' ? 'bg-orange-500 text-white' : 'bg-orange-50 text-orange-600 group-hover:bg-orange-100'}`}>
-                                <Sofa className="w-4 h-4" strokeWidth={2.5} />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <span className="text-[13px] font-bold text-slate-900 block leading-tight truncate">Grandi Mobili</span>
-                                <span className="text-[11px] text-slate-500 font-semibold">€150 forfait</span>
-                                <span className="text-[10px] text-slate-400 block leading-snug mt-0.5">Armadi, divani, librerie pesanti</span>
-                              </div>
-                              {answers.furniture === 'grandi' && (
-                                <div className="bg-orange-500 p-0.5 rounded-md flex-shrink-0">
-                                  <Check className="w-3 h-3 text-white" strokeWidth={3.5} />
+                              <div className="flex items-center justify-between w-full">
+                                <div className={`p-3 rounded-lg transition-colors ${answers.furniture === 'grandi' ? 'bg-orange-500 text-white' : 'bg-orange-50 text-orange-600 group-hover:bg-orange-100'}`}>
+                                  <Sofa className="w-5 h-5" strokeWidth={2.5} />
                                 </div>
-                              )}
+                                {answers.furniture === 'grandi' && (
+                                  <div className="bg-orange-500 p-1 rounded-md">
+                                    <Check className="w-4 h-4 text-white" strokeWidth={3.5} />
+                                  </div>
+                                )}
+                              </div>
+                              <div className="flex-1 w-full">
+                                <span className="text-base font-bold text-slate-900 block leading-tight">Grandi Mobili</span>
+                                <span className="text-sm text-slate-500 font-semibold block mt-1">€150 forfait</span>
+                                <span className="text-xs text-slate-400 block leading-relaxed mt-2">Armadi, divani, librerie pesanti</span>
+                              </div>
                             </button>
 
                             {/* ── Posa Battiscopa (emerald) ── */}
                             <button
                               type="button"
                               onClick={() => handleChange('add_battiscopa', answers.add_battiscopa === 'si' ? 'no' : 'si')}
-                              className={`group flex items-center gap-2.5 px-3 py-3 rounded-xl border-[2.5px] transition-all duration-200 text-left ${
+                              className={`group flex flex-col items-start gap-3 px-5 py-5 rounded-xl border-[2.5px] transition-all duration-200 text-left ${
                                 answers.add_battiscopa === 'si'
                                   ? 'border-emerald-500 bg-emerald-50 shadow-[3px_3px_0px_0px_rgba(16,185,129,0.6)]'
                                   : 'border-slate-200 bg-white hover:border-emerald-300 hover:shadow-[2px_2px_0px_0px_rgba(16,185,129,0.2)]'
                               }`}
                             >
-                              <div className={`p-2 rounded-lg flex-shrink-0 transition-colors ${answers.add_battiscopa === 'si' ? 'bg-emerald-500 text-white' : 'bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100'}`}>
-                                <Hammer className="w-4 h-4" strokeWidth={2.5} />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <span className="text-[13px] font-bold text-slate-900 block leading-tight truncate">Posa Battiscopa</span>
-                                <span className="text-[11px] text-slate-500 font-semibold">€7 / ml</span>
-                                <span className="text-[10px] text-slate-400 block leading-snug mt-0.5">Taglio a 45°, incollaggio e sigillatura</span>
-                              </div>
-                              {answers.add_battiscopa === 'si' && (
-                                <div className="bg-emerald-500 p-0.5 rounded-md flex-shrink-0">
-                                  <Check className="w-3 h-3 text-white" strokeWidth={3.5} />
+                              <div className="flex items-center justify-between w-full">
+                                <div className={`p-3 rounded-lg transition-colors ${answers.add_battiscopa === 'si' ? 'bg-emerald-500 text-white' : 'bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100'}`}>
+                                  <Hammer className="w-5 h-5" strokeWidth={2.5} />
                                 </div>
-                              )}
+                                {answers.add_battiscopa === 'si' && (
+                                  <div className="bg-emerald-500 p-1 rounded-md">
+                                    <Check className="w-4 h-4 text-white" strokeWidth={3.5} />
+                                  </div>
+                                )}
+                              </div>
+                              <div className="flex-1 w-full">
+                                <span className="text-base font-bold text-slate-900 block leading-tight">Posa Battiscopa</span>
+                                <span className="text-sm text-slate-500 font-semibold block mt-1">€7 / ml</span>
+                                <span className="text-xs text-slate-400 block leading-relaxed mt-2">Taglio a 45°, incollaggio e sigillatura</span>
+                              </div>
                             </button>
 
                             {/* ── Rimozione Battiscopa (red) ── */}
                             <button
                               type="button"
                               onClick={() => handleChange('rimozione_battiscopa', answers.rimozione_battiscopa === 'si' ? 'no' : 'si')}
-                              className={`group flex items-center gap-2.5 px-3 py-3 rounded-xl border-[2.5px] transition-all duration-200 text-left ${
+                              className={`group flex flex-col items-start gap-3 px-5 py-5 rounded-xl border-[2.5px] transition-all duration-200 text-left ${
                                 answers.rimozione_battiscopa === 'si'
                                   ? 'border-red-500 bg-red-50 shadow-[3px_3px_0px_0px_rgba(239,68,68,0.6)]'
                                   : 'border-slate-200 bg-white hover:border-red-300 hover:shadow-[2px_2px_0px_0px_rgba(239,68,68,0.2)]'
                               }`}
                             >
-                              <div className={`p-2 rounded-lg flex-shrink-0 transition-colors ${answers.rimozione_battiscopa === 'si' ? 'bg-red-500 text-white' : 'bg-red-50 text-red-600 group-hover:bg-red-100'}`}>
-                                <Trash2 className="w-4 h-4" strokeWidth={2.5} />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <span className="text-[13px] font-bold text-slate-900 block leading-tight truncate">Rim. Battiscopa</span>
-                                <span className="text-[11px] text-slate-500 font-semibold">€3,50 / ml</span>
-                                <span className="text-[10px] text-slate-400 block leading-snug mt-0.5">Stacchiamo il vecchio zoccolino</span>
-                              </div>
-                              {answers.rimozione_battiscopa === 'si' && (
-                                <div className="bg-red-500 p-0.5 rounded-md flex-shrink-0">
-                                  <Check className="w-3 h-3 text-white" strokeWidth={3.5} />
+                              <div className="flex items-center justify-between w-full">
+                                <div className={`p-3 rounded-lg transition-colors ${answers.rimozione_battiscopa === 'si' ? 'bg-red-500 text-white' : 'bg-red-50 text-red-600 group-hover:bg-red-100'}`}>
+                                  <Trash2 className="w-5 h-5" strokeWidth={2.5} />
                                 </div>
-                              )}
+                                {answers.rimozione_battiscopa === 'si' && (
+                                  <div className="bg-red-500 p-1 rounded-md">
+                                    <Check className="w-4 h-4 text-white" strokeWidth={3.5} />
+                                  </div>
+                                )}
+                              </div>
+                              <div className="flex-1 w-full">
+                                <span className="text-base font-bold text-slate-900 block leading-tight">Rim. Battiscopa</span>
+                                <span className="text-sm text-slate-500 font-semibold block mt-1">€3,50 / ml</span>
+                                <span className="text-xs text-slate-400 block leading-relaxed mt-2">Stacchiamo il vecchio zoccolino</span>
+                              </div>
                             </button>
 
                             {/* ── Taglio Porte (blue, stepper) ── */}
                             <div
-                              className={`group flex items-center gap-2.5 px-3 py-3 rounded-xl border-[2.5px] transition-all duration-200 ${
+                              className={`group flex flex-col items-start gap-3 px-5 py-5 rounded-xl border-[2.5px] transition-all duration-200 ${
                                 answers.taglio_porte > 0
                                   ? 'border-blue-500 bg-blue-50 shadow-[3px_3px_0px_0px_rgba(59,130,246,0.6)]'
                                   : 'border-slate-200 bg-white hover:border-blue-300'
                               }`}
                             >
-                              <div className={`p-2 rounded-lg flex-shrink-0 transition-colors ${answers.taglio_porte > 0 ? 'bg-blue-500 text-white' : 'bg-blue-50 text-blue-600 group-hover:bg-blue-100'}`}>
-                                <DoorOpen className="w-4 h-4" strokeWidth={2.5} />
+                              <div className="flex items-center justify-between w-full">
+                                <div className={`p-3 rounded-lg transition-colors ${answers.taglio_porte > 0 ? 'bg-blue-500 text-white' : 'bg-blue-50 text-blue-600 group-hover:bg-blue-100'}`}>
+                                  <DoorOpen className="w-5 h-5" strokeWidth={2.5} />
+                                </div>
                               </div>
-                              <div className="flex-1 min-w-0">
-                                <span className="text-[13px] font-bold text-slate-900 block leading-tight truncate">Taglio Porte</span>
-                                <span className="text-[11px] text-slate-500 font-semibold">€60 / cad</span>
-                                <span className="text-[10px] text-slate-400 block leading-snug mt-0.5">Accorciamo le porte al nuovo livello</span>
+                              <div className="flex-1 w-full">
+                                <span className="text-base font-bold text-slate-900 block leading-tight">Taglio Porte</span>
+                                <span className="text-sm text-slate-500 font-semibold block mt-1">€60 / cad</span>
+                                <span className="text-xs text-slate-400 block leading-relaxed mt-2">Accorciamo le porte al nuovo livello</span>
                               </div>
-                              <div className="flex items-center gap-1.5 flex-shrink-0">
+                              {/* Stepper in fondo */}
+                              <div className="w-full flex items-center justify-center gap-2 pt-2 border-t border-blue-200/50">
                                 <button type="button" onClick={() => handleChange('taglio_porte', Math.max(0, answers.taglio_porte - 1))}
-                                  className="w-7 h-7 flex items-center justify-center rounded-lg border-[2px] border-slate-300 bg-white hover:border-blue-500 transition-all active:scale-95">
-                                  <Minus className="w-3 h-3 text-slate-700" strokeWidth={3} />
+                                  className="w-8 h-8 flex items-center justify-center rounded-lg border-[2px] border-blue-400 bg-white hover:bg-blue-100 transition-all active:scale-95">
+                                  <Minus className="w-4 h-4 text-blue-600" strokeWidth={3} />
                                 </button>
-                                <span className="text-sm font-black text-slate-900 tabular-nums w-5 text-center">{answers.taglio_porte}</span>
+                                <div className="flex-1 text-center">
+                                  <span className="text-lg font-black text-slate-900 tabular-nums">{answers.taglio_porte}</span>
+                                  <span className="text-[10px] text-slate-500 font-bold block">quantità</span>
+                                </div>
                                 <button type="button" onClick={() => handleChange('taglio_porte', Math.min(20, answers.taglio_porte + 1))}
-                                  className="w-7 h-7 flex items-center justify-center rounded-lg border-[2px] border-slate-300 bg-white hover:border-blue-500 transition-all active:scale-95">
-                                  <Plus className="w-3 h-3 text-slate-700" strokeWidth={3} />
+                                  className="w-8 h-8 flex items-center justify-center rounded-lg border-[2px] border-blue-400 bg-white hover:bg-blue-100 transition-all active:scale-95">
+                                  <Plus className="w-4 h-4 text-blue-600" strokeWidth={3} />
                                 </button>
                               </div>
                             </div>
 
                             {/* ── Porta Blindata (violet, stepper) ── */}
                             <div
-                              className={`group flex items-center gap-2.5 px-3 py-3 rounded-xl border-[2.5px] transition-all duration-200 ${
+                              className={`group flex flex-col items-start gap-3 px-5 py-5 rounded-xl border-[2.5px] transition-all duration-200 ${
                                 answers.taglio_porta_blindata > 0
                                   ? 'border-violet-500 bg-violet-50 shadow-[3px_3px_0px_0px_rgba(139,92,246,0.6)]'
                                   : 'border-slate-200 bg-white hover:border-violet-300'
                               }`}
                             >
-                              <div className={`p-2 rounded-lg flex-shrink-0 transition-colors ${answers.taglio_porta_blindata > 0 ? 'bg-violet-500 text-white' : 'bg-violet-50 text-violet-600 group-hover:bg-violet-100'}`}>
-                                <Lock className="w-4 h-4" strokeWidth={2.5} />
+                              <div className="flex items-center justify-between w-full">
+                                <div className={`p-3 rounded-lg transition-colors ${answers.taglio_porta_blindata > 0 ? 'bg-violet-500 text-white' : 'bg-violet-50 text-violet-600 group-hover:bg-violet-100'}`}>
+                                  <Lock className="w-5 h-5" strokeWidth={2.5} />
+                                </div>
                               </div>
-                              <div className="flex-1 min-w-0">
-                                <span className="text-[13px] font-bold text-slate-900 block leading-tight truncate">Porta Blindata</span>
-                                <span className="text-[11px] text-slate-500 font-semibold">€150 / cad</span>
-                                <span className="text-[10px] text-slate-400 block leading-snug mt-0.5">Smontaggio, taglio e rimontaggio</span>
+                              <div className="flex-1 w-full">
+                                <span className="text-base font-bold text-slate-900 block leading-tight">Porta Blindata</span>
+                                <span className="text-sm text-slate-500 font-semibold block mt-1">€150 / cad</span>
+                                <span className="text-xs text-slate-400 block leading-relaxed mt-2">Smontaggio, taglio e rimontaggio</span>
                               </div>
-                              <div className="flex items-center gap-1.5 flex-shrink-0">
+                              {/* Stepper in fondo */}
+                              <div className="w-full flex items-center justify-center gap-2 pt-2 border-t border-violet-200/50">
                                 <button type="button" onClick={() => handleChange('taglio_porta_blindata', Math.max(0, answers.taglio_porta_blindata - 1))}
-                                  className="w-7 h-7 flex items-center justify-center rounded-lg border-[2px] border-slate-300 bg-white hover:border-violet-500 transition-all active:scale-95">
-                                  <Minus className="w-3 h-3 text-slate-700" strokeWidth={3} />
+                                  className="w-8 h-8 flex items-center justify-center rounded-lg border-[2px] border-violet-400 bg-white hover:bg-violet-100 transition-all active:scale-95">
+                                  <Minus className="w-4 h-4 text-violet-600" strokeWidth={3} />
                                 </button>
-                                <span className="text-sm font-black text-slate-900 tabular-nums w-5 text-center">{answers.taglio_porta_blindata}</span>
+                                <div className="flex-1 text-center">
+                                  <span className="text-lg font-black text-slate-900 tabular-nums">{answers.taglio_porta_blindata}</span>
+                                  <span className="text-[10px] text-slate-500 font-bold block">quantità</span>
+                                </div>
                                 <button type="button" onClick={() => handleChange('taglio_porta_blindata', Math.min(10, answers.taglio_porta_blindata + 1))}
-                                  className="w-7 h-7 flex items-center justify-center rounded-lg border-[2px] border-slate-300 bg-white hover:border-violet-500 transition-all active:scale-95">
-                                  <Plus className="w-3 h-3 text-slate-700" strokeWidth={3} />
+                                  className="w-8 h-8 flex items-center justify-center rounded-lg border-[2px] border-violet-400 bg-white hover:bg-violet-100 transition-all active:scale-95">
+                                  <Plus className="w-4 h-4 text-violet-600" strokeWidth={3} />
                                 </button>
                               </div>
                             </div>
@@ -1129,25 +1149,27 @@ function InstallationQuiz({ service }) {
                             <button
                               type="button"
                               onClick={() => handleChange('smaltimento', answers.smaltimento === 'si' ? 'no' : 'si')}
-                              className={`group flex items-center gap-2.5 px-3 py-3 rounded-xl border-[2.5px] transition-all duration-200 text-left ${
+                              className={`group flex flex-col items-start gap-3 px-5 py-5 rounded-xl border-[2.5px] transition-all duration-200 text-left ${
                                 answers.smaltimento === 'si'
                                   ? 'border-teal-500 bg-teal-50 shadow-[3px_3px_0px_0px_rgba(20,184,166,0.6)]'
                                   : 'border-slate-200 bg-white hover:border-teal-300 hover:shadow-[2px_2px_0px_0px_rgba(20,184,166,0.2)]'
                               }`}
                             >
-                              <div className={`p-2 rounded-lg flex-shrink-0 transition-colors ${answers.smaltimento === 'si' ? 'bg-teal-500 text-white' : 'bg-teal-50 text-teal-600 group-hover:bg-teal-100'}`}>
-                                <Truck className="w-4 h-4" strokeWidth={2.5} />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <span className="text-[13px] font-bold text-slate-900 block leading-tight truncate">Smaltimento Rifiuti</span>
-                                <span className="text-[11px] text-slate-500 font-semibold">€50-150 forfait</span>
-                                <span className="text-[10px] text-slate-400 block leading-snug mt-0.5">Trasporto e smaltimento in discarica</span>
-                              </div>
-                              {answers.smaltimento === 'si' && (
-                                <div className="bg-teal-500 p-0.5 rounded-md flex-shrink-0">
-                                  <Check className="w-3 h-3 text-white" strokeWidth={3.5} />
+                              <div className="flex items-center justify-between w-full">
+                                <div className={`p-3 rounded-lg transition-colors ${answers.smaltimento === 'si' ? 'bg-teal-500 text-white' : 'bg-teal-50 text-teal-600 group-hover:bg-teal-100'}`}>
+                                  <Truck className="w-5 h-5" strokeWidth={2.5} />
                                 </div>
-                              )}
+                                {answers.smaltimento === 'si' && (
+                                  <div className="bg-teal-500 p-1 rounded-md">
+                                    <Check className="w-4 h-4 text-white" strokeWidth={3.5} />
+                                  </div>
+                                )}
+                              </div>
+                              <div className="flex-1 w-full">
+                                <span className="text-base font-bold text-slate-900 block leading-tight">Smaltimento Rifiuti</span>
+                                <span className="text-sm text-slate-500 font-semibold block mt-1">€50-150 forfait</span>
+                                <span className="text-xs text-slate-400 block leading-relaxed mt-2">Trasporto e smaltimento in discarica</span>
+                              </div>
                             </button>
 
                           </div>
@@ -1175,7 +1197,7 @@ function InstallationQuiz({ service }) {
                         <span className="text-lg">Mostra la Stima</span>
                       </button>
                       
-                       <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-3">
+                       <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mt-3">
                          Risultato immediato — Senza impegno
                        </p>
                     </div>
@@ -1195,7 +1217,7 @@ function InstallationQuiz({ service }) {
               <div className="text-center mb-8">
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-50 border border-green-200 rounded-full mb-4">
                   <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                  <span className="text-[11px] font-bold text-green-700 uppercase tracking-widest">Stima calcolata</span>
+                  <span className="text-xs font-bold text-green-700 uppercase tracking-widest">Stima calcolata</span>
                 </div>
                 <h3 className="text-2xl md:text-4xl font-[800] text-slate-900 tracking-tight">
                   Ecco il tuo <span className="bg-yellow-100 px-1.5 rounded-sm">preventivo</span>
@@ -1218,18 +1240,18 @@ function InstallationQuiz({ service }) {
                     
                   {/* Voce base */}
                   <div className="mb-5">
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Servizio principale</p>
+                    <p className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Servizio principale</p>
                     <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-200">
                        <div className="flex items-center gap-3">
-                          <div className="w-5 h-5 flex items-center justify-center rounded-md bg-slate-300 text-white text-[9px] font-black">1</div>
+                          <div className="w-5 h-5 flex items-center justify-center rounded-md bg-slate-300 text-white text-[10px] font-black">1</div>
                           <div>
-                             <p className="font-bold text-slate-900 text-[15px] leading-tight">{estimate.baseItem.label}</p>
-                             <span className="text-[11px] text-slate-400 font-mono font-medium">{estimate.baseItem.displayQuantity}</span>
+                             <p className="font-bold text-slate-900 text-base leading-tight">{estimate.baseItem.label}</p>
+                             <span className="text-xs text-slate-400 font-mono font-medium">{estimate.baseItem.displayQuantity}</span>
                           </div>
                        </div>
                        <div className="text-right pl-4">
                          <p className="font-mono font-extrabold text-lg text-slate-900">{formatCurrency(estimate.baseItem.total)}</p>
-                         <span className="text-[10px] text-slate-400 font-medium">{formatCurrency(estimate.baseItem.unitPrice)}/{estimate.baseItem.unitDisplay}</span>
+                         <span className="text-xs text-slate-400 font-medium">{formatCurrency(estimate.baseItem.unitPrice)}/{estimate.baseItem.unitDisplay}</span>
                        </div>
                     </div>
                   </div>
@@ -1237,22 +1259,22 @@ function InstallationQuiz({ service }) {
                   {/* Voci variabili */}
                   {estimate.variableItems.length > 0 && (
                     <div className="mb-5">
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Servizi aggiuntivi</p>
+                      <p className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Servizi aggiuntivi</p>
                       <div className="space-y-2">
                         {estimate.variableItems.map((item, index) => {
                           const unitRate = formatUnitRate(item.unitPrice, item.unitDisplay, item.unitType);
                           return (
                             <div key={`${item.label}-${index}`} className="flex items-center justify-between px-4 py-3 rounded-xl border border-slate-100 hover:border-slate-200 hover:bg-slate-50/50 transition-all">
                                <div className="flex items-center gap-3">
-                                  <div className="w-5 h-5 flex items-center justify-center rounded-md bg-slate-200 text-slate-500 text-[9px] font-black">{index + 2}</div>
+                                  <div className="w-5 h-5 flex items-center justify-center rounded-md bg-slate-200 text-slate-500 text-[10px] font-black">{index + 2}</div>
                                   <div>
-                                     <p className="font-semibold text-slate-800 text-sm leading-tight">{item.label}</p>
-                                     <span className="text-[11px] text-slate-400 font-mono font-medium">{item.displayQuantity}</span>
+                                     <p className="font-semibold text-slate-800 text-base leading-tight">{item.label}</p>
+                                     <span className="text-xs text-slate-400 font-mono font-medium">{item.displayQuantity}</span>
                                   </div>
                                </div>
                                <div className="text-right pl-4">
-                                 <p className="font-mono font-bold text-[15px] text-slate-900">{formatCurrency(item.total)}</p>
-                                 {unitRate && <span className="text-[10px] text-slate-400 font-medium">{unitRate}</span>}
+                                 <p className="font-mono font-bold text-base text-slate-900">{formatCurrency(item.total)}</p>
+                                 {unitRate && <span className="text-xs text-slate-400 font-medium">{unitRate}</span>}
                                </div>
                             </div>
                           );
@@ -1271,7 +1293,7 @@ function InstallationQuiz({ service }) {
                               <Timer className="w-5 h-5 text-slate-500" />
                            </div>
                            <div>
-                              <p className="text-[10px] uppercase font-black text-slate-400 tracking-wider">Tempi stimati</p>
+                              <p className="text-xs uppercase font-black text-slate-400 tracking-wider">Tempi stimati</p>
                               <p className="font-extrabold text-xl text-slate-900 leading-none mt-0.5">{estimate.timeEstimate?.label}</p>
                            </div>
                         </div>
@@ -1279,9 +1301,9 @@ function InstallationQuiz({ service }) {
                         {/* Totale */}
                         <div className="flex items-center gap-3 bg-slate-900 px-5 py-4 rounded-xl">
                            <div className="flex-1">
-                              <p className="text-[10px] uppercase font-black text-slate-400 tracking-wider">Totale stimato</p>
+                              <p className="text-xs uppercase font-black text-slate-400 tracking-wider">Totale stimato</p>
                               <p className="text-2xl md:text-3xl font-black text-white tracking-tighter leading-none mt-0.5">{formatCurrency(estimate.total)}</p>
-                              <p className="text-[10px] text-slate-500 font-medium mt-1">IVA esclusa • Solo manodopera</p>
+                              <p className="text-xs text-slate-500 font-medium mt-1">IVA esclusa • Solo manodopera</p>
                            </div>
                         </div>
                      </div>
@@ -1303,8 +1325,8 @@ function InstallationQuiz({ service }) {
                       <Bookmark className="w-5 h-5 text-[#25D366]" strokeWidth={2.5} />
                     </div>
                     <div className="flex flex-col items-start leading-none">
-                      <span className="text-[10px] text-green-600 font-bold mb-1 tracking-widest uppercase">WhatsApp</span>
-                      <span className="text-lg md:text-xl italic">Salva preventivo</span>
+                      <span className="text-xs text-green-600 font-bold mb-1 tracking-widest uppercase">Su WhatsApp</span>
+                      <span className="text-lg md:text-xl italic">Salva il preventivo</span>
                     </div>
                   </button>
 
@@ -1322,13 +1344,13 @@ function InstallationQuiz({ service }) {
                       <Phone className="w-5 h-5 text-blue-600" strokeWidth={2.5} />
                     </div>
                     <div className="flex flex-col items-start leading-none">
-                      <span className="text-[10px] text-blue-600 font-bold mb-1 tracking-widest uppercase">Chiama ora</span>
-                      <span className="text-lg md:text-xl italic">Parla con noi</span>
+                      <span className="text-xs text-blue-600 font-bold mb-1 tracking-widest uppercase">+39 334 222 1212</span>
+                      <span className="text-lg md:text-xl italic">Chiamaci</span>
                     </div>
                   </a>
                 </div>
 
-                <p className="text-[11px] text-slate-500 font-medium text-center mt-4 leading-relaxed max-w-md">
+                <p className="text-xs text-slate-500 font-medium text-center mt-4 leading-relaxed max-w-md">
                   Salva il preventivo su WhatsApp per non perderlo.<br/>Nessun obbligo d'acquisto — preventivo gratuito.
                 </p>
               </div>
@@ -1336,7 +1358,7 @@ function InstallationQuiz({ service }) {
               {/* ═══ SOCIAL PROOF MINI ═══ */}
               {!isServicePage && (
                 <div className="mt-10 text-center">
-                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">
+                  <p className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4">
                     Scelti da 347+ famiglie a Milano
                   </p>
                   <div className="max-w-xl mx-auto rounded-2xl overflow-hidden border border-slate-200 bg-white h-[220px]">
