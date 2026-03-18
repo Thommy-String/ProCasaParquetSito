@@ -8,8 +8,6 @@ import RecentWorks from '../components/RecentWorks';
 import PricingSection from '../components/PricingSection';
 import ValuePropsSection from '../components/ValuePropsSection';
 import QuickFloorConsult from '../components/QuickFloorConsult';
-import WasteCalculator from '../components/WasteCalculator';
-import QuoteDoctor from '../components/QuoteDoctor';
 import ServiceFAQ from '../components/ServiceFAQ';
 import DescrizioneMainCategories from '../components/DescrizioneMainCategories';
 import logoImage from '../assets/logo/favicon.png';
@@ -67,7 +65,7 @@ function HomePage() {
       }
     ],
     "serviceType": MAIN_CATEGORY,
-    "description": `Siamo ${MAIN_CATEGORY} specializzati in posa parquet, resina e LVT a ${PRIMARY_CITY}.`
+    "description": `Siamo ${MAIN_CATEGORY} specializzati in impermeabilizzazioni terrazzi e coperture a ${PRIMARY_CITY}.`
   };
 
   return (
@@ -94,16 +92,6 @@ function HomePage() {
       {/* 2. CHECK SOTTOFONDO (QuickFloorConsult) */}
       <section id="check-sottofondo" className="scroll-mt-28">
         <QuickFloorConsult />
-      </section>
-
-      {/* 3. CALCOLATORE MQ (WasteCalculator) */}
-      <section id="calcolatore-mq" className="scroll-mt-28">
-        <WasteCalculator />
-      </section>
-
-      {/* SCANNER PREVENTIVI (QuoteDoctor) */}
-      <section id="scanner-preventivi" className="scroll-mt-28">
-        <QuoteDoctor />
       </section>
 
       {/* FAQ HOMEPAGE GENERICHE */}
