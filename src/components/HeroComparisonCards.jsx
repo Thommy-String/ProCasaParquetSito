@@ -51,36 +51,36 @@ const HeroComparisonCards = () => {
             className="h-48 md:h-64 w-full"
             beforeImg={beaPrima} 
             afterImg={beaDopo} 
-            price="€430" 
-            timeDisplay="5 ore" 
-            label="SPC Cucina"
+            price="€680" 
+            timeDisplay="1 giorno" 
+            label="Guaina Balcone"
           />
 
            <ComparisonCard 
             className="h-48 md:h-64 w-full"
             beforeImg={nelyPrima} 
             afterImg={nelyDopo} 
-            price="€1950" 
+            price="€2.400" 
             timeDisplay="2 Giorni" 
-            label="Spina francese"
+            label="Lastrico Solare"
            />
 
            <ComparisonCard 
             className="h-48 md:h-64 w-full"
             beforeImg={prima5} 
             afterImg={dopo5} 
-            price="€1.560" 
+            price="€1.800" 
             timeDisplay="2 Giorni" 
-            label="SPC SPINA"
+            label="Terrazzo Piano"
            />
 
            <ComparisonCard 
             className="h-48 md:h-64 w-full"
             beforeImg={prima2} 
             afterImg={dopo2} 
-            price="€2002" 
+            price="€3.200" 
             timeDisplay="3 Giorni" 
-            label="Rovere"
+            label="Copertura Piana"
            />
 
        </div>

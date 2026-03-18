@@ -80,7 +80,7 @@ const SERVICE_TITLES = {
   ),
   'spc': (
     <>
-     Nuovo pavimento spc in 48 ore <span className="bg-yellow-100 px-0.5 rounded-sm">Direttamente sopra piastrelle o marmo esistente.</span>  <span className="bg-green-100 px-0.5 rounded-sm">Zero acconti: paghi alla fine</span>
+     Nuovo pavimento spc in 48 ore: <span className="bg-yellow-100 px-0.5 rounded-sm">Copre Direttamente le piastrelle o marmo esistente.</span>  <span className="bg-green-100 px-0.5 rounded-sm">Zero demolizioni. Zero acconti: paghi alla fine</span>
     </>
   ),
   'laminato': (
@@ -669,49 +669,49 @@ function ServiceHeroHome({ service }) {
 
             {/* QUICK FEATURES COMPACT GRID */}
             <div className="w-full max-w-2xl mx-auto px-1 mb-6 mt-1">
-              <div className="grid grid-cols-2 gap-2 auto-rows-fr">
+              <div className="grid grid-cols-2 gap-3 auto-rows-fr">
                 
                 {/* Feature 1 */}
-                <div className="h-full flex items-center gap-2.5 p-2 md:p-2.5 rounded-xl bg-gradient-to-br from-orange-50/80 to-white hover:from-orange-100/50 hover:to-white border border-orange-200/50 shadow-[0_2px_10px_-2px_rgba(251,146,60,0.1)] hover:shadow-[0_4px_12px_-2px_rgba(251,146,60,0.15)] transition-all duration-300 group">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-orange-100 to-orange-50 flex items-center justify-center shrink-0 border border-orange-200/50 group-hover:scale-105 transition-transform duration-300">
-                    <Check size={16} className="text-orange-500 drop-shadow-sm" strokeWidth={2.5} />
+                <div className="h-full flex items-center gap-3 px-4 py-3 md:px-5 md:py-4 rounded-xl bg-white border-[2.5px] border-orange-400 shadow-[3px_3px_0px_0px_rgba(234,88,12,0.3)] hover:shadow-[1px_1px_0px_0px_rgba(234,88,12,0.5)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200 group">
+                  <div className="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center shrink-0 border-[2px] border-orange-400 group-hover:bg-orange-100 transition-colors duration-200">
+                    <Check size={18} className="text-orange-600" strokeWidth={3} />
                   </div>
                   <div className="flex flex-col items-start text-left shrink-1">
-                    <span className="text-[12.5px] md:text-[14px] font-[800] text-slate-800 tracking-tight leading-[1.1]">Zero Demolizioni</span>
-                    <span className="text-[11px] md:text-[12px] font-medium text-slate-500 tracking-tight">Posa sul pavimento esistente</span>
+                    <span className="text-sm md:text-base font-bold text-slate-900 tracking-tight leading-tight">Zero Demolizioni</span>
+                    <span className="text-xs md:text-sm font-medium text-slate-500 tracking-tight mt-0.5">Sul pavimento esistente </span>
                   </div>
                 </div>
 
                 {/* Feature 2 */}
-                <div className="h-full flex items-center gap-2.5 p-2 md:p-2.5 rounded-xl bg-gradient-to-br from-blue-50/80 to-white hover:from-blue-100/50 hover:to-white border border-blue-200/50 shadow-[0_2px_10px_-2px_rgba(59,130,246,0.1)] hover:shadow-[0_4px_12px_-2px_rgba(59,130,246,0.15)] transition-all duration-300 group">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-100 to-blue-50 flex items-center justify-center shrink-0 border border-blue-200/50 group-hover:scale-105 transition-transform duration-300">
-                    <Sofa size={16} className="text-blue-500 drop-shadow-sm" strokeWidth={2.5} />
+                <div className="h-full flex items-center gap-3 px-4 py-3 md:px-5 md:py-4 rounded-xl bg-white border-[2.5px] border-blue-400 shadow-[3px_3px_0px_0px_rgba(59,130,246,0.3)] hover:shadow-[1px_1px_0px_0px_rgba(59,130,246,0.5)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200 group">
+                  <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 border-[2px] border-blue-400 group-hover:bg-blue-100 transition-colors duration-200">
+                    <Sofa size={18} className="text-blue-600" strokeWidth={3} />
                   </div>
                   <div className="flex flex-col items-start text-left shrink-1">
-                    <span className="text-[12.5px] md:text-[14px] font-[800] text-slate-800 tracking-tight leading-[1.1]">Anche Arredato</span>
-                    <span className="text-[11px] md:text-[12px] font-medium text-slate-500 tracking-tight">Spostiamo noi i mobili</span>
+                    <span className="text-sm md:text-base font-bold text-slate-900 tracking-tight leading-tight">Anche con mobili</span>
+                    <span className="text-xs md:text-sm font-medium text-slate-500 tracking-tight mt-0.5">Spostiamo noi i mobili</span>
                   </div>
                 </div>
 
                 {/* Feature 3 */}
-                <div className="h-full flex items-center gap-2.5 p-2 md:p-2.5 rounded-xl bg-gradient-to-br from-green-50/80 to-white hover:from-green-100/50 hover:to-white border border-green-200/50 shadow-[0_2px_10px_-2px_rgba(34,197,94,0.1)] hover:shadow-[0_4px_12px_-2px_rgba(34,197,94,0.15)] transition-all duration-300 group">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-green-100 to-green-50 flex items-center justify-center shrink-0 border border-green-200/50 group-hover:scale-105 transition-transform duration-300">
-                    <BadgeEuro size={16} className="text-green-500 drop-shadow-sm" strokeWidth={2.5} />
+                <div className="h-full flex items-center gap-3 px-4 py-3 md:px-5 md:py-4 rounded-xl bg-white border-[2.5px] border-green-400 shadow-[3px_3px_0px_0px_rgba(34,197,94,0.3)] hover:shadow-[1px_1px_0px_0px_rgba(34,197,94,0.5)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200 group">
+                  <div className="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center shrink-0 border-[2px] border-green-400 group-hover:bg-green-100 transition-colors duration-200">
+                    <BadgeEuro size={18} className="text-green-600" strokeWidth={3} />
                   </div>
                   <div className="flex flex-col items-start text-left shrink-1">
-                    <span className="text-[12.5px] md:text-[14px] font-[800] text-slate-800 tracking-tight leading-[1.1]">Nessun Acconto</span>
-                    <span className="text-[11px] md:text-[12px] font-medium text-slate-500 tracking-tight">Non paghi nulla prima</span>
+                    <span className="text-sm md:text-base font-bold text-slate-900 tracking-tight leading-tight">Nessun Acconto</span>
+                    <span className="text-xs md:text-sm font-medium text-slate-500 tracking-tight mt-0.5">Non paghi nulla prima</span>
                   </div>
                 </div>
 
                 {/* Feature 4 */}
-                <div className="h-full flex items-center gap-2.5 p-2 md:p-2.5 rounded-xl bg-gradient-to-br from-purple-50/80 to-white hover:from-purple-100/50 hover:to-white border border-purple-200/50 shadow-[0_2px_10px_-2px_rgba(168,85,247,0.1)] hover:shadow-[0_4px_12px_-2px_rgba(168,85,247,0.15)] transition-all duration-300 group">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-100 to-purple-50 flex items-center justify-center shrink-0 border border-purple-200/50 group-hover:scale-105 transition-transform duration-300">
-                    <CalendarClock size={16} className="text-purple-500 drop-shadow-sm" strokeWidth={2.5} />
+                <div className="h-full flex items-center gap-3 px-4 py-3 md:px-5 md:py-4 rounded-xl bg-white border-[2.5px] border-violet-400 shadow-[3px_3px_0px_0px_rgba(168,85,247,0.3)] hover:shadow-[1px_1px_0px_0px_rgba(168,85,247,0.5)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200 group">
+                  <div className="w-10 h-10 rounded-lg bg-violet-50 flex items-center justify-center shrink-0 border-[2px] border-violet-400 group-hover:bg-violet-100 transition-colors duration-200">
+                    <CalendarClock size={18} className="text-violet-600" strokeWidth={3} />
                   </div>
                   <div className="flex flex-col items-start text-left shrink-1">
-                    <span className="text-[12.5px] md:text-[14px] font-[800] text-slate-800 tracking-tight leading-[1.1]">Posa Rapida</span>
-                    <span className="text-[11px] md:text-[12px] font-medium text-slate-500 tracking-tight">In media 1-2 giorni</span>
+                    <span className="text-sm md:text-base font-bold text-slate-900 tracking-tight leading-tight">Posa Rapida</span>
+                    <span className="text-xs md:text-sm font-medium text-slate-500 tracking-tight mt-0.5">In media 1-2 giorni per appartamento di 50mq</span>
                   </div>
                 </div>
 

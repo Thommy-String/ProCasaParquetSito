@@ -8,80 +8,54 @@ import ExtraServiceModal from './ExtraServiceModal'; // <--- IMPORTA IL NUOVO MO
 
 // Importiamo Icone
 import { 
-  Trees, Layers, Wrench, LayoutGrid, PlusCircle, 
-  Truck, Armchair, Trash2, Disc, Paintbrush, Waves, Scissors, DoorOpen, Move 
+  Layers, Wrench, LayoutGrid, PlusCircle, 
+  Truck, Trash2, Disc, Paintbrush, Waves, Move, ShieldCheck
 } from 'lucide-react';
 
 // --- DEFINIZIONE DEGLI EXTRA CON DESCRIZIONI ---
 const EXTRA_SERVICES = [
-  // LOGISTICA
+  // PREPARAZIONE
   { 
-    id: 'ex_mob', name: 'Spostamento Mobili', price: '50-200', unit: 'totale', isExtra: true, icon: <Armchair className="w-5 h-5 text-indigo-500" />,
-    details: "Spostiamo noi i mobili pesanti (armadi, divani, librerie) per liberare la stanza prima della posa e li rimettiamo al loro posto a lavoro finito. Il costo varia in base alla quantità e al peso degli arredi."
+    id: 'ex_rip', name: 'Rimozione Vecchia Guaina', price: '8-15', unit: 'mq', isExtra: true, icon: <Trash2 className="w-5 h-5 text-red-400" />,
+    details: "Rimozione meccanica della vecchia guaina bituminosa o membrana ammalorata. Include la pulizia grossolana del supporto prima della nuova applicazione."
+  },
+  { 
+    id: 'ex_ras', name: 'Rasatura e Regolarizzazione Supporto', price: '12', unit: 'mq', isExtra: true, icon: <Waves className="w-5 h-5 text-blue-400" />,
+    details: "Stesura di malta fibrorinforzata per colmare crepe, avvallamenti o irregolarità del piano prima dell'impermeabilizzazione. Fondamentale per garantire l'aderenza della guaina."
+  },
+  { 
+    id: 'ex_prm', name: 'Primer / Promotore di Adesione', price: '5', unit: 'mq', isExtra: true, icon: <Paintbrush className="w-5 h-5 text-yellow-500" />,
+    details: "Applicazione di primer bituminoso o epossidico sul supporto per garantire la massima adesione della guaina. Indispensabile su calcestruzzo vecchio o superfici polverose."
+  },
+
+  // RINFORZI
+  { 
+    id: 'ex_ang', name: 'Rinforzo Angoli e Raccordi', price: '20', unit: 'ml', isExtra: true, icon: <Disc className="w-5 h-5 text-gray-500" />,
+    details: "Applicazione di striscia di rinforzo in tessuto non tessuto o membrana liquida doppio strato negli angoli, nei bordi e nei punti critici dove le infiltrazioni iniziano più frequentemente."
+  },
+  { 
+    id: 'ex_scarico', name: 'Impermeabilizzazione Pluviali e Scarichi', price: '60', unit: 'cad.', isExtra: true, icon: <Move className="w-5 h-5 text-green-600" />,
+    details: "Sigillatura e impermeabilizzazione di ogni punto di passaggio tra guaina e scarico/pluviale. Zona critica spesso trascurata che causa la maggior parte delle infiltrazioni."
+  },
+
+  // SISTEMI
+  { 
+    id: 'ex_prot', name: 'Strato Protettivo / Rifinitura', price: '10', unit: 'mq', isExtra: true, icon: <ShieldCheck className="w-5 h-5 text-blue-500" />,
+    details: "Applicazione di vernice protettiva UV o alluminata sulla guaina bituminosa per prolungarne la vita utile, proteggerla dai raggi solari e ridurre il surriscaldamento estivo."
   },
   { 
     id: 'ex_sma', name: 'Smaltimento Macerie', price: '60-150', unit: 'totale', isExtra: true, icon: <Truck className="w-5 h-5 text-orange-500" />,
-    details: "Ci occupiamo del carico, trasporto e smaltimento del vecchio pavimento o battiscopa presso discariche autorizzate, rilasciando il formulario rifiuti. Zero polvere e zero fatica per te."
-  },
-
-  // RIMOZIONI (Correggi ID unici qui sotto)
-  { 
-    id: 'ex_bat_rem_wood', name: 'Rimozione Battiscopa in Legno', price: '3', unit: 'ml', isExtra: true, icon: <Trash2 className="w-5 h-5 text-red-400" />,
-    details: "Stacchiamo il vecchio zoccolino esistente con cura per non rovinare l'intonaco. Necessario per posare il nuovo pavimento accostato correttamente al muro."
-  },
-   { 
-    id: 'ex_bat_rem_gres', name: 'Rimozione Battiscopa in Gres', price: '5', unit: 'ml', isExtra: true, icon: <Trash2 className="w-5 h-5 text-red-400" />,
-    details: "Stacchiamo il vecchio zoccolino esistente in gres/mattonella con cura. Essendo un battiscopa murato potrebbe essere necessario effettura la 'rasatura' per posare poi il nuovo battiscopa."
+    details: "Carico, trasporto e smaltimento dei materiali rimossi (vecchia guaina, massetto demolito) presso discariche autorizzate con rilascio del formulario rifiuti."
   },
   { 
-    id: 'ex_moq', name: 'Rimozione Moquette', price: '7', unit: 'mq', isExtra: true, icon: <Trash2 className="w-5 h-5 text-red-400" />,
-    details: "Rimuoviamo la vecchia moquette e raschiamo via i residui di colla superficiali per preparare il fondo alla nuova posa."
-  },
-    { 
-    id: 'ex_prq_old_floating', name: 'Rimozione pavimento flottante', price: '5', unit: 'mq', isExtra: true, icon: <Trash2 className="w-5 h-5 text-red-400" />,
-    details: "Rimozione del pavimento flottante (non incollato) e dell'eventuale materassino."
-  },
-  { 
-    id: 'ex_prq_old', name: 'Rimozione Vecchio Parquet', price: '9', unit: 'mq', isExtra: true, icon: <Trash2 className="w-5 h-5 text-red-400" />,
-    details: "Demolizione del vecchio parquet incollato o inchiodato. Include la pulizia grossolana del sottofondo."
-  },
-  { 
-    id: 'ex_pia', name: 'Rimozione Piastrelle', price: '15', unit: 'mq', isExtra: true, icon: <Trash2 className="w-5 h-5 text-red-400" />,
-    details: "Demolizione completa di pavimenti in ceramica o gres. Attenzione: questa operazione richiede quasi sempre un successivo rifacimento del massetto o autolivellante."
-  },
-
-  // PREPARAZIONE
-  { 
-    id: 'ex_grf', name: 'Graffiatura (Promotore)', price: '5', unit: 'mq', isExtra: true, icon: <Disc className="w-5 h-5 text-gray-500" />,
-    details: "Passaggio con monospazzola e disco diamantato o abrasivo per irruvidire la superficie di ceramiche lisce o marmi. Fondamentale per far aggrappare la colla del nuovo parquet."
-  },
-  { 
-    id: 'ex_liv', name: 'Autolivellante (Rasatura)', price: '18', unit: 'mq', isExtra: true, icon: <Waves className="w-5 h-5 text-blue-400" />,
-    details: "Stesura di un composto liquido cementizio che si autolivella per eliminare dislivelli, buchi o pendenze errate. A volte indispensabile per la posa di SPC o formati grandi."
-  },
-  { 
-    id: 'ex_prm', name: 'Primer Promotore', price: '5', unit: 'mq', isExtra: true, icon: <Paintbrush className="w-5 h-5 text-yellow-500" />,
-    details: "Applicazione di una resina liquida che funge da 'ponte di adesione' tra il vecchio fondo e la nuova colla. Blocca anche eventuale polverosità residua."
-  },
-
-  // ADATTAMENTI
-  { 
-    id: 'ex_tgi', name: 'Taglio Porte Interne', price: '60', unit: 'cad.', isExtra: true, icon: <Scissors className="w-5 h-5 text-gray-600" />,
-    details: "Accorciamo le porte in legno esistenti (senza smontare il telaio se possibile) per adattarle al nuovo livello del pavimento sovrapposto."
-  },
-  { 
-    id: 'ex_tgb', name: 'Taglio Blindata', price: '150', unit: 'cad.', isExtra: true, icon: <DoorOpen className="w-5 h-5 text-gray-800" />,
-    details: "Smontaggio della porta blindata, taglio della lamiera e dei pannelli, rimontaggio e regolazione. Operazione complessa e delicata eseguita da un nostro parquettista specializzato."
-  },
-  { 
-    id: 'ex_prf', name: 'Posa Profili e Soglie', price: '20', unit: 'cad.', isExtra: true, icon: <Move className="w-5 h-5 text-green-600" />,
-    details: "Installazione di profili di raccordo in alluminio (o colore simile al legno) in corrispondenza delle porte o cambi di pavimentazione."
+    id: 'ex_test', name: 'Test Tenuta Idrica (Allagamento)', price: '80', unit: 'totale', isExtra: true, icon: <Wrench className="w-5 h-5 text-indigo-500" />,
+    details: "Prova di tenuta idrica con allagamento controllato della superficie impermeabilizzata per 24/48 ore. Rilasciamo documentazione fotografica come garanzia del lavoro eseguito."
   },
 ];
 
 const CATEGORIES = [
-  { id: 'wood', label: 'Parquet', icon: <Trees className="w-4 h-4"/> },
-  { id: 'synthetic', label: 'SPC / LVT', icon: <Layers className="w-4 h-4"/> },
+  { id: 'guaina', label: 'Guaina Bituminosa', icon: <Layers className="w-4 h-4"/> },
+  { id: 'liquida', label: 'Membrana Liquida', icon: <Waves className="w-4 h-4"/> },
   { id: 'accessories', label: 'Accessori', icon: <Wrench className="w-4 h-4"/> },
   { id: 'extra', label: 'Servizi Extra', icon: <PlusCircle className="w-4 h-4"/> },
   { id: 'all', label: 'Tutti', icon: <LayoutGrid className="w-4 h-4"/> },
@@ -89,9 +63,9 @@ const CATEGORIES = [
 
 const getCategory = (service) => {
   const name = service.name.toLowerCase();
-  if (name.includes('battiscopa') || name.includes('accessori')) return 'accessories';
-  if (name.includes('spc') || name.includes('laminato') || name.includes('lvt')) return 'synthetic';
-  return 'wood';
+  if (name.includes('accessori') || name.includes('profilo') || name.includes('scarico')) return 'accessories';
+  if (name.includes('liquida') || name.includes('resina') || name.includes('poliurea') || name.includes('membrana')) return 'liquida';
+  return 'guaina';
 };
 
 function PricingSection({ defaultCategory = 'wood' }) {
@@ -125,10 +99,10 @@ function PricingSection({ defaultCategory = 'wood' }) {
         
         <div className="text-center mb-10">
           <h2 className="text-4xl font-extrabold text-gray-900 tracking-tight mb-3">
-            Listino prezzi 2026
+            Listino prezzi impermeabilizzazioni 2026
           </h2>
           <p className="text-gray-500">
-            Scegli la categoria per vedere i costi dettagliati.
+            Scegli il sistema per vedere i costi dettagliati.
           </p>
         </div>
 

@@ -7,12 +7,12 @@ import rovereIta from '../assets/images/parquet/rovereIta.jpg';
 import rovereSpina90 from '../assets/images/parquet/rovereSpina90.jpg';
 
 const parquetImages = [
-  { src: rovereNaturale, alt: 'Parquet Rovere Naturale' },
-  { src: rovereMielato, alt: 'Parquet Noce Scuro' },
-  { src: rovereSpinaItaliana, alt: 'Parquet Rovere Sbiancato' },
-  { src: rovere90, alt: 'Parquet Spina Italiana' },
-  { src: rovereIta, alt: 'Parquet Rovere' },
-  { src: rovereSpina90, alt: 'Parquet Spina' },
+  { src: rovereNaturale, alt: 'Terrazzo impermeabilizzato 1' },
+  { src: rovereMielato, alt: 'Terrazzo impermeabilizzato 2' },
+  { src: rovereSpinaItaliana, alt: 'Balcone impermeabilizzato' },
+  { src: rovere90, alt: 'Lastrico solare' },
+  { src: rovereIta, alt: 'Terrazzo piano' },
+  { src: rovereSpina90, alt: 'Guaina liquida' },
 ];
 
 function HeroStats() {
@@ -47,7 +47,7 @@ function HeroStats() {
         <div className="flex flex-col text-left leading-tight">
               <div className="flex items-center gap-1.5 opacity-80">
                                         <span className="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded border border-blue-100 font-bold uppercase tracking-tighter">
-                                            🏆 327+ installazioni
+                                            🏆 284+ terrazzi impermeabilizzati
                                         </span>
                                     </div>
              <span className="text-[10px] font-medium text-gray-500 uppercase tracking-wide">ogni anno in lombardia</span>

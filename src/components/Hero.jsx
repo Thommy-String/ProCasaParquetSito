@@ -65,11 +65,11 @@ function Hero() {
                         </div>
 
 
-                        {/* H1 - Bicolore Nero & Rovere */}
+                        {/* H1 - Bicolore Nero & Blu */}
                         <h1 className="flex flex-col my-1 md:flex-row md:items-center justify-center gap-x-3 text-center">
                             {/* Parte Nera */}
                             <span className="text-2xl md:text-6xl font-[800] uppercase leading-none tracking-[-0.02em] text-slate-900">
-                                 Posiamo il tuo nuovo pavimento <span className="bg-yellow-100 px-1 rounded-sm text-slate-900 font-bold"> in 1-3 giorni</span>  e  <span className="bg-green-100 px-1 rounded-sm text-slate-900 font-bold">paghi solo alla fine.</span>
+                                 Impermeabilizziamo il tuo terrazzo <span className="bg-yellow-100 px-1 rounded-sm text-slate-900 font-bold"> in 1-3 giorni</span>  e  <span className="bg-green-100 px-1 rounded-sm text-slate-900 font-bold">paghi solo alla fine.</span>
                             </span>
                         </h1>
 
@@ -78,9 +78,9 @@ function Hero() {
                         
 
                         <h2 className="max-w-md mx-auto mt-6 text-[14px] md:text-[15px] text-slate-600 leading-relaxed tracking-tight border-l-2 border-gray-500 pl-4 py-1 -rotate-3 hover:rotate-0 transition-transform duration-300 cursor-default">
-                            <span className="font-bold text-slate-900 underline decoration-blue-200 decoration-2 underline-offset-2">Anche sul vecchio pavimento</span>
+                            <span className="font-bold text-slate-900 underline decoration-blue-200 decoration-2 underline-offset-2">Anche su terrazzi con infiltrazioni attive</span>
                             {" "}in <span className="bg-yellow-100 px-1 rounded-sm text-slate-900 font-bold">meno di 48h</span>. <br></br>
-                            Se hai mobili ci pensiamo noi. <br />
+                            Guaina, resina o membrana: scegliamo noi il sistema giusto. <br />
                             <span className="bg-green-100 px-1 rounded-sm text-slate-900 font-bold">Zero acconti. Prezzi fissi.</span>
                         </h2>
 
@@ -151,9 +151,9 @@ function Hero() {
                         <div className="relative z-10 group">
                             {/* Immagine */}
                             <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white transform transition-transform duration-700 group-hover:scale-[1.01]">
-                                <img
+                                    <img
                                     src={rovereMielato}
-                                    alt={`Posa pavimenti ${COMPANY_NAME}`}
+                                    alt={`Impermeabilizzazione terrazzi ${COMPANY_NAME}`}
                                     className="w-full h-auto object-cover max-h-[600px]"
                                     loading="eager"
                                 />
@@ -161,7 +161,7 @@ function Hero() {
                                 {/* Label flottante */}
                                 <div className="absolute bottom-8 left-8 bg-white/95 backdrop-blur-sm py-3 px-5 rounded-xl shadow-lg border border-gray-100">
                                     <p className="text-[10px] text-gray-500 uppercase font-bold tracking-widest mb-0.5">Realizzazione</p>
-                                    <p className="text-sm font-bold text-gray-900">Prefinito dritto a correre</p>
+                                    <p className="text-sm font-bold text-gray-900">Guaina liquida su terrazzo piano</p>
                                 </div>
                             </div>
                         </div>

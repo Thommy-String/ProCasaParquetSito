@@ -13,14 +13,14 @@ function QuickFloorConsult() {
 
   const CHECKLIST_TECNICA = {
     screed: [
-      "Verifica visiva della grana (rischio spolverio)",
-      "Controllo presenza giunti di dilatazione",
-      "Individuazione crepe da ritiro",
+      "Presenza di crepe, bolle o distacchi sulla guaina esistente",
+      "Verifica delle pendenze verso gli scarichi",
+      "Stato dei raccordi su pareti e pluviali",
     ],
     tiles: [
-      "Stato delle fughe esistenti",
-      "Planarità generale delle piastrelle",
-      "Verifica dislivelli con altre stanze",
+      "Verifica di macchie umide sul soffitto sottostante",
+      "Stato delle fughe e dei giunti di dilatazione",
+      "Identificazione dei punti critici di infiltrazione",
     ]
   };
 
@@ -34,8 +34,8 @@ function QuickFloorConsult() {
 
   const handleWhatsApp = () => {
     const cleanPhone = PHONE_NUMBER.replace(/[^0-9]/g, '');
-    const context = floorType === 'screed' ? 'MASSETTO GREZZO' : 'PAVIMENTO ESISTENTE';
-    const text = `Ciao! Ho caricato una foto del mio ${context} sul sito. Ve la allego qui sotto per sapere se è idoneo alla posa o se servono preparazioni specifiche.`;
+    const context = floorType === 'screed' ? 'TERRAZZO / LASTRICO SOLARE' : 'BALCONE CON PIASTRELLE';
+    const text = `Ciao! Ho caricato una foto del mio ${context} sul sito. Ve la allego qui sotto per sapere se la guaina è da rifare o se serve solo un intervento localizzato.`;
     window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(text)}`, '_self');
   };
 
@@ -52,13 +52,13 @@ function QuickFloorConsult() {
         <div className="text-center mb-8">
           {/* Badge Dark Mode */}
           <div className="inline-flex items-center gap-1.5 bg-green-900/30 text-green-400 border border-green-500/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide mb-4 shadow-[0_0_10px_rgba(34,197,94,0.1)]">
-            <Shield className="w-3 h-3" /> Check Sottofondo Sicuro
+            <Shield className="w-3 h-3" /> Check Terrazzo Gratuito
           </div>
           <h2 className="text-2xl md:text-3xl font-extrabold text-white leading-tight mb-3">
-            Il tuo fondo attuale è idoneo per la posa del nuovo parquet?
+            La guaina del tuo terrazzo è ancora efficiente o sta cedendo?
           </h2>
           <p className="text-gray-400 text-sm leading-relaxed max-w-xs mx-auto">
-            Evita distacchi o vuoti futuri. Manda una foto per un controllo tecnico immediato.
+            Evita infiltrazioni e danni al piano di sotto. Manda una foto per una diagnosi tecnica immediata.
           </p>
         </div>
 
@@ -81,8 +81,8 @@ function QuickFloorConsult() {
                     <Layers className="w-6 h-6 text-blue-400" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-white text-lg">Massetto</h3>
-                    <p className="text-xs text-gray-400">Cemento / Autolivellante</p>
+                    <h3 className="font-bold text-white text-lg">Terrazzo / Lastrico Solare</h3>
+                    <p className="text-xs text-gray-400">Guaina bituminosa / membrana liquida</p>
                   </div>
                   <div className="ml-auto bg-gray-800 rounded-full p-2 border border-gray-600 group-hover:bg-blue-500 group-hover:text-white transition-colors">
                     <Camera className="w-4 h-4 text-gray-400 group-hover:text-white" />
@@ -97,8 +97,8 @@ function QuickFloorConsult() {
                     <LayoutGrid className="w-6 h-6 text-amber-400" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-white text-lg">Pavimento esistente</h3>
-                    <p className="text-xs text-gray-400">Piastrelle / Marmo</p>
+                    <h3 className="font-bold text-white text-lg">Balcone con Piastrelle</h3>
+                    <p className="text-xs text-gray-400">Ceramica / Gres porcellanato</p>
                   </div>
                   <div className="ml-auto bg-gray-800 rounded-full p-2 border border-gray-600 group-hover:bg-amber-500 group-hover:text-white transition-colors">
                     <Camera className="w-4 h-4 text-gray-400 group-hover:text-white" />
