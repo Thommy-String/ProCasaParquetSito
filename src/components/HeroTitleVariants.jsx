@@ -13,9 +13,9 @@ export function HeroTitleVariants() {
       <div className="max-w-xl mx-auto text-center">
         <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-4">— Variante 1 —</p>
         <h1 className="text-[26px] md:text-[40px] font-[900] uppercase leading-[1.1] tracking-tight text-black">
-          Nuovo pavimento SPC in 48 ore{' '}
+          Nuovo SPC in 48 ore{' '}
           <span className="bg-[#FFF176] px-2 py-0.5 border-[3px] border-black inline-block transform -rotate-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-            direttamente sulle piastrelle.
+            in 48 ore direttamente sul pavimento esistente.
           </span>
           <br className="hidden md:block" />
           <span className="mt-3 inline-block">Anche in case </span>

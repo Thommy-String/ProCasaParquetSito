@@ -11,10 +11,11 @@ import ServiceDescription from '../components/ServiceDescription';
 import QuickFloorConsult from '../components/QuickFloorConsult';
 import ServiceHero from './ServiceHero';
 import ServiceHeroHome from './ServiceHeroHome';
-import { ServicePainPoints } from './ServiceHeroHome';
 import ServiceFAQ from './ServiceFAQ';
 import InstallationQuiz from '../components/InstallationQuiz';
 import ServiceExplainerSection from '../components/ServiceExplainerSection';
+import ServicePainPoints from './ServicePainPoints';
+import ServicePainVsSolution from './ServicePainVsSolution';
 
 const COMPONENT_MAP = {
   Hero: ServiceHero,
@@ -26,6 +27,7 @@ const COMPONENT_MAP = {
   InstallationQuiz: InstallationQuiz,
   ServicePainPoints: ServicePainPoints,
   ServiceExplainerSection: ServiceExplainerSection,
+  ServicePainVsSolution: ServicePainVsSolution,
 };
 
 // Mappa pricingId → categoria default per il listino prezzi

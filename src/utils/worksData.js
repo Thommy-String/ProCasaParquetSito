@@ -79,8 +79,8 @@ export const works = [
     imageAfter: rescaldinaDopo,
     imageBefore: rescaldinaPrima,
     review: {
-      text: "Abbiamo affidato ad Andrei i lavori per il bagno e siamo rimasti molto soddisfatti. È un professionista bravo, preciso e veloce. Ha svolto il lavoro in modo impeccabile, curando ogni dettaglio. Consigliatissimo!",
-      avatar: "https://lh3.googleusercontent.com/a-/ALV-UjVfhR4-IEinuhlzK4DlrTfnlPyEbewMhhfEZ6jFRsk8sgJQrXaV=s72-c-rp-mo-ba4-br100",
+      text: "Ho contattato Thomas per offerta posa pavimento spc. Dal sopralluogo di Andrea posatore al lavoro finale, ho trovato solo professionalità, lavoro impeccabile! Ringrazio Andrea che in 2 giornate intense, è riuscito a stravolgere i nostri ambienti con un lavoro impeccabile di posa pavimento e zoccolino. Se cercate veri professionisti li trovate a occhi chiusi in questa azienda. Top!",
+      avatar: "https://ui-avatars.com/api/?name=MC&background=0D8ABC&color=fff",
     },
   },
   {

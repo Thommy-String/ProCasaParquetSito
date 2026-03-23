@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Star, ShieldOff, Sofa, BadgeEuro, Ear, HardHat, Receipt, CalendarClock, MoveHorizontal, Check } from 'lucide-react';
 import HeroStats from './HeroStats';
-import CompactSocialProof from './CompactSocialProof';
 import InstallationQuiz from './InstallationQuiz';
 import { pricingData } from '../utils/pricingData';
 import { COMPANY_NAME } from '../utils/constants';
@@ -29,27 +28,100 @@ import battiscopa5cm from '../assets/images/parquet/battiscopa5cm.jpg';
 import posaScala from '../assets/images/parquet/posaScala.jpg';
 import rivestimentoScaleRovere from '../assets/images/parquet/rivestimentoScaleRovere.jpg';
 
+// Avatar condiviso per tutte le recensioni hero
+const HERO_REVIEW_AVATAR = 'https://i.pinimg.com/736x/be/47/31/be47314b9091f59b453b0328fd9942a8.jpg';
+
 // Mappa: pricingId → coppie di immagini prima/dopo per le 2 card comparison
 const COMPARISON_DATA = {
   'prefinito': [
-    { beforeImg: prima2, afterImg: dopo2, price: '€2.002', time: '3 Giorni', label: 'Posa a colla prefinito' },
-    { beforeImg: rovereNaturaleDritto, afterImg: prefinitoDrittoRovere, price: '€1.750', time: '3 Giorni', label: 'Rovere Naturale' },
+    {
+      beforeImg: prima2, afterImg: dopo2, price: '€2.002', time: '3 Giorni', label: 'Posa a colla prefinito',
+      review: {
+        text: 'Molto soddisfatta, trovati su Google. Tempi previsti di 3 giorni rispettati. Il pavimento è bellissimo.',
+        author: 'Valentina C.',
+        avatar: HERO_REVIEW_AVATAR,
+      },
+    },
+    {
+      beforeImg: rovereNaturaleDritto, afterImg: prefinitoDrittoRovere, price: '€1.750', time: '3 Giorni', label: 'Rovere Naturale',
+      review: {
+        text: 'Risultato eccellente e ragazzi trasparenti dall\'inizio alla fine. Prezzi e tempi chiari.',
+        author: 'Giorgio P.',
+        avatar: HERO_REVIEW_AVATAR,
+      },
+    },
   ],
   'prefinito-flottante': [
-    { beforeImg: prima2, afterImg: dopo2, price: '€2.002', time: '3 Giorni', label: 'Installazione Flottante' },
-    { beforeImg: rovereFlottante, afterImg: prefinitoFlottanteLargo, price: '€2.650', time: '4 Giorni', label: 'Plancia Larga' },
+    {
+      beforeImg: prima2, afterImg: dopo2, price: '€2.002', time: '3 Giorni', label: 'Installazione Flottante',
+      review: {
+        text: 'Soluzione comoda senza togliere il pavimento esistente. Bravi e puntuali!',
+        author: 'Anna M.',
+        avatar: HERO_REVIEW_AVATAR,
+      },
+    },
+    {
+      beforeImg: rovereFlottante, afterImg: prefinitoFlottanteLargo, price: '€2.650', time: '4 Giorni', label: 'Plancia Larga',
+      review: {
+        text: 'Velocissimi nelle risposte, sempre disponibili. Il nuovo parquet è stupendo.',
+        author: 'Marco D.',
+        avatar: HERO_REVIEW_AVATAR,
+      },
+    },
   ],
   'prefinito-spina': [
-    { beforeImg: nelyPrima, afterImg: nelyDopo, price: '€1.950', time: '2 Giorni', label: 'Spina Francese' },
-    { beforeImg: rovereSpinaItaMobili, afterImg: posaSpinaUngherese, price: '€2.405', time: '2 Giorni', label: 'Spina Italiana' },
+    {
+      beforeImg: nelyPrima, afterImg: nelyDopo, price: '€1.950', time: '2 Giorni', label: 'Spina Francese',
+      review: {
+        text: 'Bravi, esperienza positiva. La spina francese è venuta perfetta, ogni tavola allineata.',
+        author: 'Nely R.',
+        avatar: HERO_REVIEW_AVATAR,
+      },
+    },
+    {
+      beforeImg: rovereSpinaItaMobili, afterImg: posaSpinaUngherese, price: '€2.405', time: '2 Giorni', label: 'Spina Italiana',
+      review: {
+        text: 'Mi ritengo soddisfatto ad aver affidato a loro l\'installazione del mio parquet a spina. Ottimo lavoro.',
+        author: 'Giovanni V.',
+        avatar: HERO_REVIEW_AVATAR,
+      },
+    },
   ],
   'spc': [
-    { beforeImg: beaPrima, afterImg: beaDopo, price: '€430', time: '5 ore', label: 'Nuovo ambiente in SPC' },
-    { beforeImg: prima5, afterImg: dopo5, price: '€1.560', time: '2 Giorni', label: 'Posa SPC a Spina' },
+    {
+      beforeImg: beaPrima, afterImg: beaDopo, price: '€430', time: '5 ore', label: 'Nuovo ambiente in SPC',
+      review: {
+        text: 'Professionalità, precisione e grande attenzione ai dettagli. Il lavoro è stato eseguito con cura impeccabile, rispettando tempi e aspettative. Grazie mille Andrea e Thomas!',
+        author: 'Beatrice M.',
+        avatar: HERO_REVIEW_AVATAR,
+      },
+    },
+    {
+      beforeImg: prima5, afterImg: dopo5, price: '€1.560', time: '2 Giorni', label: 'Posa SPC a Spina',
+      review: {
+        text: 'Super precisi, il parquet è stupendo e la cucina è proprio come la volevo! Bravo Andrea il parquettista!',
+        author: 'Sara P.',
+        avatar: HERO_REVIEW_AVATAR,
+      },
+    },
   ],
   'laminato': [
-    { beforeImg: laminatoGrigio, afterImg: laminatoNoce, price: '€1.405', time: '2 Giorni', label: 'Laminato effetto Noce' },
-    { beforeImg: laminatoRovereChiaro, afterImg: laminatoGrigio, price: '€700', time: '8 ore', label: 'Laminato Grigio moderno' },
+    {
+      beforeImg: laminatoGrigio, afterImg: laminatoNoce, price: '€1.405', time: '2 Giorni', label: 'Laminato effetto Noce',
+      review: {
+        text: 'Proprio come lo volevamo. Bravi, velocissimi e puliti. Consigliatissimi.',
+        author: 'Marco F.',
+        avatar: HERO_REVIEW_AVATAR,
+      },
+    },
+    {
+      beforeImg: laminatoRovereChiaro, afterImg: laminatoGrigio, price: '€700', time: '8 ore', label: 'Laminato Grigio moderno',
+      review: {
+        text: 'La mia paura era avere tutti i mobili in mezzo, ma non sopportavo più il vecchio pavimento. Sono molto contenta del risultato.',
+        author: 'Giulia R.',
+        avatar: HERO_REVIEW_AVATAR,
+      },
+    },
   ],
   'battiscopa': [
     { beforeImg: battiscopa5cm, afterImg: battiscopa10cm, price: '€430', time: '5 ore', label: 'Installazione Battiscopa' },
@@ -80,7 +152,9 @@ const SERVICE_TITLES = {
   ),
   'spc': (
     <>
-     Nuovo pavimento spc in 48 ore: <span className="bg-yellow-100 px-0.5 rounded-sm">Copre Direttamente le piastrelle o marmo esistente.</span>  <span className="bg-green-100 px-0.5 rounded-sm">Zero demolizioni. Zero acconti: paghi alla fine</span>
+      Installiamo il tuo SPC <br />
+      <span className="bg-yellow-300 px-1.5 py-0.5 rounded-sm font-black border-2 border-black">in 1-2 giorni SOPRA IL PAVIMENTO ESISTENTE.</span><br />
+      ANCHE IN CASE <span className="bg-sky-300 px-1.5 py-0.5 rounded-sm font-black border-2 border-black">CON MOBILI.</span>
     </>
   ),
   'laminato': (
@@ -103,7 +177,7 @@ const SERVICE_TITLES = {
 // --- CARD PRIMA/DOPO (Identica alla Home) ---
 
 // Sezione Pain → Dream per SPC e Laminato — Copy Premium/Autorevole
-const PAIN_POINTS = {
+export const PAIN_POINTS = {
   'spc': [
     {
       icon: ShieldOff,
@@ -458,8 +532,8 @@ const SPCPainAgitationSection = () => (
 );
 
 // --- COMPONENTE SLIDER PRIMA/DOPO ---
-const BeforeAfterSlider = ({ beforeImg, afterImg }) => {
-  // Usiamo un ref per la posizione per evitare re-render su ogni frame/drag.
+const BeforeAfterSlider = ({ beforeImg, afterImg, pricingId, priceDisplay }) => {
+  // ...existing code...
   // Solo l'animazione iniziale usa setState per il primo render.
   const positionRef = useRef(50);
   const sliderLineRef = useRef(null);
@@ -545,7 +619,7 @@ const BeforeAfterSlider = ({ beforeImg, afterImg }) => {
 
   return (
     <div
-      className="group relative w-full h-[280px] md:h-[420px] rounded-[24px] overflow-hidden bg-slate-50 border border-slate-200/60 shadow-[0_15px_40px_rgba(0,0,0,0.08)] select-none mb-3 cursor-ew-resize"
+      className="group relative w-full h-[280px] md:h-[360px] overflow-hidden bg-slate-50 select-none cursor-ew-resize"
       ref={containerRef}
       onMouseDown={(e) => {
         isDraggingRef.current = true;
@@ -590,6 +664,20 @@ const BeforeAfterSlider = ({ beforeImg, afterImg }) => {
           <MoveHorizontal size={20} strokeWidth={2.5} />
         </div>
       </div>
+
+      {/* BADGE PREZZO — Top Right */}
+      {priceDisplay && (
+        <div className="absolute top-4 right-4 z-30 bg-white border-2 border-black rounded-xl px-3 py-2 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
+          <p className="text-[10px] font-black text-gray-500 uppercase tracking-wider mb-0.5 leading-none">Posa da</p>
+          <p className="text-[18px] font-black text-black leading-none">{priceDisplay}</p>
+        </div>
+      )}
+
+      {/* LABEL PRIMA - DOPO — Bottom */}
+      <div className="absolute bottom-3 left-0 right-0 z-20 flex justify-between px-4 pointer-events-none">
+        <span className="text-[11px] font-black text-white uppercase tracking-wider drop-shadow-md bg-black/40 px-2.5 py-1 rounded">PRIMA</span>
+        <span className="text-[11px] font-black text-white uppercase tracking-wider drop-shadow-md bg-black/40 px-2.5 py-1 rounded">DOPO</span>
+      </div>
     </div>
   );
 };
@@ -611,42 +699,70 @@ function ServiceHeroHome({ service }) {
         <div className="absolute top-[40%] -right-[10%] w-[40%] h-[40%] rounded-full bg-cyan-50/60 blur-3xl"></div>
       </div>
 
-      <div className="w-full bg-white mx-auto px-3 pb-6 pt-1 md:py-20 lg:py-24 relative z-10 overflow-hidden">
+      <div className="w-full bg-white mx-auto px-3 pb-6 pt-8 md:pt-32 lg:pt-36 relative z-10 overflow-hidden">
         <div className="flex flex-col items-center">
 
           {/* --- COLONNA CENTRALE --- */}
           <div className="text-center flex flex-col items-center w-full max-w-md mx-auto overflow-hidden">
 
             {/* --- SOCIAL PROOF --- */}
-            <div className="flex flex-col items-center gap-2 mt-0 mb-1">
-              <div className="inline-flex items-center gap-3 px-3 py-1 bg-white/70 border border-[#E5E5E5] rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-300 cursor-default">
-                {/* 5 Stelle */}
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={14} className="fill-[#fbbf24] text-[#fbbf24] filter drop-shadow-[0_0_3px_rgba(251,191,36,0.6)]" strokeWidth={0} />
-                  ))}
-                </div>
-                {/* Google Logo */}
-                <div className="flex items-center gap-2">
-                  <svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
-                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
-                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
-                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05" />
-                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
-                  </svg>
-                  <div className="h-3 w-px bg-gray-200"></div>
-                  <div className="flex items-center gap-1.5 opacity-80">
-                    <span className="text-[11px] bg-gray-50 text-gray-600 px-2 py-0.5 rounded border border-gray-100 font-bold uppercase tracking-[-0.08em]">
-                      milano e dintorni
-                    </span>
+            <div className="flex flex-col items-center gap-2 mt-3 mb-1">
+              {pricingId === 'spc' ? (
+                // Badge speciale per SPC
+                <div className="inline-flex items-center gap-3 px-4 py-2 bg-white border-2 border-black rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200 cursor-default -rotate-2">
+                  {/* Google 5 Stelle */}
+                  <div className="flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
+                      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+                      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05" />
+                      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+                    </svg>
+                    <div className="flex gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={13} className="fill-[#fbbf24] text-[#fbbf24]" strokeWidth={0} />
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="h-4 w-px bg-black/20"></div>
+                  
+                  <div className="flex flex-col items-start leading-none">
+                    <span className="text-xs font-black text-black uppercase tracking-wider">IN TUTTA LOMBARDIA 🇮🇹</span>
+                    <span className="text-[10px] font-bold text-gray-600 uppercase tracking-wide">Parquettisti esperti</span>
                   </div>
                 </div>
-              </div>
+              ) : (
+                // Badge standard per altri servizi
+                <div className="inline-flex items-center gap-3 px-3 py-1 bg-white/70 border border-[#E5E5E5] rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-300 cursor-default">
+                  {/* 5 Stelle */}
+                  <div className="flex gap-0.5">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={14} className="fill-[#fbbf24] text-[#fbbf24] filter drop-shadow-[0_0_3px_rgba(251,191,36,0.6)]" strokeWidth={0} />
+                    ))}
+                  </div>
+                  {/* Google Logo */}
+                  <div className="flex items-center gap-2">
+                    <svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
+                      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+                      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05" />
+                      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+                    </svg>
+                    <div className="h-3 w-px bg-gray-200"></div>
+                    <div className="flex items-center gap-1.5 opacity-80">
+                      <span className="text-[11px] bg-gray-50 text-gray-600 px-2 py-0.5 rounded border border-gray-100 font-bold uppercase tracking-[-0.08em]">
+                        milano e dintorni
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* H1 */}
-            <h1 className="my-2 md:my-4 text-center px-0 w-full overflow-hidden">
-              <span className="block text-[19px] md:text-3xl font-[800] uppercase leading-[1.1] tracking-[-0.03em] text-slate-900 break-words">
+            <h1 className="my-2 md:my-3 text-center px-0 w-full overflow-hidden">
+              <span className={`block font-[800] uppercase tracking-[-0.03em] text-slate-900 break-words ${pricingId === 'spc' ? 'text-[24px] md:text-[36px] leading-[1.2]' : 'text-[17px] md:text-[28px] leading-[1.1]'}`}>
                 {React.isValidElement(serviceTitle) ? (
                   serviceTitle
                 ) : (
@@ -657,65 +773,67 @@ function ServiceHeroHome({ service }) {
               </span>
             </h1>
 
-            {/* --- IMMAGINE PRIMA/DOPO SLIDER --- */}
-            <div className="w-full px-0 py-2 md:py-3">
-              {comparisons && comparisons.length > 0 && (
-                <BeforeAfterSlider 
-                  beforeImg={comparisons[0].beforeImg} 
-                  afterImg={comparisons[0].afterImg} 
-                />
-              )}
-            </div>
+            {/* --- IMMAGINE PRIMA/DOPO SLIDER + RECENSIONE --- */}
+            <div className="w-full px-0 py-2 md:py-3 mb-0">
+              {comparisons && comparisons.length > 0 && (() => {
+                const comp = comparisons[0];
+                return (
+                  <div className="w-full border-[3px] border-black rounded-[24px] overflow-hidden shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+                    {/* SLIDER */}
+                    <BeforeAfterSlider
+                      beforeImg={comp.beforeImg}
+                      afterImg={comp.afterImg}
+                      pricingId={pricingId}
+                      priceDisplay={service.priceDisplay}
+                    />
 
-            {/* QUICK FEATURES COMPACT GRID */}
-            <div className="w-full max-w-2xl mx-auto px-1 mb-6 mt-1">
-              <div className="grid grid-cols-2 gap-3 auto-rows-fr">
-                
-                {/* Feature 1 */}
-                <div className="h-full flex items-center gap-3 px-4 py-3 md:px-5 md:py-4 rounded-xl bg-white border-[2.5px] border-orange-400 shadow-[3px_3px_0px_0px_rgba(234,88,12,0.3)] hover:shadow-[1px_1px_0px_0px_rgba(234,88,12,0.5)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200 group">
-                  <div className="w-10 h-10 rounded-lg bg-orange-50 flex items-center justify-center shrink-0 border-[2px] border-orange-400 group-hover:bg-orange-100 transition-colors duration-200">
-                    <Check size={18} className="text-orange-600" strokeWidth={3} />
-                  </div>
-                  <div className="flex flex-col items-start text-left shrink-1">
-                    <span className="text-sm md:text-base font-bold text-slate-900 tracking-tight leading-tight">Zero Demolizioni</span>
-                    <span className="text-xs md:text-sm font-medium text-slate-500 tracking-tight mt-0.5">Sul pavimento esistente </span>
-                  </div>
-                </div>
+                    {/* RECENSIONE — incollata sotto l'immagine */}
+                    {comp.review && (
+                      <div className="bg-[#FFFDE7] border-t-[3px] border-black px-5 py-4 space-y-3">
+                        {/* Testo recensione */}
+                        <p className="text-[13px] text-gray-800 font-medium italic leading-relaxed">
+                          "{comp.review.text}"
+                        </p>
 
-                {/* Feature 2 */}
-                <div className="h-full flex items-center gap-3 px-4 py-3 md:px-5 md:py-4 rounded-xl bg-white border-[2.5px] border-blue-400 shadow-[3px_3px_0px_0px_rgba(59,130,246,0.3)] hover:shadow-[1px_1px_0px_0px_rgba(59,130,246,0.5)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200 group">
-                  <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 border-[2px] border-blue-400 group-hover:bg-blue-100 transition-colors duration-200">
-                    <Sofa size={18} className="text-blue-600" strokeWidth={3} />
-                  </div>
-                  <div className="flex flex-col items-start text-left shrink-1">
-                    <span className="text-sm md:text-base font-bold text-slate-900 tracking-tight leading-tight">Anche con mobili</span>
-                    <span className="text-xs md:text-sm font-medium text-slate-500 tracking-tight mt-0.5">Spostiamo noi i mobili</span>
-                  </div>
-                </div>
+                        {/* Footer recensione — layout unificato e gerarchico */}
+                        <div className="flex items-center justify-between gap-4 pt-2">
+                          {/* Sinistra: avatar + nome + Google verificata */}
+                          <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                            {/* Avatar */}
+                            <div className="shrink-0 w-9 h-9 rounded-full border-2 border-black overflow-hidden bg-white shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]">
+                              <img src={comp.review.avatar} alt={comp.review.author} loading="lazy" className="w-full h-full object-cover" />
+                            </div>
+                            
+                            {/* Nome + Google verificata — stack verticale */}
+                            <div className="flex flex-col leading-none min-w-0">
+                              <span className="text-[12px] font-black text-gray-900 truncate">{comp.review.author}</span>
+                              <div className="flex items-center gap-1.5 mt-0.5">
+                                <svg className="w-3 h-3 shrink-0" viewBox="0 0 24 24">
+                                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.24.81-.6z" />
+                                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                                </svg>
+                                <span className="text-[10px] font-bold text-gray-600 truncate">Google verificata</span>
+                              </div>
+                            </div>
+                          </div>
 
-                {/* Feature 3 */}
-                <div className="h-full flex items-center gap-3 px-4 py-3 md:px-5 md:py-4 rounded-xl bg-white border-[2.5px] border-green-400 shadow-[3px_3px_0px_0px_rgba(34,197,94,0.3)] hover:shadow-[1px_1px_0px_0px_rgba(34,197,94,0.5)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200 group">
-                  <div className="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center shrink-0 border-[2px] border-green-400 group-hover:bg-green-100 transition-colors duration-200">
-                    <BadgeEuro size={18} className="text-green-600" strokeWidth={3} />
+                          {/* Destra: 5 stelle */}
+                          <div className="shrink-0 flex items-center gap-1">
+                            <div className="flex gap-0.5">
+                              {[...Array(5)].map((_, i) => (
+                                <Star key={i} size={13} className="fill-[#fbbf24] text-[#fbbf24]" strokeWidth={0} />
+                              ))}
+                            </div>
+                            <span className="text-[10px] font-black text-gray-500 ml-0.5">5/5</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <div className="flex flex-col items-start text-left shrink-1">
-                    <span className="text-sm md:text-base font-bold text-slate-900 tracking-tight leading-tight">Nessun Acconto</span>
-                    <span className="text-xs md:text-sm font-medium text-slate-500 tracking-tight mt-0.5">Non paghi nulla prima</span>
-                  </div>
-                </div>
-
-                {/* Feature 4 */}
-                <div className="h-full flex items-center gap-3 px-4 py-3 md:px-5 md:py-4 rounded-xl bg-white border-[2.5px] border-violet-400 shadow-[3px_3px_0px_0px_rgba(168,85,247,0.3)] hover:shadow-[1px_1px_0px_0px_rgba(168,85,247,0.5)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200 group">
-                  <div className="w-10 h-10 rounded-lg bg-violet-50 flex items-center justify-center shrink-0 border-[2px] border-violet-400 group-hover:bg-violet-100 transition-colors duration-200">
-                    <CalendarClock size={18} className="text-violet-600" strokeWidth={3} />
-                  </div>
-                  <div className="flex flex-col items-start text-left shrink-1">
-                    <span className="text-sm md:text-base font-bold text-slate-900 tracking-tight leading-tight">Posa Rapida</span>
-                    <span className="text-xs md:text-sm font-medium text-slate-500 tracking-tight mt-0.5">In media 1-2 giorni per appartamento di 50mq</span>
-                  </div>
-                </div>
-
-              </div>
+                );
+              })()}
             </div>
 
             {/* CTA Chiama ora */}
@@ -765,9 +883,6 @@ function ServiceHeroHome({ service }) {
 
             {/* PREVENTIVATORE ONLINE — InstallationQuiz integrato nella hero */}
             <InstallationQuiz service={service} />
-
-            {/* Social Proof Carousel — filtrato per servizio */}
-            <CompactSocialProof category={pricingId} />
 
           </div>
         </div>
