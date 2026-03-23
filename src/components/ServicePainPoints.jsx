@@ -1,6 +1,67 @@
 import React from 'react';
 import { ShieldOff, Sofa, BadgeEuro } from 'lucide-react';
-import { PAIN_POINTS } from './ServiceHeroHome';
+
+// Sezione Pain → Dream per SPC e Laminato — Copy Premium/Autorevole
+const PAIN_POINTS = {
+  'spc': [
+    {
+      icon: ShieldOff,
+      number: '01',
+      tag: 'Zero demolizioni',
+      headline: 'Direttamente sul vecchio pavimento.',
+      body: 'L\'SPC si installa direttamente sopra piastrelle, gres o marmo. Nessuna demolizione, nessun calcinaccio.',
+      stat: 'Calpestabile subito',
+      accentColor: 'amber',
+    },
+    {
+      icon: Sofa,
+      number: '02',
+      tag: 'Anche con mobili',
+      headline: 'Ai tuoi mobili ci pensiamo noi.',
+      body: 'Spostiamo ogni elemento stanza per stanza e rimettiamo tutto al suo posto. Tu non alzi un dito.',
+      stat: 'Non devi andare in hotel',
+      accentColor: 'blue',
+    },
+    {
+      icon: BadgeEuro,
+      number: '03',
+      tag: 'Prezzo Blindato',
+      headline: 'Nessun acconto.',
+      body: 'Preventivo precisi al centesimo. Il prezzo che vedi è il prezzo che paghi — dopo aver verificato il risultato alla fine di ogni giornata.',
+      stat: '€0 anticipati',
+      accentColor: 'emerald',
+    },
+  ],
+  'laminato': [
+    {
+      icon: ShieldOff,
+      number: '01',
+      tag: 'Tecnologia Invisibile',
+      headline: 'Le piastrelle restano lì. Il laminato le copre.',
+      body: 'Niente demolizioni, niente polvere. Il nuovo pavimento si posa sopra quello esistente in 1-2 giorni.',
+      stat: 'Pronto in 48 ore',
+      accentColor: 'amber',
+    },
+    {
+      icon: Sofa,
+      number: '02',
+      tag: 'Casa Abitata, Zero Stress',
+      headline: 'Mobili pesanti? Non è un tuo problema.',
+      body: 'Lavoriamo stanza per stanza: spostiamo tutto, posiamo, rimettiamo ogni cosa al suo posto.',
+      stat: 'Vita quotidiana invariata',
+      accentColor: 'blue',
+    },
+    {
+      icon: BadgeEuro,
+      number: '03',
+      tag: 'Prezzo Blindato',
+      headline: 'Il prezzo non cambia. Mai.',
+      body: 'Preventivo vincolante. Nessun acconto, nessuna sorpresa. Paghi solo a lavoro finito e verificato.',
+      stat: '€0 anticipati',
+      accentColor: 'emerald',
+    },
+  ],
+};
 
 // Accent color map for pain point cards
 const ACCENT_MAP = {
