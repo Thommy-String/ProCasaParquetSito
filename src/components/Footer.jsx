@@ -56,8 +56,8 @@ function Footer() {
               Sede legale
             </p>
             <p>
-              Via Finanzieri d'Italia<br />
-              20132 Milano (MI)
+              Via Daturi 5 29121<br />
+              Piacenza (PC)
             </p>
             <p className="pt-1 text-xs uppercase tracking-[0.25em] text-gray-400">
               P.IVA 01914870330

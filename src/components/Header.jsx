@@ -100,8 +100,8 @@ function Header() {
       <style>
         {`
           :root {
-            --header-height-mobile: 3.5rem; /* 56px */
-            --header-height-desktop: 4rem; /* 64px */
+            --header-height-mobile: 4.5rem; /* Increased from 3.5rem */
+            --header-height-desktop: 5rem; /* Increased from 4rem */
           }
           
           /* Spazio per l'header solo su desktop o quando visibile secondo logica */
@@ -121,17 +121,24 @@ function Header() {
 
       {/* --- HEADER BAR (FISSO MA A SCOMPARSA) --- */}
       <header 
-        className={`fixed top-0 left-0 right-0 z-[60] bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 right-0 z-[60] bg-white/90 backdrop-blur-md border-b border-gray-100 transition-transform duration-300 ease-in-out ${
           isVisible ? 'translate-y-0' : '-translate-y-full'
         }`}
-        // Altezze ridotte: h-14 (56px) su mobile, h-16 (64px) su desktop
-        style={{ height: 'var(--header-height, 3.5rem)' }} 
+        style={{ height: 'var(--header-height, 4rem)' }} 
       >
-        <div className="container mx-auto px-4 md:px-6 flex items-center justify-between h-14 md:h-16">
+        <div className="container mx-auto px-4 md:px-6 flex items-center justify-between h-full">
           
-          {/* 1. LOGO */}
-          <Link to="/" onClick={() => setIsMenuOpen(false)} className="flex-shrink-0 z-[61]">
-            <img src={logoImage} alt={COMPANY_NAME} className="h-7 md:h-9 w-auto" />
+          {/* 1. LOGO & BRANDING */}
+          <Link to="/" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 z-[61]">
+            <img src={logoImage} alt={COMPANY_NAME} className="h-9 md:h-11 w-auto" />
+            <div className="flex flex-col">
+              <span className="text-base md:text-lg font-bold tracking-tight leading-none text-gray-900">
+                PosaParquetMilano.it 
+              </span>
+              <span className="text-[10px] font-medium uppercase tracking-tighter text-gray-500 leading-tight">
+                Parquettisti spc - parquet  - laminati
+              </span>
+            </div>
           </Link>
 
           {/* 2. LATO DESTRO (CTA + HAMBURGER) */}
@@ -229,10 +236,8 @@ function Header() {
         </div>
       </div>
 
-      {/* --- SPACER (EVITA CHE IL CONTENUTO FINISCA SOTTO L'HEADER) --- 
-          Questo div occupa lo spazio fisico dell'header nel flusso della pagina.
-      */}
-      <div className="h-14 md:h-16 w-full"></div>
+      {/* --- SPACER (EVITA CHE IL CONTENUTO FINISCA SOTTO L'HEADER) --- */}
+      <div className="h-16 md:h-16 w-full"></div>
     </>
   );
 }

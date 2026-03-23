@@ -75,7 +75,9 @@ export const servicesData = {
     layout: [
       { type: 'HeroHome' },
       { type: 'RecentWorks', props: { category: 'prefinito', title: 'I nostri ultimi lavori' } },
+      { type: 'ServiceExplainerSection' },
       { type: 'ServiceDescription' },
+      { type: 'ServiceFAQ' },
     ],
     features: [
       {
@@ -173,7 +175,9 @@ export const servicesData = {
     layout: [
       { type: 'HeroHome' },
       { type: 'RecentWorks', props: { category: 'prefinito-flottante', title: 'I nostri ultimi lavori' } },
+      { type: 'ServiceExplainerSection' },
       { type: 'ServiceDescription' },
+      { type: 'ServiceFAQ' },
     ],
     features: [
       {
@@ -263,7 +267,9 @@ export const servicesData = {
     layout: [
       { type: 'HeroHome' },
       { type: 'RecentWorks', props: { category: 'prefinito-spina', title: 'I nostri ultimi lavori' } },
+      { type: 'ServiceExplainerSection' },
       { type: 'ServiceDescription' },
+      { type: 'ServiceFAQ' },
     ],
     features: [
       {
@@ -347,8 +353,9 @@ export const servicesData = {
     },
     layout: [
       { type: 'HeroHome' },
-      { type: 'RecentWorks', props: { category: 'spc', title: 'Costo montaggio?' } },
-      { type: 'ServiceFAQ' },
+      { type: 'RecentWorks', props: { category: 'spc', title: 'Nel 2025 Abbiamo posato più di 2595 pacchi di SPC. Qualsiasi marchio e formato.' } },
+      { type: 'ServiceExplainerSection' },
+      { type: 'ServicePainPoints' },
       { type: 'ServiceDescription' },
     ],
     features: [
@@ -434,8 +441,9 @@ export const servicesData = {
     },
     layout: [
       { type: 'HeroHome' },
-      { type: 'RecentWorks', props: { category: 'laminato', title: 'Quanto costa?' } },
-      { type: 'ServiceFAQ' },
+      { type: 'RecentWorks', props: { category: 'laminato', title: 'I nostri ultimi lavori' } },
+      { type: 'ServiceExplainerSection' },
+      { type: 'ServicePainPoints' },
       { type: 'ServiceDescription' },
     ],
     features: [
@@ -524,6 +532,8 @@ export const servicesData = {
     },
     layout: [
       { type: 'HeroHome' },
+      { type: 'ServiceExplainerSection' },
+      { type: 'ServiceFAQ' },
       { type: 'ServiceDescription' },
     ],
     features: [
@@ -596,6 +606,8 @@ export const servicesData = {
     },
     layout: [
       { type: 'HeroHome' },
+      { type: 'ServiceExplainerSection' },
+      { type: 'ServiceFAQ' },
       { type: 'ServiceDescription' },
     ],
     features: [

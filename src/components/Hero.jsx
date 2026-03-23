@@ -1,6 +1,4 @@
-
 import HeroComparisonCards from './HeroComparisonCards';
-import CompactSocialProof from './CompactSocialProof';
 import { COMPANY_NAME } from '../utils/constants';
 import rovereMielato from '../assets/images/parquet/rovereMielato.jpg';
 import HeroStats from './HeroStats';
@@ -55,8 +53,8 @@ function Hero() {
                                     <div className="h-3 w-px bg-gray-200"></div>
 
                                     <div className="flex items-center gap-1.5 opacity-80">
-                                        <span className="text-[11px] bg-gray-50 text-gray-600 px-2 py-0.5 rounded border border-gray-100 font-bold uppercase tracking-[-0.08em]">
-                                            milano e dintorni
+                                        <span className="text-[11px] bg-gray-50 text-gray-600 px-2 py-0.5 rounded border border-gray-100 font-medium uppercase tracking-[-0.07em]">
+                                            installatori pavimenti
                                         </span>
                                     </div>
                                 </div>
@@ -86,58 +84,107 @@ function Hero() {
 
 
 
-                        <div className="flex justify-center mt-8 mb-3 relative">
-                            {/* Alone di distacco per farlo risaltare sui colori */}
-                            <div className="absolute inset-0 bg-white/40 blur-3xl scale-150 -z-10 rounded-full"></div>
+                        {/* CTA BUTTONS - 2 Colonne su Desktop, Stack su Mobile */}
+                        <div className="flex flex-col md:flex-row gap-6 justify-center w-full mt-8 mb-3">
+                            
+                            {/* --- BOTTONE CHIAMA ORA --- */}
+                            <div className="flex flex-col items-center flex-1 max-w-xs">
+                                <div className="w-full relative">
+                                    {/* Alone di distacco */}
+                                    <div className="absolute inset-0 bg-white/40 blur-3xl scale-150 -z-10 rounded-full"></div>
 
-                            <a
-                                href="tel:+393342221212"
-                                onClick={(e) => {
-                                    if (typeof window.gtag !== 'undefined') {
-                                        window.gtag('event', 'conversion', {
-                                            'send_to': 'AW-XXXXXXXXX/YYYYYYYYYYYY',
-                                        });
-                                    }
-                                }}
-                                className="
-      group relative inline-flex items-center gap-4
-      bg-white border-[2.5px] border-slate-900 
-      px-8 py-4 rounded-xl
-      text-slate-900 font-black uppercase tracking-tighter
-      transition-all duration-200
-      shadow-[6px_6px_0px_0px_rgba(15,23,42,1)]
-      hover:shadow-[2px_2px_0px_0px_rgba(15,23,42,1)]
-      hover:translate-x-1 hover:translate-y-1
-      active:bg-gray-50
-    "
-                            >
-                                {/* Icona Telefono Blu (Unico punto di colore per l'occhio) */}
-                                <div className="p-2 bg-green-50 rounded-lg group-hover:bg-green-100 transition-colors">
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="green" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                                    </svg>
+                                    <a
+                                        href="tel:+393342221212"
+                                        onClick={(e) => {
+                                            if (typeof window.gtag !== 'undefined') {
+                                                window.gtag('event', 'conversion', {
+                                                    'send_to': 'AW-XXXXXXXXX/YYYYYYYYYYYY',
+                                                });
+                                            }
+                                        }}
+                                        className="group relative flex items-center gap-4 w-full bg-blue-50 border-[2.5px] border-blue-900 px-8 py-4 rounded-xl text-blue-900 font-black uppercase tracking-tighter transition-all duration-200 shadow-[6px_6px_0px_0px_rgba(30,58,138,1)] hover:shadow-[2px_2px_0px_0px_rgba(30,58,138,1)] hover:translate-x-1 hover:translate-y-1 active:bg-blue-100 justify-center"
+                                    >
+                                        {/* Icona Telefono */}
+                                        <div className="p-2 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600">
+                                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                            </svg>
+                                        </div>
+
+                                        <div className="flex flex-col items-start leading-none">
+                                            <span className="text-[10px] text-blue-600 font-bold mb-1 tracking-widest uppercase">+39 334 222 1212</span>
+                                            <span className="text-xl md:text-2xl italic">Chiama ora</span>
+                                        </div>
+                                    </a>
                                 </div>
 
-                                <div className="flex flex-col items-start leading-none">
-                                    <span className="text-[10px] text-green-600 font-bold mb-1 tracking-widest uppercase">+39 334 222 1212</span>
-                                    <span className="text-xl md:text-2xl italic">Chiama ora</span>
+                                {/* Rassicurazioni Chiama Ora */}
+                                <div className="w-full mt-3 flex items-center gap-4">
+                                    <div className="flex items-center gap-2">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
+                                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#A5D6A7" strokeWidth="0"/>
+                                        </svg>
+                                        <span className="text-[11px] md:text-[12px] text-slate-600 font-semibold">Nessun obbligo</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
+                                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#A5D6A7" strokeWidth="0"/>
+                                        </svg>
+                                        <span className="text-[11px] md:text-[12px] text-slate-600 font-semibold">Preventivo gratuito</span>
+                                    </div>
                                 </div>
-                            </a>
-                        </div>
-                        {/* Micro Info Sotto il Bottone */}
-                        <div className="flex items-center justify-center gap-3 mt-1 opacity-60">
-                            <div className="flex items-center gap-1">
-                                <span className="text-[10px] md:text-[11px] font-medium uppercase tracking-tighter text-slate-600 underline decoration-slate-300 underline-offset-4">Senza impegno - Preventivo gratis</span>
                             </div>
+
+                            {/* --- BOTTONE SCRIVICI ORA --- */}
+                            <div className="flex flex-col items-center flex-1 max-w-xs">
+                                <div className="w-full relative">
+                                    {/* Alone di distacco */}
+                                    <div className="absolute inset-0 bg-white/40 blur-3xl scale-150 -z-10 rounded-full"></div>
+
+                                    <a
+                                        href="https://wa.me/393342221212?text=Ciao%20Posa%20Parquet%20Milano%2C%20sono%20interessato%20a%20una%20consulenza%20gratuita"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="group relative flex items-center gap-4 w-full bg-emerald-50 border-[2.5px] border-emerald-900 px-8 py-4 rounded-xl text-emerald-900 font-black uppercase tracking-tighter transition-all duration-200 shadow-[6px_6px_0px_0px_rgba(5,83,34,1)] hover:shadow-[2px_2px_0px_0px_rgba(5,83,34,1)] hover:translate-x-1 hover:translate-y-1 active:bg-emerald-100 justify-center"
+                                    >
+                                        {/* Icona WhatsApp */}
+                                        <div className="p-2 bg-emerald-100 rounded-lg group-hover:bg-emerald-200 transition-colors">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="currentColor" className="text-emerald-600"/>
+                                                <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 01-4.243-1.214l-.257-.154-2.874.854.854-2.874-.154-.257A8 8 0 1112 20z" fill="currentColor" className="text-emerald-600"/>
+                                            </svg>
+                                        </div>
+
+                                        <div className="flex flex-col items-start leading-none">
+                                            <span className="text-[10px] text-emerald-600 font-bold mb-1 tracking-widest uppercase">online 24/7</span>
+                                            <span className="text-xl md:text-2xl italic">Scrivici ora</span>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                {/* Rassicurazioni Scrivici Ora */}
+                                <div className="w-full mt-3 flex items-center gap-4">
+                                    <div className="flex items-center gap-2">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
+                                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#A5D6A7" strokeWidth="0"/>
+                                        </svg>
+                                        <span className="text-[11px] md:text-[12px] text-slate-600 font-semibold">Risposta immediata</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
+                                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#A5D6A7" strokeWidth="0"/>
+                                        </svg>
+                                        <span className="text-[11px] md:text-[12px] text-slate-600 font-semibold">Senza impegno</span>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                         {/* HERO STATS */}
                         <div className=" w-full my-4 lg:mb-10">
                             <HeroStats />
                         </div>
-
-                        {/* Social Proof (Horizontal Scrolling Gallery) */}
-                        <CompactSocialProof />
 
                     </div>
 

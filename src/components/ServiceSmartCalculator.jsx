@@ -158,43 +158,48 @@ function ServiceScientificCalc({ serviceData }) {
     };
 
     return (
-        <div className="w-full max-w-[440px] mx-auto mb-4 px-4 font-sans text-[#37352f]">
+        <div className="w-full max-w-[480px] mx-auto mb-12 px-4 font-sans text-slate-900">
             
-            {/* 1. TAG PREZZO BASE */}
-            <div className="flex justify-center -mb-3 relative z-20">
-                <span className="px-3 py-1 bg-[#eaf5f0] text-[#1e7e5a] text-sm font-medium italic rounded-md border border-dashed border-[#1e7e5a]/40 shadow-sm transform rotate-[-1deg]">
-                     <span className='font-black'>€{basePrice} al {unitLabel} - Milano e dintorni</span>
-                </span>
+            {/* 1. TAG PREZZO BASE - Riprogettato più pulito */}
+            <div className="flex justify-center -mb-4 relative z-20">
+                <div className="px-5 py-2 bg-white border-[3px] border-black rounded-2xl shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                    <span className="text-[11px] font-black uppercase tracking-widest text-black">
+                         €{basePrice}/{unitLabel} <span className="text-black/40 mx-1">•</span> Milano & Hinterland
+                    </span>
+                </div>
             </div>
 
-            {/* CONTAINER CARD */}
-            <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 border border-[#E5E5E5] overflow-hidden relative z-10">
+            {/* CONTAINER CARD - Stile Neo-Brutalist coerente */}
+            <div className="bg-white rounded-[40px] border-[3px] border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] overflow-hidden relative z-10 transition-all hover:translate-x-1 hover:translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                 
                 {/* 2. ZONA INPUT QUANTITÀ */}
-                <div className="p-8 pb-12">
+                <div className="p-10 pb-12 bg-[#F8FAFC]">
                     <div className="flex flex-col items-center">
-                        <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-4">
-                           Inserisci i {unitLabel}
-                        </span>
+                        <div className="px-3 py-1 bg-black text-white rounded-full text-[9px] font-black uppercase tracking-[0.2em] mb-8">
+                           Step 1: Dimensione Stanza
+                        </div>
 
                         {/* CONTROLLI +/- */}
-                        <div className="flex items-center justify-center gap-6 select-none w-full mb-8">
+                        <div className="flex items-center justify-center gap-10 select-none w-full mb-12">
                             <button 
                                 onMouseDown={() => startChange(-step)}
                                 onMouseUp={stopChange}
                                 onMouseLeave={stopChange}
                                 onTouchStart={(e) => { e.preventDefault(); startChange(-step); }}
                                 onTouchEnd={stopChange}
-                                className="w-12 h-12 rounded-2xl bg-[#F7F7F5] border border-transparent hover:border-[#D4D4D4] flex items-center justify-center text-gray-500 active:scale-90 transition-all touch-none"
+                                className="w-16 h-16 rounded-2xl bg-white border-[3px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center text-black hover:bg-slate-50 active:translate-x-1 active:translate-y-1 active:shadow-none transition-all touch-none"
                             >
-                                <Minus size={22} />
+                                <Minus size={28} strokeWidth={4} />
                             </button>
 
-                            <div className="flex flex-col items-center w-32">
-                                <span className="text-6xl font-black tracking-tighter tabular-nums text-[#37352f] leading-none">
-                                    {quantity}
-                                </span>
-                                <span className="text-sm font-bold text-gray-400 mt-1 uppercase">{unitLabel}</span>
+                            <div className="flex flex-col items-center min-w-[140px]">
+                                <div className="relative">
+                                    <span className="text-8xl font-black tracking-tighter tabular-nums text-black leading-none">
+                                        {quantity}
+                                    </span>
+                                    <span className="absolute -right-8 bottom-2 text-xl font-black text-black/20 uppercase">{unitLabel}</span>
+                                </div>
                             </div>
 
                             <button 
@@ -203,17 +208,17 @@ function ServiceScientificCalc({ serviceData }) {
                                 onMouseLeave={stopChange}
                                 onTouchStart={(e) => { e.preventDefault(); startChange(step); }}
                                 onTouchEnd={stopChange}
-                                className="w-12 h-12 rounded-2xl bg-[#F7F7F5] border border-transparent hover:border-[#D4D4D4] flex items-center justify-center text-gray-500 active:scale-90 transition-all touch-none"
+                                className="w-16 h-16 rounded-2xl bg-white border-[3px] border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center text-black hover:bg-slate-50 active:translate-x-1 active:translate-y-1 active:shadow-none transition-all touch-none"
                             >
-                                <Plus size={22} />
+                                <Plus size={28} strokeWidth={4} />
                             </button>
                         </div>
 
-                        {/* SLIDER */}
-                        <div className="w-full px-2 relative group">
-                            <div className="h-4 bg-[#F0F0F0] rounded-full overflow-hidden shadow-inner">
+                        {/* SLIDER - Più spesso e bold */}
+                        <div className="w-full px-4 relative group">
+                            <div className="h-4 bg-white border-[3px] border-black rounded-full overflow-hidden">
                                 <div 
-                                    className="h-full bg-gradient-to-r from-[#1e7e5a] to-[#4ade80] transition-all duration-100 ease-out" 
+                                    className="h-full bg-[#81D4FA] border-r-[3px] border-black transition-all duration-100 ease-out" 
                                     style={{ width: `${percentage}%` }} 
                                 />
                             </div>
@@ -224,46 +229,49 @@ function ServiceScientificCalc({ serviceData }) {
                                 step={step}
                                 value={quantity}
                                 onChange={(e) => setQuantity(Number(e.target.value))}
-                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer py-4" 
+                                className="absolute -top-1 inset-x-0 w-full h-6 opacity-0 cursor-pointer z-30" 
                             />
-                            <div 
-                                className="absolute w-8 h-8 bg-white border-[4px] border-[#1e7e5a] rounded-full shadow-md pointer-events-none top-1/2 -translate-y-1/2 transition-transform group-active:scale-110 flex items-center justify-center"
-                                style={{ left: `calc(${percentage}% - 16px)` }}
-                            >
-                                <div className="w-2 h-2 bg-[#1e7e5a] rounded-full opacity-50"></div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* 3. ZONA OUTPUT TOTALE - Ultra High Contrast */}
+                <div className="bg-black text-white p-10 relative border-y-[3px] border-black">
+                    <div className="flex flex-col items-center relative z-10">
+                        <span className="text-[10px] font-black text-[#81D4FA] uppercase tracking-[0.2em] mb-4">
+                            Investimento Stimato
+                        </span>
+                        <div className="flex items-center justify-center leading-none mb-6">
+                            <span className="text-4xl font-black text-white/20 mr-3">€</span>
+                            <span className="text-8xl font-[900] tracking-tighter tabular-nums">
+                                {totalCost.toLocaleString()}
+                            </span>
+                        </div>
+                        
+                        <div className="flex gap-4">
+                            <div className="px-4 py-2 bg-white/10 rounded-xl border border-white/20 flex items-center gap-2">
+                                <Timer size={14} className="text-[#81D4FA]" />
+                                <span className="text-[11px] font-black uppercase">{estimatedDays} GIORNI</span>
+                            </div>
+                            <div className="px-4 py-2 bg-white/10 rounded-xl border border-white/20 flex items-center gap-2">
+                                <Package size={14} className="text-[#81D4FA]" />
+                                <span className="text-[11px] font-black uppercase">CHIAVI IN MANO</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* 3. ZONA OUTPUT TOTALE */}
-                <div className="bg-[#37352f] text-white p-6 relative">
-                    <div className="absolute top-0 left-0 w-full h-6 -mt-3 bg-[#37352f] rounded-t-2xl"></div>
-                    
-                    <div className="flex flex-col items-center relative z-10">
-                        <span className="text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1">
-                            Totale Stimato
-                        </span>
-                        <div className="flex items-start justify-center leading-none">
-                            <span className="text-2xl font-medium text-white/40 mr-1 mt-2">€</span>
-                            <span className="text-[4.5rem] font-bold tracking-tighter tabular-nums">
-                                {totalCost.toLocaleString()}
-                            </span>
-                        </div>
-                        
-                        <div className="mt-2 text-[9px] tracking-tight text-white/40 font-mono">
-                            <p>per {quantity}{unitLabel} - ⏱ {estimatedDays} giorni di lavoro</p>
-                        </div>
-                    </div>
-                </div>
-
                 {/* 4. SEZIONE EXTRA + CTA DOPPIA */}
-                <div className="bg-white shadow-[inset_0_4px_6px_-4px_rgba(0,0,0,0.1)] border-t border-[#37352f]/5 p-6">
-                    <p className="text-[10px] font-bold text-center text-gray-400 uppercase tracking-widest mb-4">
-                     Servizi Opzionali
-                    </p>
+                <div className="bg-white p-10 pt-12">
+                    <div className="flex items-center gap-4 mb-8">
+                        <div className="h-[2px] flex-grow bg-black/10" />
+                        <span className="text-[10px] font-black text-black/40 uppercase tracking-[0.2em] whitespace-nowrap">
+                            Step 2: Personalizza
+                        </span>
+                        <div className="h-[2px] flex-grow bg-black/10" />
+                    </div>
                     
-                    <div className="flex flex-wrap justify-center gap-3 mb-8">
+                    <div className="grid grid-cols-2 gap-4 mb-12">
                         {availableExtras.map((opt) => {
                             const isSelected = selectedExtras.includes(opt.id);
                             const displayCost = opt.type === 'fixed' ? opt.price : opt.price * quantity;
@@ -273,18 +281,18 @@ function ServiceScientificCalc({ serviceData }) {
                                     key={opt.id}
                                     onClick={() => toggleExtra(opt.id)}
                                     className={`
-                                        flex items-center gap-2 px-4 py-2.5 rounded-full border text-xs font-bold transition-all duration-200 active:scale-95
+                                        flex flex-col gap-3 p-4 rounded-2xl border-[3px] text-left transition-all duration-200 active:scale-95
                                         ${isSelected 
-                                            ? 'bg-[#EDF3EC] border-[#1e7e5a] text-[#1e7e5a] shadow-sm' 
-                                            : 'bg-gray-50 border-transparent text-gray-500 hover:bg-gray-100 hover:border-gray-200'
+                                            ? 'bg-[#81D4FA] border-black text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]' 
+                                            : 'bg-white border-slate-100 text-slate-400 hover:border-black hover:text-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
                                         }
                                     `}
                                 >
-                                    {isSelected ? <Check size={14} strokeWidth={3} /> : <opt.icon size={14} className="opacity-70" />}
-                                    <span>{opt.label}</span>
-                                    <span className={`text-[10px] font-normal ml-0.5 ${isSelected ? 'text-[#1e7e5a]/70' : 'text-gray-400'}`}>
-                                        (+€{displayCost})
-                                    </span>
+                                    <div className="flex justify-between items-start w-full">
+                                        {isSelected ? <Check size={18} strokeWidth={4} /> : <opt.icon size={18} strokeWidth={2.5} />}
+                                        <span className={`text-[10px] font-black ${isSelected ? 'text-black' : 'text-slate-400'}`}>+€{displayCost}</span>
+                                    </div>
+                                    <span className="text-[11px] font-black uppercase leading-tight">{opt.label}</span>
                                 </button>
                             );
                         })}
@@ -292,61 +300,48 @@ function ServiceScientificCalc({ serviceData }) {
 
                     {/* --- DOPPIA CTA STILE HERO BRUTALISTA --- */}
                     <div className="flex flex-col gap-4">
+                        <button 
+                            onClick={() => handleWhatsAppClick('write')}
+                            className="
+                                group relative w-full inline-flex items-center justify-center gap-4
+                                bg-[#25D366] border-[3px] border-black 
+                                px-6 py-5 rounded-[20px]
+                                text-black font-black uppercase tracking-tighter
+                                transition-all duration-200
+                                shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]
+                                hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]
+                                hover:translate-x-1 hover:translate-y-1
+                                active:translate-x-2 active:translate-y-2 active:shadow-none
+                            "
+                        >
+                            <MessageCircle size={28} strokeWidth={3} />
+                            <div className="flex flex-col items-start leading-none text-left">
+                                <span className="text-[10px] text-black/60 font-black mb-1 tracking-widest uppercase">Chat Rapida</span>
+                                <span className="text-2xl font-[900] italic">PRENOTA ORA</span>
+                            </div>
+                        </button>
+
+                        <button 
+                            onClick={() => handleWhatsAppClick('save')}
+                            className="
+                                group relative w-full inline-flex items-center justify-center gap-3
+                                bg-white border-[3px] border-black 
+                                px-6 py-4 rounded-[20px]
+                                text-black font-black uppercase tracking-tighter
+                                transition-all duration-200
+                                hover:bg-slate-50 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]
+                                hover:translate-x-1 hover:translate-y-1
+                            "
+                        >
+                            <LucideSave size={20} strokeWidth={3} />
+                            <span className="text-base italic">Salva Preventivo</span>
+                        </button>
                         
-                        {/* 1. CTA PRINCIPALE (Scrivici) */}
-                        <div className="flex flex-col items-center">
-                            <button 
-                                onClick={() => handleWhatsAppClick('write')}
-                                className="
-                                    group relative w-full inline-flex items-center justify-center gap-3
-                                    bg-white border-[2.5px] border-slate-900 
-                                    px-6 py-4 rounded-xl
-                                    text-slate-900 font-black uppercase tracking-tighter
-                                    transition-all duration-200
-                                    shadow-[6px_6px_0px_0px_rgba(15,23,42,1)]
-                                    hover:shadow-[2px_2px_0px_0px_rgba(15,23,42,1)]
-                                    hover:translate-x-1 hover:translate-y-1
-                                    active:bg-gray-50
-                                "
-                            >
-                                <div className="p-1.5 bg-green-50 rounded-lg group-hover:bg-green-100 transition-colors">
-                                    <MessageCircle size={18} className="text-green-600" />
-                                </div>
-                                <div className="flex flex-col items-start leading-none">
-                                    <span className="text-[10px] text-green-600 font-bold mb-1 tracking-widest uppercase">Rispondiamo in 4 min</span>
-                                    <span className="text-base md:text-lg italic">Contattaci su WhatsApp</span>
-                                </div>
-                            </button>
-                            <span className="text-[10px] text-gray-400 mt-2 font-medium uppercase tracking-tighter">Nessun obbligo di acquisto</span>
+                        <div className="flex items-center justify-center gap-2 mt-2 opacity-40">
+                            <span className="w-1 h-1 rounded-full bg-black/60" />
+                            <p className="text-[9px] text-black font-black uppercase tracking-widest">Nessun impegno • Solo trasparenza</p>
+                            <span className="w-1 h-1 rounded-full bg-black/60" />
                         </div>
-
-                        {/* 2. CTA SECONDARIA (Salva) — accenti gialli su base bianca */}
-                        <div className="flex flex-col items-center">
-                            <button 
-                                onClick={() => handleWhatsAppClick('save')}
-                                className="
-                                    group relative w-full inline-flex items-center justify-center gap-3
-                                    bg-white border-[2.5px] border-slate-900 
-                                    px-6 py-3.5 rounded-xl
-                                    text-slate-900 font-black uppercase tracking-tighter
-                                    transition-all duration-200
-                                    shadow-[6px_6px_0px_0px_rgba(245,158,11,0.5)]
-                                    hover:shadow-[2px_2px_0px_0px_rgba(245,158,11,0.5)]
-                                    hover:translate-x-1 hover:translate-y-1
-                                    active:bg-gray-50
-                                "
-                            >
-                                <div className="p-1.5 bg-amber-100 rounded-lg group-hover:bg-amber-200 transition-colors">
-                                    <LucideSave size={18} className="text-amber-600" />
-                                </div>
-                                <div className="flex flex-col items-start leading-none">
-                                    <span className="text-[10px] text-amber-600 font-bold mb-1 tracking-widest uppercase">Non perderlo</span>
-                                    <span className="text-sm md:text-base italic">Salvalo su Whatsapp</span>
-                                </div>
-                            </button>
-                            <span className="text-[10px] text-gray-400 mt-2 font-medium uppercase tracking-tighter">Ti arriva in chat · Zero spam</span>
-                        </div>
-
                     </div>
                 </div>
 

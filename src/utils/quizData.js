@@ -5,7 +5,7 @@ export const quizDatabase = {
   // 1. PAGINA GENERICA PREFINITO (PricingId: 'prefinito')
   // Qui ha senso chiedere la macro-categoria
   'prefinito': {
-    title: "Preventivo Rapido in 30 secondi",
+    title: "Calcola il tuo prezzo su misura",
     question1: "Quale tecnica di posa preferisci?",
     allowedTypes: ['prefinito_dritto', 'prefinito_spina', 'prefinito_flottante'], 
     extraQuestions: [
@@ -32,7 +32,7 @@ export const quizDatabase = {
   // 2. PAGINA SPECIFICA SPINA (PricingId: 'prefinito-spina')
   // Qui la domanda 1 è SPECIFICA sulle spine
   'prefinito-spina': {
-    title: "Preventivo Rapido in 30 secondi",
+    title: "Calcola il tuo prezzo su misura",
     question1: "Quale geometria a Spina desideri?",
     allowedTypes: ['spina_italiana', 'spina_ungherese', 'spina_francese'], // <--- OPZIONI NUOVE
     
@@ -58,7 +58,7 @@ export const quizDatabase = {
 
   // 3. PAGINA SPECIFICA FLOTTANTE (PricingId: 'prefinito-flottante')
   'prefinito-flottante': {
-    title: "Preventivo Rapido in 30 secondi",
+    title: "Calcola il tuo prezzo su misura",
     question1: "Che disegno di posa vuoi?",
     allowedTypes: ['flottante_dritto', 'flottante_diagonale', 'flottante_spina'], // <--- OPZIONI NUOVE
     
@@ -84,7 +84,7 @@ export const quizDatabase = {
 
   // 4. PAGINA SPC (PricingId: 'spc')
   'spc': {
-    title: "Preventivo in 30 secondi",
+    title: "Calcola il tuo prezzo su misura",
     question1: "Tipo di posa?",
     allowedTypes: ['spc_dritto', 'spc_spina'],
     extraQuestions: [
@@ -109,7 +109,7 @@ export const quizDatabase = {
 
   // 5. PAGINA LAMINATO (PricingId: 'laminato')
   'laminato': {
-    title: "Preventivo Rapido in 30 secondi",
+    title: "Calcola il tuo prezzo su misura",
     question1: "Cosa devi installare?",
     allowedTypes: ['laminato_standard'],
     extraQuestions: [
@@ -134,7 +134,7 @@ export const quizDatabase = {
   
   // 6. PAGINA BATTISCOPA
  'battiscopa': {
-    title: "Preventivo Rapido in 30 secondi",
+    title: "Calcola il tuo prezzo su misura",
     question1: "Altezza profilo",
     allowedTypes: ['battiscopa_low', 'battiscopa_high'],
     extraQuestions: [
@@ -160,7 +160,7 @@ export const quizDatabase = {
   
   // 7. PAGINA SCALE
   'scala-parquet': {
-      title: "Preventivo Rapido in 30 secondi",
+      title: "Calcola il tuo prezzo su misura",
       question1: "Tipo di scala",
       allowedTypes: ['scala_parquet'],
       extraQuestions: [

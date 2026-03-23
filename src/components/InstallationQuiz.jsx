@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { PHONE_NUMBER } from '../utils/constants';
-import CompactSocialProof from './CompactSocialProof';
+import { quizDatabase } from '../utils/quizData';
 
 // --- IMPORTA TUTTE LE ICONE NECESSARIE ---
 import {
@@ -8,7 +8,7 @@ import {
   Sparkles, Compass, GitBranch, Scissors, Hammer, Paintbrush, Scaling,
   Search, MessageCircle, Bookmark,
   Calculator, Settings2, Plus, Minus,
-  DoorOpen, Trash2, Check, Lock, Truck, Sofa, Package, Phone
+  DoorOpen, Trash2, Check, Lock, Truck, Sofa, Package, Phone, Star
 } from 'lucide-react';
 import rovereNaturale from '../assets/images/parquet/rovereNaturale.jpg';
 import rovereSpina from '../assets/images/parquet/rovereNaturaleSpinaItaliana.jpg';
@@ -198,10 +198,10 @@ function QuizOption({ label, description, name, value, selectedValue, onChange, 
   if (background) {
     return (
       <label
-        className={`group relative flex min-h-[140px] cursor-pointer overflow-hidden rounded-xl border-[2.5px] transition-all duration-200 ${
+        className={`group relative flex min-h-[140px] cursor-pointer overflow-hidden rounded-2xl border-[3px] transition-all duration-200 ${
           isSelected
-            ? 'border-slate-900 shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] scale-[1.01]'
-            : 'border-slate-300 hover:border-slate-900 hover:shadow-[3px_3px_0px_0px_rgba(15,23,42,0.4)]'
+            ? 'border-slate-900 shadow-[8px_8px_0px_0px_rgba(15,23,42,1)] -translate-x-1 -translate-y-1'
+            : 'border-slate-200 hover:border-slate-900 hover:shadow-[4px_4px_0px_0px_rgba(15,23,42,0.4)]'
         }`}
       >
         <input
@@ -227,17 +227,17 @@ function QuizOption({ label, description, name, value, selectedValue, onChange, 
         }`} />
         
         {/* Contenuto */}
-        <div className="relative z-10 flex w-full flex-col justify-between p-4 text-white">
+        <div className="relative z-10 flex w-full flex-col justify-between p-5 text-white">
           <div className="flex justify-between items-start">
             <div>
-              <span className="text-base font-bold drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)] leading-tight block">{label}</span>
+              <span className="text-lg font-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] leading-tight block uppercase tracking-tighter">{label}</span>
               {description && (
-                <p className="text-xs text-white/80 mt-1 drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)] font-medium">{description}</p>
+                <p className="text-xs text-white/90 mt-1 drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] font-bold">{description}</p>
               )}
             </div>
             {/* Checkmark neo-brutalist */}
             {isSelected && (
-              <div className="bg-white p-1 rounded-md border-2 border-slate-900 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] flex-shrink-0 ml-2">
+              <div className="bg-[#A5D6A7] p-1.5 rounded-lg border-[2.5px] border-slate-900 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] flex-shrink-0 ml-2">
                 <Check className="w-3.5 h-3.5 text-slate-900" strokeWidth={3.5} />
               </div>
             )}
@@ -296,17 +296,17 @@ function InstallationQuiz({ service }) {
   const pricingId = service?.pricingId;
   const pageConfig = pricingId ? SERVICE_PAGE_CONFIG[pricingId] : null;
   const isServicePage = Boolean(pageConfig);
-  // Auto-select se c'è una sola opzione
-  const autoSelectedType = pageConfig?.allowedTypes?.length === 1 ? pageConfig.allowedTypes[0] : null;
+  // Mai auto-selezionare: l'utente sceglie sempre
+  const autoSelectedType = null;
 
   const [unitValue, setUnitValue] = useState(50);
   const unitTimerRef = useRef(null);
   const [showResult, setShowResult] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(Boolean(autoSelectedType));
+  const [isExpanded, setIsExpanded] = useState(false);
   const formTopRef = useRef(null);
   const estimateRef = useRef(null);
   const [answers, setAnswers] = useState({
-    serviceType: autoSelectedType || '',
+    serviceType: '',
     subfloor: 'pavimento_esistente',
     furniture: 'no',
     colla: 'no',
@@ -642,8 +642,9 @@ function InstallationQuiz({ service }) {
     return `${amount} €/${unitDisplay}`;
   };
 
+  // Funzione per SALVARE il preventivo (lo invia a sé stessi o apre WA)
   const handleWhatsAppClick = () => {
-    // 1. Traccia la conversione (senza URL per evitare conflitti di redirect)
+    // 1. Traccia l'intenzione (opzionale)
     if (typeof window.gtag_report_conversion === 'function') {
       window.gtag_report_conversion();
     }
@@ -656,96 +657,49 @@ function InstallationQuiz({ service }) {
       .map(item => `- ${item.label}: ${item.displayQuantity}`)
       .join('\n');
 
-    // 2. Pulisce il numero di telefono per il link (toglie spazi, +, parentesi)
-    // Es: da "+39 334 222 1212" diventa "393342221212"
+    // 2. Pulisce il numero di telefono per il link
     const cleanPhone = PHONE_NUMBER.replace(/[^0-9]/g, '');
 
-    // 3. Costruisce il messaggio "Memo" con i contatti e il link cliccabile
+    // 3. Costruisce il messaggio rivolto all'azienda
     const lines = [
-      "MEMO PREVENTIVO PARQUET",
-      "-----------------------",
-      itemsList,
-      "-----------------------",
-      `TOTALE STIMATO: ${formatCurrency(estimate.total)}`,
-      "",
-      "--- CONTATTI E INFO ---",
-      "Parquettista: MilanoPosaParquet", // Metti qui il nome della tua Ditta
-      `Telefono: ${PHONE_NUMBER}`,
-      "",
-      "Per avviare la chat con noi clicca qui sotto:",
-      `https://wa.me/${cleanPhone}`, // Link magico cliccabile
-      "",
-      `Preventivo generato su: ${window.location.href}`
-    ];
-
-    const message = lines.join("\n");
-    const encodedMessage = encodeURIComponent(message);
-
-    // Lascia wa.me/?text=... vuoto così l'utente sceglie a chi inviarlo (se stesso)
-    window.open(`https://wa.me/?text=${encodedMessage}`, '_self');
-  };
-
-  // Funzione per INVIARE il preventivo ALL'AZIENDA
-  const handleSendToCompany = () => {
-    // 1. Traccia la conversione
-    if (typeof window.gtag_report_conversion === 'function') {
-      window.gtag_report_conversion();
-    }
-
-    if (!estimate) return;
-
-    // 1. Prepara la lista voci
-    const allItems = [estimate.baseItem, ...estimate.variableItems].filter(Boolean);
-    const itemsList = allItems
-      .map(item => `- ${item.label}: ${item.displayQuantity}`)
-      .join('\n');
-
-    // 2. Pulisce il tuo numero per il link
-    const cleanPhone = PHONE_NUMBER.replace(/[^0-9]/g, '');
-
-    // 3. Messaggio rivolto A TE (Azienda)
-    const lines = [
-      "👋 Ciao, ho appena calcolato questa stima sul vostro sito posaparquetmilano.it ",
+      "👋 Ciao, ho appena calcolato questo preventivo sul vostro sito e vorrei maggiori informazioni:",
       "",
       itemsList,
       "",
       `*Totale Stimato: ${formatCurrency(estimate.total)}*`,
       "",
-      ""
+      `Link configuratore: ${window.location.href}`
     ];
 
     const message = lines.join("\n");
-    const encMsg = encodeURIComponent(message);
+    const encodedMessage = encodeURIComponent(message);
 
-    // Invia al TUO numero
-    // Utilizza window.location per non aprire una nuova tab vuota se l'utente torna indietro
-    window.location.href = `https://wa.me/${cleanPhone}?text=${encMsg}`;
+    // Apre direttamente la chat con l'azienda
+    window.location.href = `https://wa.me/${cleanPhone}?text=${encodedMessage}`;
   };
+
+  // Funzione per INVIARE il preventivo ALL'AZIENDA (Alias di handleWhatsAppClick per compatibilità o logica futura)
+  const handleSendToCompany = handleWhatsAppClick;
 
   return (
     <section id="home-preventivatore" className="pt-16 pb-24 bg-white relative overflow-hidden">
-      {/* Background sfumato sottile come Hero */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+      {/* Background sfumato sottile */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
         <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-blue-50/40 blur-3xl"></div>
         <div className="absolute top-[60%] -left-[10%] w-[40%] h-[40%] rounded-full bg-cyan-50/40 blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className={`relative z-10 ${isServicePage ? 'w-full px-0' : 'container mx-auto px-4'}`}>
         
-        {/* Intestazione Sezione - Neo-brutalist */}
-        <div className="max-w-3xl mx-auto text-center mb-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white border-[2px] border-slate-900 rounded-lg shadow-[3px_3px_0px_0px_rgba(15,23,42,1)] mb-6">
-            <Calculator className="w-4 h-4 text-slate-900" strokeWidth={2.5} />
-            <span className="text-xs font-black text-slate-900 uppercase tracking-widest">configuratore prezzi</span>
-          </div>
+        {/* Intestazione Sezione */}
+        <div className={`text-center mb-4 ${isServicePage ? 'px-4 max-w-3xl mx-auto' : 'max-w-3xl mx-auto'}`}>
+         
           {isServicePage ? (
             <>
               <h2 className="text-3xl md:text-5xl font-[800] text-slate-900 tracking-tight leading-tight mb-2">
-                <span className="bg-yellow-100 px-2 rounded-sm">Preventivo</span> rapido
+                <span className="bg-yellow-100 px-2 rounded-sm">{quizDatabase[pricingId]?.title?.split(' ')[0] || 'Preventivo'}</span>{' '}
+                <span className="text-slate-400">{quizDatabase[pricingId]?.title?.split(' ').slice(1).join(' ') || 'rapido'}</span>
               </h2>
-              <p className="text-base md:text-lg text-slate-400 font-medium max-w-lg mx-auto">
-                {service?.navLabel ? `${service.navLabel} — inserisci i metri e scopri subito il prezzo.` : 'Inserisci i metri e scopri subito il prezzo.'}
-              </p>
             </>
           ) : (
             <>
@@ -760,12 +714,12 @@ function InstallationQuiz({ service }) {
         </div>
 
 
-        <div className="max-w-5xl mx-auto">
+        <div className={isServicePage ? 'w-full' : 'max-w-5xl mx-auto'}>
           {/* --- IL FORM --- */}
           <form onSubmit={handleSubmit} className="relative z-10">
             {/* Card Form Stile Documento */}
             {/* Rimosso pointer-events-none e opacity reduction su showResult per permettere modifica diretta */}
-            <div className={`bg-white rounded-2xl border border-slate-200 shadow-lg overflow-hidden transition-all duration-500 ease-in-out`}>
+            <div className={`bg-white overflow-hidden transition-all duration-500 ease-in-out ${isServicePage ? 'rounded-none border-0' : 'rounded-2xl border border-slate-200 shadow-lg'}`}>
               
               {/* Barra di progresso decorativa in alto */}
               <div className="h-1.5 w-full bg-emerald-100">
@@ -789,22 +743,9 @@ function InstallationQuiz({ service }) {
                     </h3>
                   </div>
                   
-                  {/* ── SERVICE PAGE: auto-selected (1 option) → confirmed badge ── */}
-                  {isServicePage && autoSelectedType && (
-                    <div className="flex items-center gap-3 p-4 bg-emerald-50 border-[2px] border-emerald-300 rounded-xl">
-                      <div className="bg-emerald-500 p-1 rounded-md flex-shrink-0">
-                        <Check className="w-4 h-4 text-white" strokeWidth={3} />
-                      </div>
-                      <div>
-                        <span className="font-bold text-slate-900 text-base">{SERVICE_NAME_MAP[autoSelectedType]}</span>
-                        <span className="text-xs text-slate-500 font-medium ml-2">{POSA_PRICES.base[autoSelectedType]}€/{isBattiscopa ? 'ml' : 'mq'}</span>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* ── SERVICE PAGE: multiple options → flat filtered grid ── */}
-                  {isServicePage && !autoSelectedType && pageConfig.allowedTypes.length > 0 && (
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {/* ── SERVICE PAGE: mostra le opzioni filtrate ── */}
+                  {isServicePage && pageConfig.allowedTypes.length > 0 && (
+                    <div className={`grid ${pageConfig.allowedTypes.length === 1 ? 'grid-cols-1 max-w-xs' : 'grid-cols-2 md:grid-cols-3'} gap-4`}>
                       {pageConfig.allowedTypes.map((typeKey) => (
                         <QuizOption
                           key={typeKey}
@@ -932,34 +873,37 @@ function InstallationQuiz({ service }) {
                           </h3>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                          
-                          {/* Sottofondo & Superficie */}
-                          {showExtraQuestions && (
-                            <div className="space-y-6">
-                               <div>
-                                <label className="block text-base font-bold text-slate-700 mb-2">Superficie di posa</label>
-                                <div className="space-y-2">
-                                  <QuizOption label="Pavimento esistente" description="Copre il vecchio" name="subfloor" value="pavimento_esistente" selectedValue={answers.subfloor} onChange={handleChange} />
-                                  <QuizOption label="Massetto" name="subfloor" value="massetto" selectedValue={answers.subfloor} onChange={handleChange} />
+                        {/* Nascondi solo Sottofondo/Colla per SPC e Laminato */}
+                        {answers.serviceType && !answers.serviceType.includes('spc') && answers.serviceType !== 'laminato' && (
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            
+                            {/* Sottofondo & Superficie */}
+                            {showExtraQuestions && (
+                              <div className="space-y-6">
+                                <div>
+                                  <label className="block text-base font-bold text-slate-700 mb-2">Superficie di posa</label>
+                                  <div className="space-y-2">
+                                    <QuizOption label="Pavimento esistente" description="Copre il vecchio" name="subfloor" value="pavimento_esistente" selectedValue={answers.subfloor} onChange={handleChange} />
+                                    <QuizOption label="Massetto" name="subfloor" value="massetto" selectedValue={answers.subfloor} onChange={handleChange} />
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          )}
+                            )}
 
-                          {/* Colla */}
-                          {requiresGlueQuestion && (
-                            <div className="space-y-6">
-                              <div>
-                                <label className="block text-base font-bold text-slate-700 mb-2">Hai bisogno anche della colla?</label>
-                                <div className="space-y-2">
-                                  <QuizOption label="Aggiungete la colla al preventivo" description={`+${POSA_PRICES.variables.colla_al_mq}€/mq`} name="colla" value="si" selectedValue={answers.colla} onChange={handleChange} />
-                                  <QuizOption label="Ho già la colla" name="colla" value="no" selectedValue={answers.colla} onChange={handleChange} />
+                            {/* Colla */}
+                            {requiresGlueQuestion && (
+                              <div className="space-y-6">
+                                <div>
+                                  <label className="block text-base font-bold text-slate-700 mb-2">Hai bisogno anche della colla?</label>
+                                  <div className="space-y-2">
+                                    <QuizOption label="Aggiungete la colla al preventivo" description={`+${POSA_PRICES.variables.colla_al_mq}€/mq`} name="colla" value="si" selectedValue={answers.colla} onChange={handleChange} />
+                                    <QuizOption label="Ho già la colla" name="colla" value="no" selectedValue={answers.colla} onChange={handleChange} />
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          )}
-                      </div>
+                            )}
+                          </div>
+                        )}
 
                       {/* --- SERVIZI EXTRA TOGGLEABILI (Larger Colored Cards) --- */}
                       {showBattiscopaOption && (
@@ -988,7 +932,7 @@ function InstallationQuiz({ service }) {
                                 )}
                               </div>
                               <div className="flex-1 w-full">
-                                <span className="text-base font-bold text-slate-900 block leading-tight">Piccoli Mobili</span>
+                                <span className="text-base font-bold text-slate-900 block leading-tight">Spostamento Piccoli Mobili</span>
                                 <span className="text-sm text-slate-500 font-semibold block mt-1">€90 forfait</span>
                                 <span className="text-xs text-slate-400 block leading-relaxed mt-2">Sedie, tavolini, oggetti leggeri</span>
                               </div>
@@ -1015,36 +959,9 @@ function InstallationQuiz({ service }) {
                                 )}
                               </div>
                               <div className="flex-1 w-full">
-                                <span className="text-base font-bold text-slate-900 block leading-tight">Grandi Mobili</span>
+                                <span className="text-base font-bold text-slate-900 block leading-tight">Spostamento Grandi Mobili</span>
                                 <span className="text-sm text-slate-500 font-semibold block mt-1">€150 forfait</span>
                                 <span className="text-xs text-slate-400 block leading-relaxed mt-2">Armadi, divani, librerie pesanti</span>
-                              </div>
-                            </button>
-
-                            {/* ── Posa Battiscopa (emerald) ── */}
-                            <button
-                              type="button"
-                              onClick={() => handleChange('add_battiscopa', answers.add_battiscopa === 'si' ? 'no' : 'si')}
-                              className={`group flex flex-col items-start gap-3 px-5 py-5 rounded-xl border-[2.5px] transition-all duration-200 text-left ${
-                                answers.add_battiscopa === 'si'
-                                  ? 'border-emerald-500 bg-emerald-50 shadow-[3px_3px_0px_0px_rgba(16,185,129,0.6)]'
-                                  : 'border-slate-200 bg-white hover:border-emerald-300 hover:shadow-[2px_2px_0px_0px_rgba(16,185,129,0.2)]'
-                              }`}
-                            >
-                              <div className="flex items-center justify-between w-full">
-                                <div className={`p-3 rounded-lg transition-colors ${answers.add_battiscopa === 'si' ? 'bg-emerald-500 text-white' : 'bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100'}`}>
-                                  <Hammer className="w-5 h-5" strokeWidth={2.5} />
-                                </div>
-                                {answers.add_battiscopa === 'si' && (
-                                  <div className="bg-emerald-500 p-1 rounded-md">
-                                    <Check className="w-4 h-4 text-white" strokeWidth={3.5} />
-                                  </div>
-                                )}
-                              </div>
-                              <div className="flex-1 w-full">
-                                <span className="text-base font-bold text-slate-900 block leading-tight">Posa Battiscopa</span>
-                                <span className="text-sm text-slate-500 font-semibold block mt-1">€7 / ml</span>
-                                <span className="text-xs text-slate-400 block leading-relaxed mt-2">Taglio a 45°, incollaggio e sigillatura</span>
                               </div>
                             </button>
 
@@ -1069,11 +986,40 @@ function InstallationQuiz({ service }) {
                                 )}
                               </div>
                               <div className="flex-1 w-full">
-                                <span className="text-base font-bold text-slate-900 block leading-tight">Rim. Battiscopa</span>
+                                <span className="text-base font-bold text-slate-900 block leading-tight">Rim. Battiscopa esistente</span>
                                 <span className="text-sm text-slate-500 font-semibold block mt-1">€3,50 / ml</span>
                                 <span className="text-xs text-slate-400 block leading-relaxed mt-2">Stacchiamo il vecchio zoccolino</span>
                               </div>
                             </button>
+
+                            {/* ── Posa Battiscopa (emerald) ── */}
+                            <button
+                              type="button"
+                              onClick={() => handleChange('add_battiscopa', answers.add_battiscopa === 'si' ? 'no' : 'si')}
+                              className={`group flex flex-col items-start gap-3 px-5 py-5 rounded-xl border-[2.5px] transition-all duration-200 text-left ${
+                                answers.add_battiscopa === 'si'
+                                  ? 'border-emerald-500 bg-emerald-50 shadow-[3px_3px_0px_0px_rgba(16,185,129,0.6)]'
+                                  : 'border-slate-200 bg-white hover:border-emerald-300 hover:shadow-[2px_2px_0px_0px_rgba(16,185,129,0.2)]'
+                              }`}
+                            >
+                              <div className="flex items-center justify-between w-full">
+                                <div className={`p-3 rounded-lg transition-colors ${answers.add_battiscopa === 'si' ? 'bg-emerald-500 text-white' : 'bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100'}`}>
+                                  <Hammer className="w-5 h-5" strokeWidth={2.5} />
+                                </div>
+                                {answers.add_battiscopa === 'si' && (
+                                  <div className="bg-emerald-500 p-1 rounded-md">
+                                    <Check className="w-4 h-4 text-white" strokeWidth={3.5} />
+                                  </div>
+                                )}
+                              </div>
+                              <div className="flex-1 w-full">
+                                <span className="text-base font-bold text-slate-900 block leading-tight">Posa Nuovo Battiscopa</span>
+                                <span className="text-sm text-slate-500 font-semibold block mt-1">€7 / ml</span>
+                                <span className="text-xs text-slate-400 block leading-relaxed mt-2">Taglio a 45°, incollaggio e sigillatura</span>
+                              </div>
+                            </button>
+
+                            
 
                             {/* ── Taglio Porte (blue, stepper) ── */}
                             <div
@@ -1168,7 +1114,7 @@ function InstallationQuiz({ service }) {
                               <div className="flex-1 w-full">
                                 <span className="text-base font-bold text-slate-900 block leading-tight">Smaltimento Rifiuti</span>
                                 <span className="text-sm text-slate-500 font-semibold block mt-1">€50-150 forfait</span>
-                                <span className="text-xs text-slate-400 block leading-relaxed mt-2">Trasporto e smaltimento in discarica</span>
+                                <span className="text-xs text-slate-400 block leading-relaxed mt-2">Trasporto e smaltimento scarti di lavorazione. In alternativa puoi fare da solo.</span>
                               </div>
                             </button>
 
@@ -1322,11 +1268,14 @@ function InstallationQuiz({ service }) {
                     className="group relative inline-flex items-center justify-center gap-4 bg-white border-[2.5px] border-slate-900 px-8 py-4 rounded-xl text-slate-900 font-black uppercase tracking-tighter transition-all duration-200 shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] hover:shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] hover:translate-x-1 hover:translate-y-1 active:bg-gray-50 w-full sm:flex-1"
                   >
                     <div className="p-2 bg-green-50 rounded-lg group-hover:bg-green-100 transition-colors">
-                      <Bookmark className="w-5 h-5 text-[#25D366]" strokeWidth={2.5} />
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#25D366"/>
+                        <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 01-4.243-1.214l-.257-.154-2.874.854.854-2.874-.154-.257A8 8 0 1112 20z" fill="#25D366"/>
+                      </svg>
                     </div>
                     <div className="flex flex-col items-start leading-none">
-                      <span className="text-xs text-green-600 font-bold mb-1 tracking-widest uppercase">Su WhatsApp</span>
-                      <span className="text-lg md:text-xl italic">Salva il preventivo</span>
+                      <span className="text-xs text-green-600 font-bold mb-1 tracking-widest uppercase">Salva il preventivo</span>
+                      <span className="text-lg md:text-xl italic">Vai su WhatsApp</span>
                     </div>
                   </button>
 
@@ -1363,7 +1312,14 @@ function InstallationQuiz({ service }) {
                   </p>
                   <div className="max-w-xl mx-auto rounded-2xl overflow-hidden border border-slate-200 bg-white h-[220px]">
                     <div className="scale-75 origin-top-left w-[133%] h-[133%] -mt-4">
-                      <CompactSocialProof />
+                      <div className="flex items-center justify-center gap-4 py-2 opacity-50 grayscale">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" className="h-4" />
+                        <div className="flex gap-0.5">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-3 h-3 fill-current text-black" />
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
