@@ -9,7 +9,7 @@ const posaPrefinitoFlottanteVideo = '/videos/parquet/posaPrefinitoFlottante.mp4'
 const posaPrefinitoSpinaVideo = '/videos/parquet/posaPrefinitoSpina.mp4';
 const posaBattiscopaVideo = '/videos/parquet/posaBattiscopa.mp4';
 
-import heroScale from '../assets/images/parquet/posaScala.jpg';
+import heroScale from '../assets/images/parquet/posaScala.webp';
 
 // --- Contenuto per ogni pricingId ---
 const EXPLAINER_DATA = {

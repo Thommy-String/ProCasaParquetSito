@@ -9,41 +9,41 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 // ── IMMAGINI ─────────────────────────────────────────────────────────────────
-import rovereIta            from '../assets/images/parquet/rovereIta.jpg';
-import rovereNaturaleDritto from '../assets/images/parquet/rovereNaturale.jpg';
+import rovereIta            from '../assets/images/parquet/rovereIta.webp';
+import rovereNaturaleDritto from '../assets/images/parquet/rovereNaturale.webp';
 import spinaFrancese        from '../assets/images/parquet/spinaFraRovereNaturale.webp';
 
-import roverePrima          from '../assets/images/primaDopoLavori/prima2.jpg';
-import rovereDopo           from '../assets/images/primaDopoLavori/dopo2.jpg';
-import rovereNoce           from '../assets/images/primaDopoLavori/prefinitoNoce.jpg';
-import rovereNaturale       from '../assets/images/primaDopoLavori/rovereNaturaleDritto.jpeg';
-import rovereChiaro         from '../assets/images/primaDopoLavori/rovereChiaro.jpg';
-import prefinitoDrittoRovere from '../assets/images/primaDopoLavori/prefinitoDrittoRovere.jpg';
+import roverePrima          from '../assets/images/primaDopoLavori/prima2.webp';
+import rovereDopo           from '../assets/images/primaDopoLavori/dopo2.webp';
+import rovereNoce           from '../assets/images/primaDopoLavori/prefinitoNoce.webp';
+import rovereNaturale       from '../assets/images/primaDopoLavori/rovereNaturaleDritto.webp';
+import rovereChiaro         from '../assets/images/primaDopoLavori/rovereChiaro.webp';
+import prefinitoDrittoRovere from '../assets/images/primaDopoLavori/prefinitoDrittoRovere.webp';
 import rovereFlottante      from '../assets/images/primaDopoLavori/rovereFlottante.webp';
 import prefinitoFlottanteLargo from '../assets/images/primaDopoLavori/prefinitoFlottanteLargo.webp';
 import rovereSpinaItaMobili from '../assets/images/primaDopoLavori/rovereSpinaItaMobili.webp';
-import posaSpinaUngherese   from '../assets/images/primaDopoLavori/posaSpinaUngherese.jpg';
+import posaSpinaUngherese   from '../assets/images/primaDopoLavori/posaSpinaUngherese.webp';
 
-import spcSpinaPrima        from '../assets/images/primaDopoLavori/prima5.jpg';
+import spcSpinaPrima        from '../assets/images/primaDopoLavori/prima5.webp';
 import spcSpinaDopo         from '../assets/images/primaDopoLavori/dopo5.webp';
-import montaggioSPCRovere   from '../assets/images/primaDopoLavori/montaggioSPCRovere.jpg';
+import montaggioSPCRovere   from '../assets/images/primaDopoLavori/montaggioSPCRovere.webp';
 
-import beaDopo              from '../assets/images/primaDopoLavori/BeaDopo.jpeg';
-import beaPrima             from '../assets/images/primaDopoLavori/BeaPrima.jpeg';
-import barbaraDopo          from '../assets/images/primaDopoLavori/barbaraSPCbagno.jpg';
-import barbaraPrima         from '../assets/images/primaDopoLavori/barbaraPrimaSPC.jpeg';
-import rescaldinaDopo       from '../assets/images/primaDopoLavori/rescaldinaDopo.jpeg';
-import rescaldinaPrima      from '../assets/images/primaDopoLavori/rescaldinaPrima.jpeg';
-import castiglioniDopo      from '../assets/images/primaDopoLavori/castiglioniDopo.jpeg';
-import castiglioniPrima     from '../assets/images/primaDopoLavori/castiglioniPrima.jpeg';
-import igorDopo             from '../assets/images/primaDopoLavori/igorDopo.jpeg';
-import igorPrima            from '../assets/images/primaDopoLavori/igorPrima.jpeg';
-import daniloDopo           from '../assets/images/primaDopoLavori/daniloDopo.jpeg';
-import daniloPrima          from '../assets/images/primaDopoLavori/daniloPrima.jpeg';
+import beaDopo              from '../assets/images/primaDopoLavori/BeaDopo.webp';
+import beaPrima             from '../assets/images/primaDopoLavori/BeaPrima.webp';
+import barbaraDopo          from '../assets/images/primaDopoLavori/barbaraSPCbagno.webp';
+import barbaraPrima         from '../assets/images/primaDopoLavori/barbaraPrimaSPC.webp';
+import rescaldinaDopo       from '../assets/images/primaDopoLavori/rescaldinaDopo.webp';
+import rescaldinaPrima      from '../assets/images/primaDopoLavori/rescaldinaPrima.webp';
+import castiglioniDopo      from '../assets/images/primaDopoLavori/castiglioniDopo.webp';
+import castiglioniPrima     from '../assets/images/primaDopoLavori/castiglioniPrima.webp';
+import igorDopo             from '../assets/images/primaDopoLavori/igorDopo.webp';
+import igorPrima            from '../assets/images/primaDopoLavori/igorPrima.webp';
+import daniloDopo           from '../assets/images/primaDopoLavori/daniloDopo.webp';
+import daniloPrima          from '../assets/images/primaDopoLavori/daniloPrima.webp';
 
-import laminatoGrigio       from '../assets/images/primaDopoLavori/laminatoGrigio.jpg';
-import laminatoNoce         from '../assets/images/primaDopoLavori/laminatoNoce.jpg';
-import laminatoRovereChiaro from '../assets/images/primaDopoLavori/laminatoRovereChiaro.jpg';
+import laminatoGrigio       from '../assets/images/primaDopoLavori/laminatoGrigio.webp';
+import laminatoNoce         from '../assets/images/primaDopoLavori/laminatoNoce.webp';
+import laminatoRovereChiaro from '../assets/images/primaDopoLavori/laminatoRovereChiaro.webp';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // DATI

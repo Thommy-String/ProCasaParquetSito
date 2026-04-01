@@ -2,29 +2,29 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Ruler, Timer, CheckCircle2 } from 'lucide-react';
 
 // --- IMPORT IMMAGINI REALI ---
-import rovereIta from '../assets/images/parquet/rovereIta.jpg';
-import roverePrima from '../assets/images/primaDopoLavori/prima2.jpg';
-import rovereDopo from '../assets/images/primaDopoLavori/dopo2.jpg';
-import roverePrima3 from '../assets/images/primaDopoLavori/prima3.jpg';
-import rovereDopo3 from '../assets/images/primaDopoLavori/dopo3.jpg';
-import rovereNaturaleDritto from '../assets/images/parquet/rovereNaturale.jpg';
-import rovereNoce from '../assets/images/primaDopoLavori/prefinitoNoce.jpg';
-import rovereNaturale from '../assets/images/primaDopoLavori/rovereNaturaleDritto.jpeg';
-import rovereChiaro from '../assets/images/primaDopoLavori/rovereChiaro.jpg';
-import prefinitoDrittoRovere from '../assets/images/primaDopoLavori/prefinitoDrittoRovere.jpg';
+import rovereIta from '../assets/images/parquet/rovereIta.webp';
+import roverePrima from '../assets/images/primaDopoLavori/prima2.webp';
+import rovereDopo from '../assets/images/primaDopoLavori/dopo2.webp';
+import roverePrima3 from '../assets/images/primaDopoLavori/prima3.webp';
+import rovereDopo3 from '../assets/images/primaDopoLavori/dopo3.webp';
+import rovereNaturaleDritto from '../assets/images/parquet/rovereNaturale.webp';
+import rovereNoce from '../assets/images/primaDopoLavori/prefinitoNoce.webp';
+import rovereNaturale from '../assets/images/primaDopoLavori/rovereNaturaleDritto.webp';
+import rovereChiaro from '../assets/images/primaDopoLavori/rovereChiaro.webp';
+import prefinitoDrittoRovere from '../assets/images/primaDopoLavori/prefinitoDrittoRovere.webp';
 import rovereFlottante from '../assets/images/primaDopoLavori/rovereFlottante.webp';
 import prefinitoFlottanteLargo from '../assets/images/primaDopoLavori/prefinitoFlottanteLargo.webp';
 import rovereSpinaItaMobili from '../assets/images/primaDopoLavori/rovereSpinaItaMobili.webp';
-import posaSpinaUngherese from '../assets/images/primaDopoLavori/posaSpinaUngherese.jpg';
-import spcSpinaPrima5 from '../assets/images/primaDopoLavori/prima5.jpg';
+import posaSpinaUngherese from '../assets/images/primaDopoLavori/posaSpinaUngherese.webp';
+import spcSpinaPrima5 from '../assets/images/primaDopoLavori/prima5.webp';
 import spcSpinaDopo5 from '../assets/images/primaDopoLavori/dopo5.webp';
-import montaggioSPCRovere from '../assets/images/primaDopoLavori/montaggioSPCRovere.jpg';
-import BeaDopo from '../assets/images/primaDopoLavori/BeaDopo.jpeg';
-import BeaPrima from '../assets/images/primaDopoLavori/BeaPrima.jpeg';
+import montaggioSPCRovere from '../assets/images/primaDopoLavori/montaggioSPCRovere.webp';
+import BeaDopo from '../assets/images/primaDopoLavori/BeaDopo.webp';
+import BeaPrima from '../assets/images/primaDopoLavori/BeaPrima.webp';
 import spinaFrancese from '../assets/images/parquet/spinaFraRovereNaturale.webp';
-import laminatoGrigio from '../assets/images/primaDopoLavori/laminatoGrigio.jpg';
-import laminatoNoce from '../assets/images/primaDopoLavori/laminatoNoce.jpg';
-import laminatoRovereChiaro from '../assets/images/primaDopoLavori/laminatoRovereChiaro.jpg';
+import laminatoGrigio from '../assets/images/primaDopoLavori/laminatoGrigio.webp';
+import laminatoNoce from '../assets/images/primaDopoLavori/laminatoNoce.webp';
+import laminatoRovereChiaro from '../assets/images/primaDopoLavori/laminatoRovereChiaro.webp';
 
 // --- DATI REALI (IMPORTATI DAL TUO FILE) ---
 const rawWorks = [
@@ -87,6 +87,7 @@ const PinterestCard = ({ work }) => {
             <img 
                 src={work.imageAfter} 
                 alt={work.title} 
+                loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                 draggable="false"
             />

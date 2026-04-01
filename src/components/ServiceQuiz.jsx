@@ -10,14 +10,14 @@ import {
 } from 'lucide-react';
 
 // --- IMPORT IMMAGINI ---
-import rovereNaturale from '../assets/images/parquet/rovereNaturale.jpg';
-import rovereSpina from '../assets/images/parquet/rovereSpina90.jpg';
-import parquetLaminato from '../assets/images/parquet/parquetLaminato.jpg';
-import parquetSPCSpina from '../assets/images/parquet/parquetSPCspina.jpg';
-import parquetSPC from '../assets/images/parquet/parquetSPC.jpg';
-import battiscopa5cm from '../assets/images/parquet/battiscopa5cm.jpg';
-import battiscopa10cm from '../assets/images/parquet/battiscopa10cm.jpg';
-import parquetFlottante from '../assets/images/primaDopoLavori/dopo2.jpg';
+import rovereNaturale from '../assets/images/parquet/rovereNaturale.webp';
+import rovereSpina from '../assets/images/parquet/rovereSpina90.webp';
+import parquetLaminato from '../assets/images/parquet/parquetLaminato.webp';
+import parquetSPCSpina from '../assets/images/parquet/parquetSPCspina.webp';
+import parquetSPC from '../assets/images/parquet/parquetSPC.webp';
+import battiscopa5cm from '../assets/images/parquet/battiscopa5cm.webp';
+import battiscopa10cm from '../assets/images/parquet/battiscopa10cm.webp';
+import parquetFlottante from '../assets/images/primaDopoLavori/dopo2.webp';
 
 // --- MAPPA ICONE ---
 const iconMap = {

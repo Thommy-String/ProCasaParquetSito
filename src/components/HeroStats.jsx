@@ -1,10 +1,10 @@
 import React from 'react';
-import rovereNaturale from '../assets/images/parquet/rovereNaturale.jpg';
-import rovereMielato from '../assets/images/parquet/rovereMielato.jpg';
-import rovereSpinaItaliana from '../assets/images/parquet/rovereNaturaleSpinaItaliana.jpg';
-import rovere90 from '../assets/images/parquet/rovereNaturale90.jpg';
-import rovereIta from '../assets/images/parquet/rovereIta.jpg';
-import rovereSpina90 from '../assets/images/parquet/rovereSpina90.jpg';
+import rovereNaturale from '../assets/images/parquet/rovereNaturale.webp';
+import rovereMielato from '../assets/images/parquet/rovereMielato.webp';
+import rovereSpinaItaliana from '../assets/images/parquet/rovereNaturaleSpinaItaliana.webp';
+import rovere90 from '../assets/images/parquet/rovereNaturale90.webp';
+import rovereIta from '../assets/images/parquet/rovereIta.webp';
+import rovereSpina90 from '../assets/images/parquet/rovereSpina90.webp';
 
 const parquetImages = [
   { src: rovereNaturale, alt: 'Rovere naturale' },

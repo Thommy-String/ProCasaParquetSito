@@ -10,14 +10,14 @@ import {
   Calculator, Settings2, Plus, Minus,
   DoorOpen, Trash2, Check, Lock, Truck, Sofa, Package, Phone, Star
 } from 'lucide-react';
-import rovereNaturale from '../assets/images/parquet/rovereNaturale.jpg';
-import rovereSpina from '../assets/images/parquet/rovereNaturaleSpinaItaliana.jpg';
-import parquetLaminato from '../assets/images/parquet/parquetLaminato.jpg';
-import parquetSPCSpina from '../assets/images/parquet/parquetSPCspina.jpg';
-import parquetSPC from '../assets/images/parquet/parquetSPC.jpg';
-import battiscopa5cm from '../assets/images/parquet/battiscopa5cm.jpg';
-import battiscopa10cm from '../assets/images/parquet/battiscopa10cm.jpg';
-import parquetFlottante from '../assets/images/primaDopoLavori/dopo2.jpg'
+import rovereNaturale from '../assets/images/parquet/rovereNaturale.webp';
+import rovereSpina from '../assets/images/parquet/rovereNaturaleSpinaItaliana.webp';
+import parquetLaminato from '../assets/images/parquet/parquetLaminato.webp';
+import parquetSPCSpina from '../assets/images/parquet/parquetSPCspina.webp';
+import parquetSPC from '../assets/images/parquet/parquetSPC.webp';
+import battiscopa5cm from '../assets/images/parquet/battiscopa5cm.webp';
+import battiscopa10cm from '../assets/images/parquet/battiscopa10cm.webp';
+import parquetFlottante from '../assets/images/primaDopoLavori/dopo2.webp'
 
 // --- MAPPA ICONE PER LE FASI ---
 const iconMap = {

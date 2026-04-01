@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { HelmetProvider } from 'react-helmet-async' // <--- 1. Importa questo
+import { HelmetProvider } from 'react-helmet-async'
 import App from './App.jsx'
 import './index.css'
 
@@ -10,6 +10,24 @@ const ServicePage = lazy(() => import('./pages/servizi/[slug].jsx'))
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage.jsx'))
 const TitleVariantsSPC = lazy(() => import('./pages/TitleVariantsSPC.jsx'))
 const SPCInfoPage = lazy(() => import('./pages/SPCInfoPage.jsx'))
+
+// Skeleton di caricamento per le pagine lazy — evita il flash bianco
+const PageSkeleton = () => (
+  <div className="min-h-screen bg-white animate-pulse">
+    <div className="max-w-md mx-auto px-4 pt-12 space-y-4">
+      <div className="h-6 w-48 bg-gray-100 rounded-full mx-auto" />
+      <div className="h-8 w-full bg-gray-100 rounded-lg" />
+      <div className="h-8 w-3/4 bg-gray-100 rounded-lg" />
+      <div className="h-4 w-full bg-gray-50 rounded mt-4" />
+      <div className="h-4 w-2/3 bg-gray-50 rounded" />
+      <div className="h-64 w-full bg-gray-100 rounded-2xl mt-6" />
+      <div className="flex gap-4 mt-6">
+        <div className="h-14 flex-1 bg-gray-100 rounded-xl" />
+        <div className="h-14 flex-1 bg-gray-100 rounded-xl" />
+      </div>
+    </div>
+  </div>
+)
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -22,10 +40,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route index element={<HomePage />} />
             
             {/* Questa è la rotta dinamica corretta */}
-            <Route path="servizi/:slug" element={<Suspense fallback={<div className="min-h-screen" />}><ServicePage /></Suspense>} />
-            <Route path="privacy-policy" element={<Suspense fallback={<div className="min-h-screen" />}><PrivacyPolicyPage /></Suspense>} />
-            <Route path="title-variants-spc" element={<Suspense fallback={<div className="min-h-screen" />}><TitleVariantsSPC /></Suspense>} />
-            <Route path="spcinfo" element={<Suspense fallback={<div className="min-h-screen" />}><SPCInfoPage /></Suspense>} />
+            <Route path="servizi/:slug" element={<Suspense fallback={<PageSkeleton />}><ServicePage /></Suspense>} />
+            <Route path="privacy-policy" element={<Suspense fallback={<PageSkeleton />}><PrivacyPolicyPage /></Suspense>} />
+            <Route path="title-variants-spc" element={<Suspense fallback={<PageSkeleton />}><TitleVariantsSPC /></Suspense>} />
+            <Route path="spcinfo" element={<Suspense fallback={<PageSkeleton />}><SPCInfoPage /></Suspense>} />
           </Route>
         </Routes>
       </BrowserRouter>

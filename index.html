@@ -13,6 +13,11 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="/favicon.png" />
+  
+  <!-- Preconnect a risorse esterne critiche -->
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+  
   <base href="/" />
   <script type="application/ld+json">
       {
@@ -56,7 +61,9 @@ function gtag_report_conversion(url) {
 
 
 
-<link rel="stylesheet" href="/cookie-banner.css" />
+<!-- Cookie banner CSS — caricato in modo non bloccante -->
+<link rel="stylesheet" href="/cookie-banner.css" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="/cookie-banner.css" /></noscript>
 </head>
 
 <body>

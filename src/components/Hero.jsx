@@ -1,6 +1,6 @@
 import HeroComparisonCards from './HeroComparisonCards';
 import { COMPANY_NAME } from '../utils/constants';
-import rovereMielato from '../assets/images/parquet/rovereMielato.jpg';
+import rovereMielato from '../assets/images/parquet/rovereMielato.webp';
 import HeroStats from './HeroStats';
 import { Star } from 'lucide-react';
 

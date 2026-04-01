@@ -2,11 +2,11 @@ import React from 'react';
 import { ArrowRight, Info } from 'lucide-react';
 
 // Import immagini
-import rovereNaturale from '../assets/images/parquet/rovereNaturale.jpg';
-import rovereSpina from '../assets/images/parquet/rovereNaturaleSpinaItaliana.jpg';
-import parquetLaminato from '../assets/images/parquet/parquetLaminato.jpg';
-import parquetSPC from '../assets/images/parquet/parquetSPC.jpg';
-import battiscopa5cm from '../assets/images/parquet/battiscopa5cm.jpg';
+import rovereNaturale from '../assets/images/parquet/rovereNaturale.webp';
+import rovereSpina from '../assets/images/parquet/rovereNaturaleSpinaItaliana.webp';
+import parquetLaminato from '../assets/images/parquet/parquetLaminato.webp';
+import parquetSPC from '../assets/images/parquet/parquetSPC.webp';
+import battiscopa5cm from '../assets/images/parquet/battiscopa5cm.webp';
 
 const THUMBNAILS = { default: rovereNaturale };
 

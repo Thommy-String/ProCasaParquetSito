@@ -1,11 +1,11 @@
 import React from 'react';
-import beaPrima from '../assets/images/primaDopoLavori/BeaPrima.jpeg';
-import beaDopo from '../assets/images/primaDopoLavori/BeaDopo.jpeg';
-import nelyPrima from '../assets/images/primaDopoLavori/NelyPrima.jpeg';
-import nelyDopo from '../assets/images/primaDopoLavori/NelyDopo.jpeg';
-import prima2 from '../assets/images/primaDopoLavori/prima2.jpg';
-import dopo2 from '../assets/images/primaDopoLavori/dopo2.jpg';
-import prima5 from '../assets/images/primaDopoLavori/prima5.jpg';
+import beaPrima from '../assets/images/primaDopoLavori/BeaPrima.webp';
+import beaDopo from '../assets/images/primaDopoLavori/BeaDopo.webp';
+import nelyPrima from '../assets/images/primaDopoLavori/NelyPrima.webp';
+import nelyDopo from '../assets/images/primaDopoLavori/NelyDopo.webp';
+import prima2 from '../assets/images/primaDopoLavori/prima2.webp';
+import dopo2 from '../assets/images/primaDopoLavori/dopo2.webp';
+import prima5 from '../assets/images/primaDopoLavori/prima5.webp';
 import dopo5 from '../assets/images/primaDopoLavori/dopo5.webp';
 
 const ComparisonCard = ({ beforeImg, afterImg, price, timeDisplay, label, className }) => {

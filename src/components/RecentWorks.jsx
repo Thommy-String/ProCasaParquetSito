@@ -25,7 +25,7 @@ const MinimalCard = ({ work }) => {
             <div className={`grid ${hasBeforeImage ? 'grid-cols-2' : 'grid-cols-1'} border-b-[3px] border-black`}>
                 {hasBeforeImage && (
                     <div className="relative h-[230px] md:h-[280px] overflow-hidden border-r-[3px] border-black">
-                        <img src={work.imageBefore} alt="Prima" className="w-full h-full object-cover grayscale-[20%] brightness-90" />
+                        <img src={work.imageBefore} alt="Prima" loading="lazy" className="w-full h-full object-cover grayscale-[20%] brightness-90" />
                         {/* Location badge — sulla foto Prima */}
                         <span className="absolute top-3 left-3 bg-white border-2 border-black text-[9px] font-black uppercase tracking-wide px-2 py-1 rounded-lg shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                             📍 {work.location}
@@ -34,7 +34,7 @@ const MinimalCard = ({ work }) => {
                     </div>
                 )}
                 <div className="relative h-[230px] md:h-[280px] overflow-hidden">
-                    <img src={work.imageAfter} alt="Dopo" className="w-full h-full object-cover" />
+                    <img src={work.imageAfter} alt="Dopo" loading="lazy" className="w-full h-full object-cover" />
                     <span className="absolute bottom-2 right-2 bg-black/70 text-white text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md">Dopo</span>
                     {/* Location badge solo se non c'è il "prima" */}
                     {!hasBeforeImage && (

@@ -21,6 +21,14 @@ function App() {
     }
   }, [location]);
 
+  // Prefetch del chunk servizi dopo il caricamento iniziale
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      import('./pages/servizi/[slug].jsx').catch(() => {});
+    }, 3000); // Dopo 3s dalla homepage, precarica il chunk servizi
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       

@@ -1,14 +1,14 @@
-import heroPrefinito from '../assets/images/parquet/rovereNaturale.jpg';
-import heroPrefinitoFlottante from '../assets/images/parquet/rovereMielato.jpg';
-import heroPrefinitoSpina from '../assets/images/parquet/rovereSpina90.jpg';
-import heroLaminato from '../assets/images/parquet/parquetLaminato.jpg';
-import heroBattiscopa from '../assets/images/parquet/battiscopa10cm.jpg';
-import heroScale from '../assets/images/parquet/posaScala.jpg';
-import misuraUmiditaMassetto from '../assets/images/parquet/misuraUmiditaMassetto.jpg';
-import tracciaturaLaserParquet from '../assets/images/parquet/tracciaturaLaserParquet.jpg';
-import posaParquetIncollato from '../assets/images/parquet/posaParquetIncollato.jpg';
-import posaParquetFlottante from '../assets/images/parquet/posaParquetFlottante.jpg';
-import fotoRivestimentoGradini from "../assets/images/parquet/rivestimentoScaleRovere.jpg"
+import heroPrefinito from '../assets/images/parquet/rovereNaturale.webp';
+import heroPrefinitoFlottante from '../assets/images/parquet/rovereMielato.webp';
+import heroPrefinitoSpina from '../assets/images/parquet/rovereSpina90.webp';
+import heroLaminato from '../assets/images/parquet/parquetLaminato.webp';
+import heroBattiscopa from '../assets/images/parquet/battiscopa10cm.webp';
+import heroScale from '../assets/images/parquet/posaScala.webp';
+import misuraUmiditaMassetto from '../assets/images/parquet/misuraUmiditaMassetto.webp';
+import tracciaturaLaserParquet from '../assets/images/parquet/tracciaturaLaserParquet.webp';
+import posaParquetIncollato from '../assets/images/parquet/posaParquetIncollato.webp';
+import posaParquetFlottante from '../assets/images/parquet/posaParquetFlottante.webp';
+import fotoRivestimentoGradini from "../assets/images/parquet/rivestimentoScaleRovere.webp"
 
 //video — served from public/ to avoid bundling into JS
 const videoPosaPrefinitoIncollato = '/videos/parquet/posaPrefinitoIncollato.mp4';

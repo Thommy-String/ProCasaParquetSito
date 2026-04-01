@@ -10,8 +10,8 @@ import { PHONE_NUMBER } from '../utils/constants';
 
 // Video & image assets
 const heroVideo = '/videos/parquet/posaSpc.mp4';
-import parquetSPC from '../assets/images/parquet/parquetSPC.jpg';
-import parquetSPCspina from '../assets/images/parquet/parquetSPCspina.jpg';
+import parquetSPC from '../assets/images/parquet/parquetSPC.webp';
+import parquetSPCspina from '../assets/images/parquet/parquetSPCspina.webp';
 
 // ─── DATI CONFRONTO PAVIMENTI (card-based, pros/cons) ───
 const FLOORING_COMPARISON = [

@@ -1,4 +1,4 @@
-import posaScala from '../assets/images/parquet/posaScala.jpg';
+import posaScala from '../assets/images/parquet/posaScala.webp';
 
 // Videos are served from public/ — use string paths instead of imports
 // This avoids bundling ~14MB of video into the JS chunk

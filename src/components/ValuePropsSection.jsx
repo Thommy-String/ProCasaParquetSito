@@ -140,6 +140,7 @@ const ValuePropsSection = () => {
                 <img 
                   src={prop.image} 
                   alt={prop.title}
+                  loading="lazy"
                   className="w-full h-full object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-700"
                 />
               </div>
