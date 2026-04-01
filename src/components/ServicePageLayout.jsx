@@ -1,11 +1,8 @@
 import React from 'react';
-import { pricingData } from '../utils/pricingData';
-
 
 // Import dei componenti
 
 import RecentWorks from '../components/RecentWorks';
-import PricingSection from '../components/PricingSection';
 import ServiceDescription from '../components/ServiceDescription';
 import ServiceHero from './ServiceHero';
 import ServiceHeroHome from './ServiceHeroHome';
@@ -29,13 +26,6 @@ const COMPONENT_MAP = {
   SPCProblemVsSolution: SPCProblemVsSolution,
 };
 
-// Mappa pricingId → categoria default per il listino prezzi
-const getPricingCategory = (pricingId) => {
-  if (pricingId === 'spc' || pricingId === 'laminato') return 'synthetic';
-  if (pricingId === 'battiscopa') return 'accessories';
-  return 'wood';
-};
-
 function ServicePageLayout({ service }) {
   if (!service) return null;
 
@@ -43,8 +33,6 @@ function ServicePageLayout({ service }) {
     { type: 'Hero' },
     { type: 'ServiceDescription' }
   ];
-
-  const pricingCategory = getPricingCategory(service.pricingId);
 
   return (
     <div className="service-page-builder">
@@ -58,16 +46,6 @@ function ServicePageLayout({ service }) {
         }
 
         let componentProps = { service, ...block.props };
-        
-        // Logica specifica per PricingCard
-        if (block.type === 'PricingCard') {
-          const priceData = pricingData?.find(p => p.id === service.pricingId);
-          if (priceData) {
-            componentProps.service = priceData;
-          } else {
-            return null; // Salta se non trova il prezzo
-          }
-        }
 
         return (
           <section key={`${block.type}-${index}`} className="block-section">
@@ -75,11 +53,6 @@ function ServicePageLayout({ service }) {
           </section>
         );
       })}
-      
-      {/* Footer-level global sections */}
-      <div className="mt-8">
-        <PricingSection defaultCategory={pricingCategory} />
-      </div>
     </div>
   );
 }

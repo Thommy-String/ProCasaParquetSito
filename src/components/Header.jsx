@@ -1,16 +1,20 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShieldCheck, Calculator, Ruler, Phone, X, Menu, Sparkles, ChevronRight } from 'lucide-react';
+import { Phone, X, Menu, ChevronRight } from 'lucide-react';
 import { COMPANY_NAME, PHONE_NUMBER } from '../utils/constants';
 import { serviceNavLinks } from '../utils/serviceNavLinks';
 import logoImage from '../assets/logo/favicon.png';
 
-// --- DATI ---
-const toolsItems = [
-  { label: 'Scanner Preventivi', sub: 'Anti-Fregatura', icon: ShieldCheck, href: '/#scanner-preventivi', color: 'text-rose-500', bgColor: 'bg-rose-50' },
-  { label: 'Calcolatore MQ', sub: 'Quanto serve?', icon: Calculator, href: '/#calcolatore-mq', color: 'text-blue-500', bgColor: 'bg-blue-50' },
-  { label: 'Check Sottofondo', sub: 'Evita disastri', icon: Ruler, href: '/#check-sottofondo', color: 'text-amber-500', bgColor: 'bg-amber-50' },
-];
+// --- COLORI PER OGNI SERVIZIO ---
+const SERVICE_COLORS = {
+  'posa-parquet-prefinito-milano': { text: 'text-orange-600', bg: 'bg-orange-50', border: 'border-orange-200' },
+  'posa-parquet-prefinito-flottante-milano': { text: 'text-amber-600', bg: 'bg-amber-50', border: 'border-amber-200' },
+  'posa-parquet-prefinito-spina-milano': { text: 'text-pink-600', bg: 'bg-pink-50', border: 'border-pink-200' },
+  'posa-pavimento-spc-milano': { text: 'text-yellow-600', bg: 'bg-yellow-50', border: 'border-yellow-200' },
+  'posa-pavimento-laminato-milano': { text: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-200' },
+  'posa-battiscopa-milano': { text: 'text-slate-600', bg: 'bg-slate-50', border: 'border-slate-200' },
+  'rivestimento-scale-milano': { text: 'text-violet-600', bg: 'bg-violet-50', border: 'border-violet-200' },
+};
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -141,18 +145,15 @@ function Header() {
             </div>
           </Link>
 
-          {/* 2. LATO DESTRO (CTA + HAMBURGER) */}
+          {/* 2. LATO DESTRO (HAMBURGER) */}
           <div className="flex items-center gap-3 md:gap-5">
             
-            {/* CTA VISIBILE SU DESKTOP */}
+            {/* TELEFONO VISIBILE SU DESKTOP */}
             <div className="hidden sm:flex items-center gap-4">
-               <a href={`tel:${PHONE_NUMBER}`} className="flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-black transition-colors">
+               <a href={`tel:${PHONE_NUMBER}`} className="flex items-center gap-2 text-xs font-bold text-gray-600 hover:text-black transition-colors">
                 <Phone size={16} /> 
                 <span className="hidden lg:inline">{PHONE_NUMBER}</span>
               </a>
-              <Link to="/#preventivatore" className="bg-[#1a1a1a] hover:bg-black text-white px-4 py-2 rounded-lg text-[11px] font-black uppercase tracking-widest transition-transform active:scale-95">
-                Preventivo
-              </Link>
             </div>
 
             {/* HAMBURGER BUTTON (SEMPRE VISIBILE) */}
@@ -178,57 +179,47 @@ function Header() {
       >
         {/* Contenitore scrollabile */}
         <div className="h-full overflow-y-auto px-6 pb-20">
-          <div className="container mx-auto max-w-2xl flex flex-col gap-6 py-4">
+          <div className="container mx-auto max-w-2xl flex flex-col gap-8 py-4">
 
-            {/* CTA Mobile (Visibile solo se lo schermo è piccolo) */}
-            <div className="sm:hidden w-full">
-                <Link to="/#preventivatore" className="w-full bg-blue-600 text-white p-3.5 rounded-xl flex justify-center items-center gap-2 font-bold shadow-lg shadow-blue-600/20 mb-4 text-sm">
-                    <Sparkles size={18} /> Fai Preventivo
-                </Link>
-            </div>
-
-            {/* Sezione STRUMENTI */}
+            {/* Sezione SERVIZI CON COLORI */}
             <div>
-              <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3 border-b border-gray-100 pb-2">
-                Strumenti
+              <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4 border-b border-gray-200 pb-3">
+                Servizi Pavimenti
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {toolsItems.map((t) => (
-                  <Link key={t.label} to={t.href} className="flex sm:flex-col items-center sm:items-start gap-4 p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors border border-gray-100">
-                     <div className={`p-2 rounded-lg ${t.bgColor} ${t.color}`}><t.icon size={20} /></div>
-                     <div>
-                       <div className="font-bold text-gray-900 text-sm leading-tight">{t.label}</div>
-                       <div className="text-[10px] text-gray-500 mt-1">{t.sub}</div>
-                     </div>
-                  </Link>
-                ))}
+              <div className="flex flex-col gap-2">
+                {serviceLinks.map((s) => {
+                  const colors = SERVICE_COLORS[s.slug] || { text: 'text-gray-600', bg: 'bg-gray-50', border: 'border-gray-200' };
+                  return (
+                    <Link 
+                      key={s.slug} 
+                      to={`/servizi/${s.slug}`}
+                      className={`py-3 px-4 rounded-lg border-2 font-bold text-base transition-all hover:shadow-md ${colors.bg} ${colors.border} ${colors.text} flex justify-between items-center group`}
+                    >
+                      {s.navLabel}
+                      <ChevronRight className="opacity-50 group-hover:opacity-100 transition-opacity" size={18}/>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
 
-            {/* Sezione NAVIGAZIONE */}
+            {/* Sezione LINK PRINCIPALI */}
             <div>
-              <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 border-b border-gray-100 pb-2">
-                Menu
+              <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4 border-b border-gray-200 pb-3">
+                Navigazione
               </h3>
-              <div className="flex flex-col">
-                <Link to="/#pricing" className="py-3.5 text-lg font-bold text-gray-900 border-b border-gray-50 hover:text-blue-600 flex justify-between items-center group">
-                  Listino Prezzi
-                  <ChevronRight className="text-gray-300 group-hover:text-blue-600" size={18}/>
+              <div className="flex flex-col gap-2">
+                <Link to="/" className="py-3 px-4 rounded-lg border border-gray-200 font-bold text-base text-gray-900 hover:bg-gray-50 transition-colors flex justify-between items-center group">
+                  Home
+                  <ChevronRight className="text-gray-300 group-hover:text-gray-600" size={18}/>
                 </Link>
-                
-                {serviceLinks.map((s) => (
-                  <Link key={s.slug} to={`/servizi/${s.slug}`} className="py-3.5 text-lg font-bold text-gray-900 border-b border-gray-50 hover:text-blue-600 flex justify-between items-center group">
-                    {s.navLabel}
-                    <ChevronRight className="text-gray-300 group-hover:text-blue-600" size={18}/>
-                  </Link>
-                ))}
               </div>
             </div>
 
             {/* CONTATTI FOOTER DEL MENU */}
-            <div className="mt-6 pt-6 border-t border-gray-100">
-                <a href={`tel:${PHONE_NUMBER}`} className="flex justify-center items-center gap-3 w-full py-4 bg-gray-900 text-white rounded-xl font-bold hover:bg-black transition-colors text-sm">
-                <Phone size={18} /> Chiama {PHONE_NUMBER}
+            <div className="mt-8 pt-6 border-t border-gray-200">
+                <a href={`tel:${PHONE_NUMBER}`} className="flex justify-center items-center gap-3 w-full py-4 bg-gray-900 text-white rounded-xl font-bold hover:bg-black transition-colors text-base">
+                <Phone size={20} /> {PHONE_NUMBER}
                 </a>
             </div>
 

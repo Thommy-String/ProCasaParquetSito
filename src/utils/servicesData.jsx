@@ -32,7 +32,7 @@ export const servicesData = {
     hero: {
       h1: (
         <>
-          Il vero <span className="bg-orange-50 text-orange-900 px-2 py-0.5 transform -rotate-1 inline-block border border-orange-100 rounded-sm">Parquet</span>
+          Il vero <span className="bg-orange-50 text-orange-900 px-2 py-0.5 transform -rotate-1 inline-block rounded-sm">Parquet</span>
           <br /><span className="text-orange-600">Pronto all&apos;Uso</span> in tempi record.
           <br /><span className="text-slate-400 text-[0.4em] md:text-[0.6em] align-middle ml-2 decoration-slice decoration-orange-200 underline font-black">Nobiltà del legno, posa rapida.</span>
         </>
@@ -121,7 +121,7 @@ export const servicesData = {
     hero: {
       h1: (
         <>
-          Parquet <span className="bg-amber-50 text-amber-900 px-2 py-0.5 transform rotate-1 inline-block border border-amber-100 rounded-sm">Flottante</span>
+          Parquet <span className="bg-amber-50 text-amber-900 px-2 py-0.5 transform rotate-1 inline-block rounded-sm">Flottante</span>
           <br /><span className="text-amber-600">Zero Colla</span> e subito calpestabile.
           <br /><span className="text-slate-400 text-[0.4em] md:text-[0.6em] align-middle ml-2 decoration-slice decoration-amber-200 underline font-black">Posa rapida senza sporcare.</span>
         </>
@@ -229,7 +229,7 @@ export const servicesData = {
     hero: {
       h1: (
         <>
-          Parquet <span className="bg-pink-50 text-pink-900 px-2 py-0.5 transform -rotate-1 inline-block border border-pink-100 rounded-sm">a Spina</span>
+          Parquet <span className="bg-pink-50 text-pink-900 px-2 py-0.5 transform -rotate-1 inline-block rounded-sm">a Spina</span>
           <br /><span className="text-pink-600">Precisione Laser</span> e incollaggio certificato.
           <br /><span className="text-slate-400 text-[0.4em] md:text-[0.6em] align-middle ml-2 decoration-slice decoration-pink-200 underline font-black">Geometrie perfette, casa trasformata.</span>
         </>
@@ -327,9 +327,9 @@ export const servicesData = {
     hero: {
       h1: (
         <>
-          Installiamo il <span className="bg-yellow-50 text-yellow-900 px-2 py-0.5 transform -rotate-2 inline-block border border-yellow-100 rounded-sm">tuo SPC</span>
-          <br /><span className="text-green-600">in 1–2 giorni</span> sopra il pavimento esistente.
-          <br /><span className="text-slate-400 text-[0.4em] md:text-[0.6em] align-middle ml-2 decoration-slice decoration-yellow-200 underline font-black">Anche in case con mobili.</span>
+          Installiamo il tuo SPC
+          <br /><span>in <span className="bg-yellow-50 text-yellow-900 px-3 py-1 transform inline-block rounded-md font-bold">1–2 giorni</span> <span className="bg-red-50 text-red-900 px-3 py-1 transform inline-block rounded-md font-bold">senza demolizioni</span></span>
+          <br /><span className="text-slate-400 text-sm font-normal mt-2 block">sul pavimento esistente, anche con mobili</span>
         </>
       ),
       subtitle: 'Il pavimento tecnologico ultra-sottile che installiamo sopra il tuo vecchio pavimento senza polvere, senza macerie e senza accorciare le porte.',
@@ -422,7 +422,7 @@ export const servicesData = {
     hero: {
       h1: (
         <>
-          Posa <span className="bg-emerald-50 text-emerald-900 px-2 py-0.5 transform rotate-1 inline-block border border-emerald-100 rounded-sm">Laminato</span>
+          Posa <span className="bg-emerald-50 text-emerald-900 px-2 py-0.5 transform rotate-1 inline-block rounded-sm">Laminato</span>
           <br /><span className="text-emerald-600">Massima Resistenza</span> per tutta la casa.
           <br /><span className="text-slate-400 text-[0.4em] md:text-[0.6em] align-middle ml-2 decoration-slice decoration-emerald-200 underline font-black">Estetica legno, durezza estrema.</span>
         </>
@@ -516,7 +516,7 @@ export const servicesData = {
     hero: {
       h1: (
         <>
-          Finiture con <span className="bg-slate-50 text-slate-900 px-2 py-0.5 transform rotate-1 inline-block border border-slate-200 rounded-sm">Battiscopa</span>
+          Finiture con <span className="bg-slate-50 text-slate-900 px-2 py-0.5 transform rotate-1 inline-block rounded-sm">Battiscopa</span>
           <br /><span className="text-slate-600">Dettagli Sartoriali</span> per ogni ambiente.
           <br /><span className="text-slate-400 text-[0.4em] md:text-[0.6em] align-middle ml-2 decoration-slice decoration-slate-300 underline font-black">Il tocco finale che fa la differenza.</span>
         </>
@@ -606,7 +606,7 @@ export const servicesData = {
     hero: {
       h1: (
         <>
-          Le tue <span className="bg-violet-50 text-violet-900 px-2 py-0.5 transform rotate-1 inline-block border border-violet-100 rounded-sm">Scale</span>
+          Le tue <span className="bg-violet-50 text-violet-900 px-2 py-0.5 transform rotate-1 inline-block rounded-sm">Scale</span>
           <br /><span className="text-violet-600">Rivestite in Legno</span> su misura.
           <br /><span className="text-slate-400 text-[0.4em] md:text-[0.6em] align-middle ml-2 decoration-slice decoration-violet-200 underline font-black">Sagomatura millimetrica, finitura sartoriale.</span>
         </>

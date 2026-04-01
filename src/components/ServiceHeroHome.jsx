@@ -27,6 +27,10 @@ import battiscopa10cm from '../assets/images/parquet/battiscopa10cm.jpg';
 import battiscopa5cm from '../assets/images/parquet/battiscopa5cm.jpg';
 import posaScala from '../assets/images/parquet/posaScala.jpg';
 import rivestimentoScaleRovere from '../assets/images/parquet/rivestimentoScaleRovere.jpg';
+import igorPrima from '../assets/images/primaDopoLavori/igorPrima.jpeg';
+import igorDopo from '../assets/images/primaDopoLavori/igorDopo.jpeg';
+import barbaraPrimaSPC from '../assets/images/primaDopoLavori/barbaraPrimaSPC.jpeg';
+import barbaraSPCbagno from '../assets/images/primaDopoLavori/barbaraSPCbagno.jpg';
 
 // Avatar condiviso per tutte le recensioni hero
 const HERO_REVIEW_AVATAR = 'https://i.pinimg.com/736x/be/47/31/be47314b9091f59b453b0328fd9942a8.jpg';
@@ -89,18 +93,18 @@ const COMPARISON_DATA = {
   ],
   'spc': [
     {
-      beforeImg: beaPrima, afterImg: beaDopo, price: '€430', time: '5 ore', label: 'Nuovo ambiente in SPC',
+      beforeImg: barbaraPrimaSPC, afterImg: barbaraSPCbagno, price: '€850', time: '2 Giorni', label: 'Bagno SPC Bergamo - Barbara',
       review: {
-        text: 'Professionalità, precisione e grande attenzione ai dettagli. Il lavoro è stato eseguito con cura impeccabile, rispettando tempi e aspettative. Grazie mille Andrea e Thomas!',
-        author: 'Beatrice M.',
+        text: 'Abbiamo affidato ad Andrei i lavori per il bagno e siamo rimasti molto soddisfatti. È un professionista bravo, preciso e veloce. Ha svolto il lavoro in modo impeccabile, curando ogni dettaglio. Consigliatissimo!',
+        author: 'Barbara D.',
         avatar: HERO_REVIEW_AVATAR,
       },
     },
     {
-      beforeImg: prima5, afterImg: dopo5, price: '€1.560', time: '2 Giorni', label: 'Posa SPC a Spina',
+      beforeImg: beaPrima, afterImg: beaDopo, price: '€430', time: '5 ore', label: 'Nuovo ambiente in SPC',
       review: {
-        text: 'Super precisi, il parquet è stupendo e la cucina è proprio come la volevo! Bravo Andrea il parquettista!',
-        author: 'Sara P.',
+        text: 'Professionalità, precisione e grande attenzione ai dettagli. Il lavoro è stato eseguito con cura impeccabile, rispettando tempi e aspettative. Grazie mille Andrea e Thomas!',
+        author: 'Beatrice M.',
         avatar: HERO_REVIEW_AVATAR,
       },
     },
@@ -158,9 +162,9 @@ const SERVICE_TITLES = {
   ),
   'spc': (
     <>
-      Installiamo il <span className="bg-yellow-50 text-yellow-900 px-2 py-0.5 transform -rotate-2 inline-block border border-yellow-100 rounded-sm">tuo SPC</span>
-      <br /><span className="text-green-600">in 1–2 giorni</span> sopra il pavimento esistente.
-      <br /><span className="text-slate-400 text-[0.6em] align-middle ml-2 decoration-slice decoration-yellow-200 underline font-black">Anche in case con mobili.</span>
+      Installiamo il tuo SPC in
+      <br /><span className="text-green-600">1–2 giorni</span> <span className="text-red-600">senza demolire</span> il pavimento esistente
+      <br /><span className="text-slate-400 text-[0.7em] align-middle ml-2 decoration-slice decoration-yellow-200 underline font-black">copre il vecchio, anche in case con mobili.</span>
     </>
   ),
   'laminato': (
@@ -424,7 +428,7 @@ function ServiceHeroHome({ service }) {
             <div className="flex flex-col items-center gap-2 mt-3 mb-1">
               {pricingId === 'spc' ? (
                 // Badge speciale per SPC
-                <div className="inline-flex items-center gap-3 px-4 py-2 bg-white border-2 border-black rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all duration-200 cursor-default -rotate-1">
+                <div className="inline-flex flex-col items-center gap-2 px-4 py-3 bg-white border-2 border-black rounded-2xl shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]">
                   {/* Google 5 Stelle */}
                   <div className="flex items-center gap-2">
                     <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
@@ -440,11 +444,9 @@ function ServiceHeroHome({ service }) {
                     </div>
                   </div>
                   
-                  <div className="h-4 w-px bg-black/20"></div>
-                  
-                  <div className="flex flex-col items-start leading-none">
-                    <span className="text-xs font-black text-black uppercase tracking-wider">IN TUTTA LOMBARDIA 🇮🇹</span>
-                    <span className="text-[10px] font-bold text-gray-600 uppercase tracking-wide">Parquettisti esperti</span>
+                  <div className="text-center space-y-1">
+                    <span className="text-xs font-black text-black uppercase tracking-wider block">Milano • Como • Varese • Monza • Bergamo</span>
+                    <span className="text-[10px] font-bold text-gray-600 uppercase tracking-wide block">Posatori Specialisti 🇮🇹</span>
                   </div>
                 </div>
               ) : (
@@ -477,7 +479,7 @@ function ServiceHeroHome({ service }) {
 
             {/* H1 */}
             <h1 className="my-2 md:my-3 text-center px-0 w-full overflow-hidden">
-              <span className="block font-[900] uppercase leading-none tracking-tighter text-slate-900 break-words text-[28px] md:text-[48px]">
+              <span className="block font-[900] uppercase leading-none tracking-tighter text-slate-900 break-words text-[22px] md:text-[28px]">
                 {React.isValidElement(serviceTitle) ? (
                   serviceTitle
                 ) : (
@@ -486,20 +488,43 @@ function ServiceHeroHome({ service }) {
               </span>
             </h1>
 
-            {/* --- IMMAGINE PRIMA/DOPO SLIDER + RECENSIONE --- */}
+            {/* --- IMMAGINE PRIMA/DOPO STATICHE + RECENSIONE --- */}
             <div className="w-full px-2 py-2 md:py-3 mb-0">
               {comparisons && comparisons.length > 0 && (() => {
                 const comp = comparisons[0];
                 return (
                   <div className="w-full border-[3px] border-black rounded-[24px] overflow-hidden shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-                    {/* SLIDER */}
-                    <BeforeAfterSlider
-                      beforeImg={comp.beforeImg}
-                      afterImg={comp.afterImg}
-                      pricingId={pricingId}
-                      servicePricingId={pricingId}
-                      priceDisplay={service.priceDisplay}
-                    />
+                    {/* FOTO STATICHE PRIMA/DOPO SIDE-BY-SIDE */}
+                    <div className="relative w-full h-[280px] md:h-[360px] bg-gray-100 flex overflow-hidden">
+                      {/* PRIMA (Sinistra) */}
+                      <div className="w-1/2 relative bg-gray-200">
+                        <img
+                          src={comp.beforeImg}
+                          alt="Prima"
+                          loading="eager"
+                          className="w-full h-full object-cover filter grayscale-[40%] brightness-90 contrast-110"
+                        />
+                        <div className="absolute top-3 left-3 text-[10px] font-black text-white uppercase tracking-wider drop-shadow-md bg-black/40 px-2.5 py-1 rounded">PRIMA</div>
+                      </div>
+
+                      {/* DOPO (Destra) */}
+                      <div className="w-1/2 relative border-l-[2px] border-white">
+                        <img
+                          src={comp.afterImg}
+                          alt="Dopo"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute top-3 right-3 text-[10px] font-black text-white uppercase tracking-wider drop-shadow-md bg-black/40 px-2.5 py-1 rounded">DOPO</div>
+                      </div>
+
+                      {/* INFO BADGE — Top Right */}
+                      {service.priceDisplay && (
+                        <div className="absolute top-4 right-4 z-30 bg-white border-2 border-black rounded-xl px-3 py-2 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
+                          <p className="text-[10px] font-black text-gray-500 uppercase tracking-wider mb-0.5 leading-none">Posa da</p>
+                          <p className="text-[18px] font-black text-black leading-none">{service.priceDisplay}</p>
+                        </div>
+                      )}
+                    </div>
 
                     {/* RECENSIONE — incollata sotto l'immagine */}
                     {comp.review && (
