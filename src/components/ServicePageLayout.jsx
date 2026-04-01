@@ -6,9 +6,7 @@ import { pricingData } from '../utils/pricingData';
 
 import RecentWorks from '../components/RecentWorks';
 import PricingSection from '../components/PricingSection';
-import QuoteDoctor from '../components/QuoteDoctor';
 import ServiceDescription from '../components/ServiceDescription';
-import QuickFloorConsult from '../components/QuickFloorConsult';
 import ServiceHero from './ServiceHero';
 import ServiceHeroHome from './ServiceHeroHome';
 import ServiceFAQ from './ServiceFAQ';
@@ -16,18 +14,19 @@ import InstallationQuiz from '../components/InstallationQuiz';
 import ServiceExplainerSection from '../components/ServiceExplainerSection';
 import ServicePainPoints from './ServicePainPoints';
 import ServicePainVsSolution from './ServicePainVsSolution';
+import SPCProblemVsSolution from './SPCProblemVsSolution';
 
 const COMPONENT_MAP = {
   Hero: ServiceHero,
   HeroHome: ServiceHeroHome,
   RecentWorks: RecentWorks,
   ServiceFAQ: ServiceFAQ,
-  QuoteDoctor: QuoteDoctor,
   ServiceDescription: ServiceDescription,
   InstallationQuiz: InstallationQuiz,
   ServicePainPoints: ServicePainPoints,
   ServiceExplainerSection: ServiceExplainerSection,
   ServicePainVsSolution: ServicePainVsSolution,
+  SPCProblemVsSolution: SPCProblemVsSolution,
 };
 
 // Mappa pricingId → categoria default per il listino prezzi
@@ -80,8 +79,6 @@ function ServicePageLayout({ service }) {
       {/* Footer-level global sections */}
       <div className="mt-8">
         <PricingSection defaultCategory={pricingCategory} />
-        <QuoteDoctor />
-        <QuickFloorConsult />
       </div>
     </div>
   );

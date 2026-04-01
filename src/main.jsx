@@ -8,6 +8,8 @@ import './index.css'
 import HomePage from './pages/HomePage.jsx'
 const ServicePage = lazy(() => import('./pages/servizi/[slug].jsx'))
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage.jsx'))
+const TitleVariantsSPC = lazy(() => import('./pages/TitleVariantsSPC.jsx'))
+const SPCInfoPage = lazy(() => import('./pages/SPCInfoPage.jsx'))
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -22,6 +24,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             {/* Questa è la rotta dinamica corretta */}
             <Route path="servizi/:slug" element={<Suspense fallback={<div className="min-h-screen" />}><ServicePage /></Suspense>} />
             <Route path="privacy-policy" element={<Suspense fallback={<div className="min-h-screen" />}><PrivacyPolicyPage /></Suspense>} />
+            <Route path="title-variants-spc" element={<Suspense fallback={<div className="min-h-screen" />}><TitleVariantsSPC /></Suspense>} />
+            <Route path="spcinfo" element={<Suspense fallback={<div className="min-h-screen" />}><SPCInfoPage /></Suspense>} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,13 +1,13 @@
 import React from 'react';
 import { ArrowRight, Play, Calculator } from 'lucide-react';
 
-// --- Video/immagini per ogni servizio ---
-import posaSpcVideo from '../assets/videos/parquet/posaSpc.mp4';
-import posaLaminatoVideo from '../assets/videos/parquet/posaLaminato.mp4';
-import posaPrefinitoVideo from '../assets/videos/parquet/posaPrefinitoIncollato.mp4';
-import posaPrefinitoFlottanteVideo from '../assets/videos/parquet/posaPrefinitoFlottante.mp4';
-import posaPrefinitoSpinaVideo from '../assets/videos/parquet/posaPrefinitoSpina.mp4';
-import posaBattiscopaVideo from '../assets/videos/parquet/posaBattiscopa.mp4';
+// --- Video paths (served from public/) ---
+const posaSpcVideo = '/videos/parquet/posaSpc.mp4';
+const posaLaminatoVideo = '/videos/parquet/posaLaminato.mp4';
+const posaPrefinitoVideo = '/videos/parquet/posaPrefinitoIncollato.mp4';
+const posaPrefinitoFlottanteVideo = '/videos/parquet/posaPrefinitoFlottante.mp4';
+const posaPrefinitoSpinaVideo = '/videos/parquet/posaPrefinitoSpina.mp4';
+const posaBattiscopaVideo = '/videos/parquet/posaBattiscopa.mp4';
 
 import heroScale from '../assets/images/parquet/posaScala.jpg';
 

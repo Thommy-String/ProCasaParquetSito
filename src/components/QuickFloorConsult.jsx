@@ -12,15 +12,15 @@ function QuickFloorConsult() {
   const fileInputRef = useRef(null);
 
   const CHECKLIST_TECNICA = {
-    screed: [
-      "Presenza di crepe, bolle o distacchi sulla guaina esistente",
-      "Verifica delle pendenze verso gli scarichi",
-      "Stato dei raccordi su pareti e pluviali",
+    parquet: [
+      "Verificare umidità del massetto (deve essere < 2%)",
+      "Controllare crepe, avvallamenti e irregolarità della superficie",
+      "Identificare punti critici (porte, spigoli, accessi)",
     ],
-    tiles: [
-      "Verifica di macchie umide sul soffitto sottostante",
-      "Stato delle fughe e dei giunti di dilatazione",
-      "Identificazione dei punti critici di infiltrazione",
+    existing: [
+      "Valutare se è possibile posare sopra il pavimento esistente",
+      "Verificare la stabilità della base e eventuali danni",
+      "Controllare la presenza di umidità o infiltrazioni",
     ]
   };
 
@@ -34,8 +34,8 @@ function QuickFloorConsult() {
 
   const handleWhatsApp = () => {
     const cleanPhone = PHONE_NUMBER.replace(/[^0-9]/g, '');
-    const context = floorType === 'screed' ? 'TERRAZZO / LASTRICO SOLARE' : 'BALCONE CON PIASTRELLE';
-    const text = `Ciao! Ho caricato una foto del mio ${context} sul sito. Ve la allego qui sotto per sapere se la guaina è da rifare o se serve solo un intervento localizzato.`;
+    const context = floorType === 'parquet' ? 'PAVIMENTO PARQUET / LEGNO' : 'PAVIMENTO ESISTENTE';
+    const text = `Ciao! Ho caricato una foto del mio ${context} sul sito. Ve la allego qui sotto per una valutazione tecnica: posso posare il nuovo parquet? È necessario preparare il fondo?`;
     window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(text)}`, '_self');
   };
 
@@ -52,13 +52,13 @@ function QuickFloorConsult() {
         <div className="text-center mb-8">
           {/* Badge Dark Mode */}
           <div className="inline-flex items-center gap-1.5 bg-green-900/30 text-green-400 border border-green-500/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide mb-4 shadow-[0_0_10px_rgba(34,197,94,0.1)]">
-            <Shield className="w-3 h-3" /> Check Terrazzo Gratuito
+            <Shield className="w-3 h-3" /> Check Pavimento Gratuito
           </div>
           <h2 className="text-2xl md:text-3xl font-extrabold text-white leading-tight mb-3">
-            La guaina del tuo terrazzo è ancora efficiente o sta cedendo?
+            Il tuo pavimento è pronto per il nuovo parquet?
           </h2>
           <p className="text-gray-400 text-sm leading-relaxed max-w-xs mx-auto">
-            Evita infiltrazioni e danni al piano di sotto. Manda una foto per una diagnosi tecnica immediata.
+            Manda una foto del fondo esistente per una diagnosi tecnica immediata. Ti diremo se puoi posare direttamente o se serve preparazione.
           </p>
         </div>
 
@@ -74,15 +74,15 @@ function QuickFloorConsult() {
               
               <div className="grid gap-4">
                 <button 
-                  onClick={() => { setFloorType('screed'); fileInputRef.current.click(); }}
+                  onClick={() => { setFloorType('parquet'); fileInputRef.current.click(); }}
                   className="bg-gray-700/50 hover:bg-gray-700 hover:border-blue-500/50 p-4 rounded-2xl border border-gray-600 transition-all active:scale-[0.98] group flex items-center gap-4 text-left"
                 >
                   <div className="bg-gray-800 p-3 rounded-xl border border-gray-600 group-hover:border-blue-500 group-hover:bg-blue-500/10 transition-colors">
                     <Layers className="w-6 h-6 text-blue-400" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-white text-lg">Terrazzo / Lastrico Solare</h3>
-                    <p className="text-xs text-gray-400">Guaina bituminosa / membrana liquida</p>
+                    <h3 className="font-bold text-white text-lg">Massetto / Cemento</h3>
+                    <p className="text-xs text-gray-400">Verificare umidità e planarità</p>
                   </div>
                   <div className="ml-auto bg-gray-800 rounded-full p-2 border border-gray-600 group-hover:bg-blue-500 group-hover:text-white transition-colors">
                     <Camera className="w-4 h-4 text-gray-400 group-hover:text-white" />
@@ -90,15 +90,15 @@ function QuickFloorConsult() {
                 </button>
 
                 <button 
-                  onClick={() => { setFloorType('tiles'); fileInputRef.current.click(); }}
+                  onClick={() => { setFloorType('existing'); fileInputRef.current.click(); }}
                   className="bg-gray-700/50 hover:bg-gray-700 hover:border-amber-500/50 p-4 rounded-2xl border border-gray-600 transition-all active:scale-[0.98] group flex items-center gap-4 text-left"
                 >
                   <div className="bg-gray-800 p-3 rounded-xl border border-gray-600 group-hover:border-amber-500 group-hover:bg-amber-500/10 transition-colors">
                     <LayoutGrid className="w-6 h-6 text-amber-400" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-white text-lg">Balcone con Piastrelle</h3>
-                    <p className="text-xs text-gray-400">Ceramica / Gres porcellanato</p>
+                    <h3 className="font-bold text-white text-lg">Pavimento Esistente</h3>
+                    <p className="text-xs text-gray-400">Piastrelle, parquet vecchio, laminato</p>
                   </div>
                   <div className="ml-auto bg-gray-800 rounded-full p-2 border border-gray-600 group-hover:bg-amber-500 group-hover:text-white transition-colors">
                     <Camera className="w-4 h-4 text-gray-400 group-hover:text-white" />

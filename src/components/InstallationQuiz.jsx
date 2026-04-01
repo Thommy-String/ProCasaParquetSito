@@ -173,6 +173,17 @@ const SERVICE_PAGE_CONFIG = {
   },
 };
 
+// --- MAPPA COLORI PASTEL PER SERVIZI ---
+const SERVICE_COLOR_MAP = {
+  'prefinito': { bg: 'bg-orange-50', text: 'text-orange-900', border: 'border-orange-100', accent: 'text-orange-600' },
+  'prefinito-flottante': { bg: 'bg-amber-50', text: 'text-amber-900', border: 'border-amber-100', accent: 'text-amber-600' },
+  'prefinito-spina': { bg: 'bg-pink-50', text: 'text-pink-900', border: 'border-pink-100', accent: 'text-pink-600' },
+  'spc': { bg: 'bg-yellow-50', text: 'text-yellow-900', border: 'border-yellow-100', accent: 'text-green-600' },
+  'laminato': { bg: 'bg-emerald-50', text: 'text-emerald-900', border: 'border-emerald-100', accent: 'text-emerald-600' },
+  'battiscopa': { bg: 'bg-slate-50', text: 'text-slate-900', border: 'border-slate-100', accent: 'text-slate-600' },
+  'scala-parquet': { bg: 'bg-violet-50', text: 'text-violet-900', border: 'border-violet-100', accent: 'text-violet-600' },
+};
+
 const whatsappButton = {
   label: "Invia a Me Stesso",
   icon: MessageCircle,
@@ -696,10 +707,27 @@ function InstallationQuiz({ service }) {
          
           {isServicePage ? (
             <>
-              <h2 className="text-3xl md:text-5xl font-[800] text-slate-900 tracking-tight leading-tight mb-2">
-                <span className="bg-yellow-100 px-2 rounded-sm">{quizDatabase[pricingId]?.title?.split(' ')[0] || 'Preventivo'}</span>{' '}
-                <span className="text-slate-400">{quizDatabase[pricingId]?.title?.split(' ').slice(1).join(' ') || 'rapido'}</span>
-              </h2>
+              {(() => {
+                const colors = SERVICE_COLOR_MAP[pricingId] || SERVICE_COLOR_MAP['prefinito'];
+                const titleText = quizDatabase[pricingId]?.title || 'Calcola il tuo prezzo su misura';
+                const parts = titleText.split(' ');
+                const firstWord = parts[0];
+                const restWords = parts.slice(1).join(' ');
+                
+                return (
+                  <h2 className="font-[900] uppercase leading-none tracking-tighter text-slate-900 text-[28px] md:text-[48px] mb-2">
+                    {firstWord}{' '}
+                    <span className={`${colors.bg} ${colors.text} px-2 py-0.5 transform -rotate-1 inline-block border ${colors.border} rounded-sm`}>
+                      {restWords?.split(' ')[0] || 'prezzo'}
+                    </span>
+                    {restWords?.split(' ').slice(1).length > 0 && (
+                      <>
+                        <br /><span className={colors.accent}>{restWords?.split(' ').slice(1).join(' ')}</span>
+                      </>
+                    )}
+                  </h2>
+                );
+              })()}
             </>
           ) : (
             <>

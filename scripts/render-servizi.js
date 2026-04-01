@@ -48,7 +48,8 @@ function rewriteMarkupAssets(markup) {
 
 function sanitizeService(service) {
   const clone = JSON.parse(JSON.stringify(service));
-  clone.pricingId = null;
+  // Manteniamo pricingId per permettere a ServicePainVsSolution e altri componenti di funzionare
+  // clone.pricingId = null;
 
   if (clone.hero?.image) {
     clone.hero.image = registerImageForCopy(clone.hero.image);

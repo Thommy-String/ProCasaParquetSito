@@ -7,56 +7,41 @@ import rovereIta from '../assets/images/parquet/rovereIta.jpg';
 import rovereSpina90 from '../assets/images/parquet/rovereSpina90.jpg';
 
 const parquetImages = [
-  { src: rovereNaturale, alt: 'Terrazzo impermeabilizzato 1' },
-  { src: rovereMielato, alt: 'Terrazzo impermeabilizzato 2' },
-  { src: rovereSpinaItaliana, alt: 'Balcone impermeabilizzato' },
-  { src: rovere90, alt: 'Lastrico solare' },
-  { src: rovereIta, alt: 'Terrazzo piano' },
-  { src: rovereSpina90, alt: 'Guaina liquida' },
+  { src: rovereNaturale, alt: 'Rovere naturale' },
+  { src: rovereMielato, alt: 'Rovere mielato' },
+  { src: rovereSpinaItaliana, alt: 'Rovere spina italiana' },
+  { src: rovere90, alt: 'Rovere 90°' },
+  { src: rovereIta, alt: 'Rovere italiana' },
+  { src: rovereSpina90, alt: 'Rovere spina 90°' },
 ];
 
 function HeroStats() {
   return (
-    // MODIFICA: Rimossi bg-white, shadow, border, rounded e padding eccessivi.
-    // Ora è un flex container pulito che non occupa spazio verticale inutile.
-    <div className="flex flex-col sm:flex-row items-center sm:items-end gap-6 sm:gap-10 pt-4">
+    <div className="flex items-center gap-4 pt-3">
       
-      {/* LATO SINISTRO: Progetti e Face-pile */}
-      <div className="flex items-center gap-4">
-        {/* I Parquet (Face-pile leggermente più compatto) */}
-        <div className="flex -space-x-3">
-            {parquetImages.slice(0, 5).map((img, index) => (
-              <div key={index} className="relative transition-transform hover:-translate-y-1 duration-300">
-                 <img
-                  className="h-9 w-9 rounded-full border-[2px] border-white object-cover shadow-sm"
-                  src={img.src}
-                  alt={img.alt}
-                />
-              </div>
-            ))}
-            <div className="
-              flex h-9 w-9 items-center justify-center 
-              rounded-full border-[2px] border-white bg-gray-900 
-              text-[10px] font-bold text-white shadow-sm z-10
-            ">
-              +300
-            </div>
-        </div>
-        
-        {/* Testo Progetti (Allineato a destra delle immagini, non sotto) */}
-        <div className="flex flex-col text-left leading-tight">
-              <div className="flex items-center gap-1.5 opacity-80">
-                                        <span className="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded border border-blue-100 font-bold uppercase tracking-tighter">
-                                            🏆 284+ terrazzi impermeabilizzati
-                                        </span>
-                                    </div>
-             <span className="text-[10px] font-medium text-gray-500 uppercase tracking-wide">ogni anno in lombardia</span>
+      {/* Face-pile parquet */}
+      <div className="flex -space-x-2.5">
+        {parquetImages.slice(0, 5).map((img, index) => (
+          <div key={index} className="relative transition-transform hover:-translate-y-1 duration-300">
+            <img
+              className="h-8 w-8 rounded-full border-2 border-white object-cover shadow-sm"
+              src={img.src}
+              alt={img.alt}
+            />
+          </div>
+        ))}
+        <div className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-slate-900 text-[9px] font-black text-white shadow-sm z-10">
+          +300
         </div>
       </div>
 
-      {/* DIVISORE (Linea sottile verticale, solo su desktop) */}
-      <div className="hidden sm:block w-px h-8 bg-gray-300"></div>
-
+      {/* Stat badge — stile Stencil Pastel */}
+      <div className="flex flex-col leading-none gap-0.5">
+        <span className="text-[11px] font-[900] uppercase tracking-tighter text-slate-900">
+          284+ parquet posati <span className="bg-yellow-50 text-yellow-800 px-1 py-0.5 border border-yellow-100 rounded-sm text-[10px] inline-block transform -rotate-1">ogni anno</span>
+        </span>
+        <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400">Lombardia &amp; Milano</span>
+      </div>
     </div>
   );
 }

@@ -16,56 +16,57 @@ import {
 const EXTRA_SERVICES = [
   // PREPARAZIONE
   { 
-    id: 'ex_rip', name: 'Rimozione Vecchia Guaina', price: '8-15', unit: 'mq', isExtra: true, icon: <Trash2 className="w-5 h-5 text-red-400" />,
-    details: "Rimozione meccanica della vecchia guaina bituminosa o membrana ammalorata. Include la pulizia grossolana del supporto prima della nuova applicazione."
+    id: 'ex_rip', name: 'Demolizione Vecchio Pavimento', price: '15-25', unit: 'mq', isExtra: true, icon: <Trash2 className="w-5 h-5 text-red-400" />,
+    details: "Rimozione e smaltimento del vecchio pavimento (piastrelle, parquet, laminato). Preparazione del fondo: pulizia, livellamento e verifica umidità del massetto."
   },
   { 
-    id: 'ex_ras', name: 'Rasatura e Regolarizzazione Supporto', price: '12', unit: 'mq', isExtra: true, icon: <Waves className="w-5 h-5 text-blue-400" />,
-    details: "Stesura di malta fibrorinforzata per colmare crepe, avvallamenti o irregolarità del piano prima dell'impermeabilizzazione. Fondamentale per garantire l'aderenza della guaina."
+    id: 'ex_ras', name: 'Rasatura e Livellamento Massetto', price: '8-12', unit: 'mq', isExtra: true, icon: <Waves className="w-5 h-5 text-blue-400" />,
+    details: "Stesura di autolivellante o malta di livellamento per correggere pendenze e dislivelli. Fondamentale per posa incollata o per SPC/laminato in ambienti critici."
   },
   { 
-    id: 'ex_prm', name: 'Primer / Promotore di Adesione', price: '5', unit: 'mq', isExtra: true, icon: <Paintbrush className="w-5 h-5 text-yellow-500" />,
-    details: "Applicazione di primer bituminoso o epossidico sul supporto per garantire la massima adesione della guaina. Indispensabile su calcestruzzo vecchio o superfici polverose."
-  },
-
-  // RINFORZI
-  { 
-    id: 'ex_ang', name: 'Rinforzo Angoli e Raccordi', price: '20', unit: 'ml', isExtra: true, icon: <Disc className="w-5 h-5 text-gray-500" />,
-    details: "Applicazione di striscia di rinforzo in tessuto non tessuto o membrana liquida doppio strato negli angoli, nei bordi e nei punti critici dove le infiltrazioni iniziano più frequentemente."
-  },
-  { 
-    id: 'ex_scarico', name: 'Impermeabilizzazione Pluviali e Scarichi', price: '60', unit: 'cad.', isExtra: true, icon: <Move className="w-5 h-5 text-green-600" />,
-    details: "Sigillatura e impermeabilizzazione di ogni punto di passaggio tra guaina e scarico/pluviale. Zona critica spesso trascurata che causa la maggior parte delle infiltrazioni."
+    id: 'ex_prm', name: 'Verifica Umidità e Priming', price: '5-8', unit: 'mq', isExtra: true, icon: <Paintbrush className="w-5 h-5 text-yellow-500" />,
+    details: "Misurazione umidità massetto con strumenti professionali. Se necessario, applicazione di primer o barriera vapore per proteggere il pavimento da risalite d\'umidità."
   },
 
-  // SISTEMI
+  // ACCESSORI E FINITURE
   { 
-    id: 'ex_prot', name: 'Strato Protettivo / Rifinitura', price: '10', unit: 'mq', isExtra: true, icon: <ShieldCheck className="w-5 h-5 text-blue-500" />,
-    details: "Applicazione di vernice protettiva UV o alluminata sulla guaina bituminosa per prolungarne la vita utile, proteggerla dai raggi solari e ridurre il surriscaldamento estivo."
+    id: 'ex_bat', name: 'Posa Battiscopa', price: '8-12', unit: 'ml', isExtra: true, icon: <Disc className="w-5 h-5 text-gray-500" />,
+    details: "Posa del battiscopa con tagli a 45° negli angoli e sigillatura con silicone acrilico. Finiture zero-gap per effetto professionale e duraturo."
   },
   { 
-    id: 'ex_sma', name: 'Smaltimento Macerie', price: '60-150', unit: 'totale', isExtra: true, icon: <Truck className="w-5 h-5 text-orange-500" />,
-    details: "Carico, trasporto e smaltimento dei materiali rimossi (vecchia guaina, massetto demolito) presso discariche autorizzate con rilascio del formulario rifiuti."
+    id: 'ex_soglia', name: 'Profili di Soglia e Dilatazione', price: '20-30', unit: 'cad.', isExtra: true, icon: <Move className="w-5 h-5 text-green-600" />,
+    details: "Installazione di profili in alluminio o PVC alle soglie, negli accessi e nei punti di dilatazione. Proteggono i bordi e permettono la corretta dilatazione del materiale."
+  },
+
+  // EXTRA LAVORAZIONE
+  { 
+    id: 'ex_posa', name: 'Posa a Spina o Personalizzata', price: '+8-15', unit: 'mq', isExtra: true, icon: <ShieldCheck className="w-5 h-5 text-blue-500" />,
+    details: "Posa con pattern decorativo (spina italiana, spina francese, 2 strisce). Richiede tracciatura laser e tagli millimetrici. Prezzo aggiunto alla posa standard."
   },
   { 
-    id: 'ex_test', name: 'Test Tenuta Idrica (Allagamento)', price: '80', unit: 'totale', isExtra: true, icon: <Wrench className="w-5 h-5 text-indigo-500" />,
-    details: "Prova di tenuta idrica con allagamento controllato della superficie impermeabilizzata per 24/48 ore. Rilasciamo documentazione fotografica come garanzia del lavoro eseguito."
+    id: 'ex_sca', name: 'Rivestimento Scale', price: '150-300', unit: 'totale', isExtra: true, icon: <Truck className="w-5 h-5 text-orange-500" />,
+    details: "Rivestimento completo scala con tagli su misura, profili antiscivolo certificati e sigillatura degli angoli. Lavoro di precisione millimetrica, ogni gradino è unico."
+  },
+  { 
+    id: 'ex_taglio', name: 'Tagli Porte e Passaggi', price: '30-60', unit: 'totale', isExtra: true, icon: <Wrench className="w-5 h-5 text-indigo-500" />,
+    details: "Taglio della base degli stipiti per far scorrere il pavimento senza ostacoli. Finitura pulita e professionale per passaggi da una stanza all\'altra."
   },
 ];
 
 const CATEGORIES = [
-  { id: 'guaina', label: 'Guaina Bituminosa', icon: <Layers className="w-4 h-4"/> },
-  { id: 'liquida', label: 'Membrana Liquida', icon: <Waves className="w-4 h-4"/> },
-  { id: 'accessories', label: 'Accessori', icon: <Wrench className="w-4 h-4"/> },
-  { id: 'extra', label: 'Servizi Extra', icon: <PlusCircle className="w-4 h-4"/> },
-  { id: 'all', label: 'Tutti', icon: <LayoutGrid className="w-4 h-4"/> },
+  { id: 'spc', label: 'SPC / Vinilico', icon: <Layers className="w-4 h-4"/> },
+  { id: 'laminato', label: 'Laminato', icon: <Waves className="w-4 h-4"/> },
+  { id: 'prefinito', label: 'Parquet Prefinito', icon: <LayoutGrid className="w-4 h-4"/> },
+  { id: 'extra', label: 'Extra & Accessori', icon: <PlusCircle className="w-4 h-4"/> },
+  { id: 'all', label: 'Tutti', icon: <Wrench className="w-4 h-4"/> },
 ];
 
 const getCategory = (service) => {
-  const name = service.name.toLowerCase();
-  if (name.includes('accessori') || name.includes('profilo') || name.includes('scarico')) return 'accessories';
-  if (name.includes('liquida') || name.includes('resina') || name.includes('poliurea') || name.includes('membrana')) return 'liquida';
-  return 'guaina';
+  const id = service.id?.toLowerCase();
+  if (id?.includes('spc') || id?.includes('vinilico')) return 'spc';
+  if (id?.includes('laminato')) return 'laminato';
+  if (id?.includes('prefinito')) return 'prefinito';
+  return 'prefinito'; // default
 };
 
 function PricingSection({ defaultCategory = 'wood' }) {
@@ -99,10 +100,10 @@ function PricingSection({ defaultCategory = 'wood' }) {
         
         <div className="text-center mb-10">
           <h2 className="text-4xl font-extrabold text-gray-900 tracking-tight mb-3">
-            Listino prezzi impermeabilizzazioni 2026
+            Listino prezzi posa parquet 2026
           </h2>
           <p className="text-gray-500">
-            Scegli il sistema per vedere i costi dettagliati.
+            Scegli il tipo di pavimento per vedere i costi dettagliati e le lavorazioni extra.
           </p>
         </div>
 
@@ -151,7 +152,7 @@ function PricingSection({ defaultCategory = 'wood' }) {
         ) : (
           <div className="text-center py-12">
              <p className="text-gray-400 text-sm">
-               Clicca sulle voci sopra per vedere i dettagli di ogni lavorazione extra.
+               Clicca sulle voci sopra per vedere i dettagli di ogni servizio extra e accessorio.
              </p>
           </div>
         )}
