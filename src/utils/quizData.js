@@ -84,7 +84,7 @@ export const quizDatabase = {
 
   // 4. PAGINA SPC (PricingId: 'spc')
   'spc': {
-    title: "Calcola il tuo prezzo su misura",
+    title: "Calcola quanto ti costa",
     question1: "Tipo di posa?",
     allowedTypes: ['spc_dritto', 'spc_spina'],
     extraQuestions: [

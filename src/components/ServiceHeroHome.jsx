@@ -162,7 +162,7 @@ const SERVICE_TITLES = {
   ),
   'spc': (
     <>
-      Installiamo il tuo SPC in
+       Installiamo il tuo SPC <span className="text-yellow-500">a Milano</span> in
       <br /><span className="text-green-600">1–2 giorni</span> <span className="text-red-600">senza demolire</span> il pavimento esistente
       <br /><span className="text-slate-400 text-[0.7em] align-middle ml-2 decoration-slice decoration-yellow-200 underline font-black">copre il vecchio, anche in case con mobili.</span>
     </>
@@ -418,7 +418,7 @@ function ServiceHeroHome({ service }) {
         <div className="absolute top-[40%] -right-[10%] w-[40%] h-[40%] rounded-full bg-cyan-50/60 blur-3xl"></div>
       </div>
 
-      <div className="w-full bg-white mx-auto px-3 pb-6 pt-8 md:pt-32 lg:pt-36 relative z-10 overflow-x-clip">
+      <div className="w-full bg-white mx-auto px-3 pb-6 pt-2 md:pt-32 lg:pt-36 relative z-10 overflow-x-clip">
         <div className="flex flex-col items-center">
 
           {/* --- COLONNA CENTRALE --- */}
@@ -445,8 +445,7 @@ function ServiceHeroHome({ service }) {
                   </div>
                   
                   <div className="text-center space-y-1">
-                    <span className="text-xs font-black text-black uppercase tracking-wider block">Milano • Como • Varese • Monza • Bergamo</span>
-                    <span className="text-[10px] font-bold text-gray-600 uppercase tracking-wide block">Posatori Specialisti 🇮🇹</span>
+                    <span className="text-[10px] font-bold text-gray-600 uppercase tracking-wide block">Posatori Specialisti a Milano</span>
                   </div>
                 </div>
               ) : (
@@ -478,8 +477,8 @@ function ServiceHeroHome({ service }) {
             </div>
 
             {/* H1 */}
-            <h1 className="my-2 md:my-3 text-center px-0 w-full overflow-hidden">
-              <span className="block font-[900] uppercase leading-none tracking-tighter text-slate-900 break-words text-[22px] md:text-[28px]">
+            <h1 className="my-4 md:my-3 text-center px-0 w-full overflow-hidden">
+              <span className="block font-[900] uppercase leading-none tracking-tighter text-slate-900 break-words text-[20px] md:text-[28px]">
                 {React.isValidElement(serviceTitle) ? (
                   serviceTitle
                 ) : (
