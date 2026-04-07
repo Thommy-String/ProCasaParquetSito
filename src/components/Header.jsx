@@ -99,6 +99,9 @@ function Header() {
       .sort((a, b) => (a.order || 0) - (b.order || 0));
   }, []);
 
+  // Controlla se siamo su una service page
+  const isServicePage = location.pathname.startsWith('/servizi/');
+
   return (
     <>
       <style>
@@ -133,37 +136,53 @@ function Header() {
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between h-full">
           
           {/* 1. LOGO & BRANDING */}
-          <Link to="/" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 z-[61]">
-            <img src={logoImage} alt={COMPANY_NAME} className="h-9 md:h-11 w-auto" />
-            <div className="flex flex-col">
-              <span className="text-base md:text-lg font-bold tracking-tight leading-none text-gray-900">
-                PosaParquetMilano.it 
-              </span>
-              <span className="text-[10px] font-medium uppercase tracking-tighter text-gray-500 leading-tight">
-                Parquettisti spc - parquet  - laminati
-              </span>
+          {isServicePage ? (
+            <div className="flex items-center gap-3 z-[61] cursor-default">
+              <img src={logoImage} alt={COMPANY_NAME} className="h-9 md:h-11 w-auto" />
+              <div className="flex flex-col">
+                <span className="text-base md:text-lg font-bold tracking-tight leading-none text-gray-900">
+                  PosaParquetMilano.it 
+                </span>
+                <span className="text-[10px] font-medium uppercase tracking-tighter text-gray-500 leading-tight">
+                  Posatori parquet
+                </span>
+              </div>
             </div>
-          </Link>
+          ) : (
+            <Link to="/" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 z-[61]">
+              <img src={logoImage} alt={COMPANY_NAME} className="h-9 md:h-11 w-auto" />
+              <div className="flex flex-col">
+                <span className="text-base md:text-lg font-bold tracking-tight leading-none text-gray-900">
+                  PosaParquetMilano.it 
+                </span>
+                <span className="text-[10px] font-medium uppercase tracking-tighter text-gray-500 leading-tight">
+                  Posatori n.1 a milano e dintorni
+                </span>
+              </div>
+            </Link>
+          )}
 
           {/* 2. LATO DESTRO (HAMBURGER) */}
           <div className="flex items-center gap-3 md:gap-5">
             
-            {/* TELEFONO VISIBILE SU DESKTOP */}
-            <div className="hidden sm:flex items-center gap-4">
-               <a href={`tel:${PHONE_NUMBER}`} className="flex items-center gap-2 text-xs font-bold text-gray-600 hover:text-black transition-colors">
-                <Phone size={16} /> 
-                <span className="hidden lg:inline">{PHONE_NUMBER}</span>
-              </a>
-            </div>
-
-            {/* HAMBURGER BUTTON (SEMPRE VISIBILE) */}
-            <button 
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-gray-800 hover:bg-gray-100 rounded-full transition-colors z-[61] active:scale-90"
-              aria-label="Menu"
+            {/* CTA TELEFONO CON ORARI (SOSTITUISCE HAMBURGER) */}
+            <a 
+              href={`tel:${PHONE_NUMBER}`}
+              onClick={() => {
+                if (typeof window.gtag !== 'undefined') {
+                  window.gtag('event', 'conversion', { 'send_to': 'AW-XXXXXXXXX/YYYYYYYYYYYY' });
+                }
+              }}
+              className="flex items-center gap-2.5 px-4 py-2.5 rounded-lg hover:bg-green-50 transition-colors z-[61] border border-green-200"
             >
-              {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
-            </button>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-green-600 flex-shrink-0">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+              <div className="flex flex-col items-start gap-0.5">
+                <span className="text-sm md:text-base font-black text-gray-900">{PHONE_NUMBER}</span>
+                <span className="text-[9px] font-bold text-green-600 uppercase tracking-wider">07:00 - 20:00</span>
+              </div>
+            </a>
           </div>
 
         </div>

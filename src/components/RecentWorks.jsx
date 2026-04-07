@@ -169,7 +169,7 @@ function RecentWorks({ service, category, title, showFilter = false }) {
                             <span className="absolute inset-x-0 bottom-0 h-3 md:h-4 bg-[#FFF176] -z-0 -rotate-1 rounded-sm"></span>
                         </span>
                         {' '}PACCHI DI SPC.{' '} <br />
-                        <span className="text-black/40 text-[0.7em] tracking-tightest">QUALSIASI MARCHIO E FORMATO.</span>
+                        <span className="text-black/40 text-[0.6em] tracking-tight">QUALSIASI MARCHIO E FORMATO.</span>
                     </h2>
                 </div>
 
